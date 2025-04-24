@@ -1,16 +1,11 @@
-class Gasolinera{
-    constructor(liters){
+class Gasolinera {
+    constructor(liters) {
+        this.liters = liters;
 
-        if(typeof Gasolinera.instance === 'object'){
-            return Gasolinera.instance;
-        }
-
-        Gasolinera.instance = this;
-        return this;
     }
 
-    getFuelLiters(){
-        return 1000;
+    getFuelLiters() {
+        return this.liters;
     }
 }
 
