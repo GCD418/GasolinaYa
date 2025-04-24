@@ -1,4 +1,5 @@
 import Gasolinera from "./Gasolinera";
+const name_fuel_station = document.querySelector("h1");
 const liter_quantity_input = document.getElementById("liter_quantity_input");
 const button_update_liters = document.getElementById("update_liters");
 const result_div = document.getElementById("result");
@@ -18,4 +19,15 @@ form.addEventListener("submit", (event) => {
     <p>La capacidad del surtidor es: ${gasolinera.getTotalCapacity()}</p>
     <p>El porcentaje restante de combustible es: ${gasolinera.getFuelPercent()}%</p>
     `;
+
+    updateColorBasenOnPercentCapacity(gasolinera.getFuelPercent());
 });
+
+updateColorBasenOnPercentCapacity = (percent) => {
+    if(percent <= 20){
+        name_fuel_station.style.backgroundColor = "yellow";
+    }
+    else if (percent > 20){
+        name_fuel_station.style.backgroundColor = "green";
+    }
+}
