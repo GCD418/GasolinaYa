@@ -13,6 +13,10 @@ class Gasolinera {
         return this.capacity;
     }
 
+    getFuelPercent() {
+        return (this.liters / this.capacity) * 100;
+    }
+
 }
 
 export default Gasolinera;

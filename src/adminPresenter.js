@@ -16,5 +16,6 @@ form.addEventListener("submit", (event) => {
     result_div.innerHTML = `
     <p>La cantidad de litros de gasolina es: ${gasolinera.getFuelLiters()}</p>
     <p>La capacidad del surtidor es: ${gasolinera.getTotalCapacity()}</p>
+    <p>El porcentaje restante de combustible es: ${gasolinera.getFuelPercent()}%</p>
     `;
 });
