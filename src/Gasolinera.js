@@ -1,5 +1,5 @@
 class Gasolinera {
-    constructor(liters, capacity) {
+    constructor(liters, capacity = 50000) {
         this.liters = liters;
         this.capacity = capacity;
 
@@ -10,8 +10,9 @@ class Gasolinera {
     }
 
     getTotalCapacity(){
-        return 20000;
+        return this.capacity;
     }
+
 }
 
 export default Gasolinera;

@@ -14,4 +14,9 @@ describe("Gasolinera", () => {
         const gasolinera = new Gasolinera(4000, 20000);
         expect(gasolinera.getTotalCapacity()).toEqual(20000);
     });
+
+    it("Deberia devolver la capacidad del surtidor en litros", () => {
+        const gasolinera = new Gasolinera(4000, 40000);
+        expect(gasolinera.getTotalCapacity()).toEqual(40000);
+    });
 });
