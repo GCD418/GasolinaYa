@@ -1,0 +1,19 @@
+[
+  {
+    "sha": "8e313a807be5c95bdd154548da8507e315540e94",
+    "author": "christian-ledezma",
+    "commit": {
+      "date": "2025-04-24T00:01:08.000Z",
+      "message": "style: adicionando nombre en las pages para user y admin",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/8e313a807be5c95bdd154548da8507e315540e94"
+    },
+    "stats": {
+      "total": 22,
+      "additions": 22,
+      "deletions": 0,
+      "date": "2025-04-24"
+    },
+    "coverage": 0,
+    "test_count": 1
+  }
+]
