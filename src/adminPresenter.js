@@ -46,13 +46,13 @@ form.addEventListener("submit", (event) => {
     <p>La cantidad de litros de gasolina es: ${gasolinera.getFuelLiters()}</p>
     <p>La capacidad del surtidor es: ${gasolinera.getTotalCapacity()}</p>
     <p>El porcentaje restante de combustible es: ${gasolinera.getFuelPercent()}%</p>
-    <p>El nombre de la gasolinera es: ${gasolinera.getName()}</p>
     `;
 
-    updateColorBasenOnPercentCapacity(gasolinera.getFuelPercent());
+    updateColorBasedOnPercentCapacity(gasolinera.getFuelPercent());
+    name_fuel_station.innerHTML = `Estación de servicio "${gasolinera.getName()}"`;
 });
 
-updateColorBasenOnPercentCapacity = (percent) => {
+updateColorBasedOnPercentCapacity = (percent) => {
     if(percent <= 20){
         name_fuel_station.style.backgroundColor = "yellow";
     }
