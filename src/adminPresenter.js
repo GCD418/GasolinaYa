@@ -52,7 +52,7 @@ form.addEventListener("submit", (event) => {
     name_fuel_station.innerHTML = `Estación de servicio "${gasolinera.getName()}"`;
 });
 
-updateColorBasedOnPercentCapacity = (percent) => {
+function updateColorBasedOnPercentCapacity(percent){
     if(percent <= 20){
         name_fuel_station.style.backgroundColor = "yellow";
     }
