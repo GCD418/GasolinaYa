@@ -1,7 +1,8 @@
 class Gasolinera {
-    constructor(liters, capacity = 50000) {
+    constructor(liters, capacity = 50000, name = "Gasolinera") {
         this.liters = liters;
         this.capacity = capacity;
+        this.name = name;
 
     }
 
@@ -15,6 +16,10 @@ class Gasolinera {
 
     getFuelPercent() {
         return (this.liters / this.capacity) * 100;
+    }
+
+    getName() {
+        return this.name;
     }
 
 }

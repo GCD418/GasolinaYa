@@ -29,4 +29,9 @@ describe("Gasolinera", () => {
         const gasolinera = new Gasolinera(40000, 40000);
         expect(gasolinera.getFuelPercent()).toEqual(100);
     });
+
+    it("Deberia devolver el nombre de la Gasolinera", () => {
+        const gasolinera = new Gasolinera(40000, 40000, "El Cristo");
+        expect(gasolinera.getName()).toEqual("El Cristo");
+    });
 });
