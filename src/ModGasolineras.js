@@ -8,6 +8,10 @@ class ModGasolineras {
         this.gasolineras.set(gasolinera.getName(), gasolinera);
         return this.gasolineras.size;
     }
+
+    getGasolinera(name) {
+        return this.gasolineras.get(name);
+    }
 };
 
 export default ModGasolineras;
