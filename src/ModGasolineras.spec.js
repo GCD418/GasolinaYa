@@ -13,4 +13,10 @@ describe("Gasolinera", () => {
         expect(gasolineras.getGasolinera("Asunción")).toEqual(gasolinera);
     });
 
+    it("Deberia devolver un tipo de dato resultante de una instancia de Map", () => {
+        const gasolineras = new ModGasolineras();
+        const gasolinera = new Gasolinera(1000, 50000, "Asunción");
+        gasolineras.addGasolinera(gasolinera);
+        expect(gasolineras.getGasolineras() instanceof Map).toEqual(true);
+    });
 });

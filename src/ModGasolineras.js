@@ -12,6 +12,10 @@ class ModGasolineras {
     getGasolinera(name) {
         return this.gasolineras.get(name);
     }
+
+    getGasolineras() {
+        return this.gasolineras;
+    }
 };
 
 export default ModGasolineras;
