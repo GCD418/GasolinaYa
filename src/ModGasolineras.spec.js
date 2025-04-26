@@ -27,4 +27,9 @@ describe("Gasolinera", () => {
         gasolineras1.addGasolinera(gasolinera);
         expect(gasolineras1 === gasolineras2).toEqual(true);
     });
+
+    it("Debería ingresar datos mockeados y mostrar la cantidad de registros", () => {
+        const gasolineras = new ModGasolineras();
+        expect(gasolineras.insertFakeData()).toEqual(4);
+    });
 });

@@ -1,13 +1,16 @@
 import Gasolinera from "./Gasolinera";
+import ModGasolineras from "./ModGasolineras";
 const name_fuel_station = document.querySelector("h1");
+const select_gasolinera = document.getElementById("select_gasolinera");
 const liter_quantity_input = document.getElementById("liter_quantity_input");
 const button_update_liters = document.getElementById("update_liters");
 const result_div = document.getElementById("result");
 const liter_capacity_input = document.getElementById("liter_capacity_input");
 const name_input = document.getElementById("name_input");
 const form = document.getElementById("liters_form");
+const form_container = document.getElementById("liters_form_container");
 
-
+populateSelect();
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -60,3 +63,26 @@ function updateColorBasedOnPercentCapacity(percent){
         name_fuel_station.style.backgroundColor = "green";
     }
 }
+
+function populateSelect(){
+    const gasolineras = new ModGasolineras();
+    gasolineras.insertFakeData();
+    const gasolinerasMap = gasolineras.getGasolineras();
+    for (const [key, value] of gasolinerasMap) {
+        const option = document.createElement("option");
+        option.value = key;
+        option.innerHTML = key;
+        select_gasolinera.appendChild(option);
+    }
+}
+select_gasolinera.addEventListener("change", (event) => {
+    const gasolineras = new ModGasolineras();
+    const gasolinerasMap = gasolineras.getGasolineras();
+    const selectedGasolinera = gasolinerasMap.get(event.target.value);
+    if(selectedGasolinera){
+        liter_quantity_input.value = selectedGasolinera.getFuelLiters();
+        liter_capacity_input.value = selectedGasolinera.getTotalCapacity();
+        name_input.value = selectedGasolinera.getName();
+        form_container.classList.remove("hidden");
+    }
+});
