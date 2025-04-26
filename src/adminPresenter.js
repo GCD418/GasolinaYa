@@ -52,6 +52,10 @@ form.addEventListener("submit", (event) => {
 });
 
 select_gasolinera.addEventListener("change", (event) => {
+    const firstOption = select_gasolinera.options[0];
+    if(firstOption && firstOption.disabled){
+        select_gasolinera.removeChild(firstOption);
+    }
     const gasolineras = new ModGasolineras();
     // const gasolinerasMap = gasolineras.getGasolineras();
     // const selectedGasolinera = gasolinerasMap.get(event.target.value);
