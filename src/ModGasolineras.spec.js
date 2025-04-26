@@ -19,4 +19,12 @@ describe("Gasolinera", () => {
         gasolineras.addGasolinera(gasolinera);
         expect(gasolineras.getGasolineras() instanceof Map).toEqual(true);
     });
+
+    it("Todas las instancias del modulo de gasolineras deberían contener los mismos datos", () => {
+        const gasolineras1 = new ModGasolineras();
+        const gasolineras2 = new ModGasolineras(); 
+        const gasolinera = new Gasolinera(1000, 50000, "Asunción");
+        gasolineras1.addGasolinera(gasolinera);
+        expect(gasolineras1 === gasolineras2).toEqual(true);
+    });
 });
