@@ -33,7 +33,6 @@ form.addEventListener("submit", (event) => {
     const liters = Number.parseInt(liter_quantity_input.value);
     const literCapacity = Number.parseInt(liter_capacity_input.value);
     const name = name_input.value;
-    gasolinera = new Gasolinera(liters, literCapacity, name);
     
     if(liters < 0){
         alert("La cantidad de litros no puede ser negativa");
@@ -48,6 +47,8 @@ form.addEventListener("submit", (event) => {
         return;
     }
     
+    gasolinera = new Gasolinera(liters, literCapacity, name);
+    gasolineras.addGasolinera(gasolinera);
     showInformation();
 });
 
