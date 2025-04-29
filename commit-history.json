@@ -32,5 +32,22 @@
     },
     "coverage": 0,
     "test_count": 13
+  },
+  {
+    "sha": "851cffe2241fa658366ad63f32d54a1f6cc5e9e1",
+    "author": "christian-ledezma",
+    "commit": {
+      "date": "2025-04-29T05:39:22.000Z",
+      "message": "Feat: Mostrar cantidad de combustible actual y datos en pagina de usuario",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/851cffe2241fa658366ad63f32d54a1f6cc5e9e1"
+    },
+    "stats": {
+      "total": 68,
+      "additions": 62,
+      "deletions": 6,
+      "date": "2025-04-29"
+    },
+    "coverage": 0,
+    "test_count": 13
   }
 ]

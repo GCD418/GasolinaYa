@@ -6,11 +6,20 @@
     <title>Usuario</title>
 </head>
 <body>
-    <h1>Listado de Gasolineras</h1>
-
-        <!-- Div donde cargaremos los datos -->
-        <div id="service_stations_container"></div>
-
-  <script type="module" src="./src/userPresenter.js"></script>
+    <div class="main_container">
+        <nav>
+            <a href="index.html">Inicio</a>
+        </nav>
+        
+        <h1>Listado de Gasolineras</h1>
+        
+        <div class="section">
+            <div id="service_stations_container">
+                <p>Cargando datos...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="./src/userPresenter.js"></script>
 </body>
 </html>
