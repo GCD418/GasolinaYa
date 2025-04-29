@@ -15,5 +15,22 @@
     },
     "coverage": 0,
     "test_count": 1
+  },
+  {
+    "sha": "58114ce940292b4a42c4d3d4123a13b25335bbe1",
+    "author": "christian-ledezma",
+    "commit": {
+      "date": "2025-04-29T04:32:05.000Z",
+      "message": "Feat: Pagina de Usuario basica",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/58114ce940292b4a42c4d3d4123a13b25335bbe1"
+    },
+    "stats": {
+      "total": 7,
+      "additions": 6,
+      "deletions": 1,
+      "date": "2025-04-29"
+    },
+    "coverage": 0,
+    "test_count": 13
   }
 ]
