@@ -49,5 +49,22 @@
     },
     "coverage": 0,
     "test_count": 13
+  },
+  {
+    "sha": "c2457d676e3758290d60ecb75a1852e63bec4f28",
+    "author": "christian-ledezma",
+    "commit": {
+      "date": "2025-04-29T05:57:24.000Z",
+      "message": "Feat: Funcion de pintar porcentaje de combustible",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/c2457d676e3758290d60ecb75a1852e63bec4f28"
+    },
+    "stats": {
+      "total": 29,
+      "additions": 27,
+      "deletions": 2,
+      "date": "2025-04-29"
+    },
+    "coverage": 0,
+    "test_count": 13
   }
 ]

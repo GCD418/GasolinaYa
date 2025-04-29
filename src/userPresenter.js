@@ -23,13 +23,19 @@ function renderServiveStatioTable() {
             <tbody>
     `;
     
-    gasolineras.forEach((gasolinera, name) => {
+    gasolineras.forEach((gasolinera) => {
+        const percent = gasolinera.getFuelPercent();
+        let colorClass = '';
+        
+        const colorStyle = getColorForPercentage(percent);
+        colorClass = `background-color: ${colorStyle.backgroundColor}; color: ${colorStyle.textColor};`;
+        
         tableHTML += `
             <tr>
                 <td>${gasolinera.getName()}</td>
                 <td>${gasolinera.getFuelLiters()} L</td>
                 <td>${gasolinera.getTotalCapacity()} L</td>
-                <td>${gasolinera.getFuelPercent().toFixed(2)}%</td>
+                <td style="${colorClass}">${percent.toFixed(2)}%</td>
             </tr>
         `;
     });
@@ -40,6 +46,25 @@ function renderServiveStatioTable() {
     `;
     
     container.innerHTML = tableHTML;
+}
+
+function getColorForPercentage(percent) {
+    if (percent === 0) {
+        return {
+            backgroundColor: 'red',
+            textColor: 'white'
+        };
+    } else if (percent <= 20) {
+        return {
+            backgroundColor: 'yellow',
+            textColor: 'black'
+        };
+    } else {
+        return {
+            backgroundColor: 'green',
+            textColor: 'white'
+        };
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
