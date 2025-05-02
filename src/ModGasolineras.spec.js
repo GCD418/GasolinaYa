@@ -68,4 +68,9 @@ describe("Gasolinera", () => {
         await gasolineras.updateGasolinera("GasolineraDePrueba", 40000, updateValue);
         expect(gasolineras.getGasolinera("GasolineraDePrueba").getTotalCapacity()).toEqual(updateValue);
     });
+
+    it("Debería indicar que los datos ya han sido cargados", async () => {
+        const gasolineras = new ModGasolineras();
+        expect(await gasolineras.ready()).toBeTruthy();
+    });
 });

@@ -8,6 +8,7 @@ import Gasolinera from './Gasolinera.js';
 class ModGasolineras {
     static instance = null;
     #db = null;
+    #readyPromise = null;
 
     constructor() {
         if (ModGasolineras.instance) {
@@ -28,8 +29,12 @@ class ModGasolineras {
         const app = initializeApp(firebaseconfig);
         this.#db = getFirestore(app);
 
-        this.loadFromFirestore();
+        this.#readyPromise = this.loadFromFirestore();
     }   
+
+    async ready() {
+        return this.#readyPromise;
+    }
 
     reviewDbConnection(){
         if (this.#db){
