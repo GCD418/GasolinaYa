@@ -13,7 +13,10 @@ const form_container = document.getElementById("liters_form_container");
 let gasolinera = null;
 const gasolineras = new ModGasolineras();
 
-function initializeElements(){
+async function initializeElements(){
+
+    await gasolineras.ready();
+
     populateSelect();
 
     setupEventListeners();
