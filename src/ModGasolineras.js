@@ -28,6 +28,7 @@ class ModGasolineras {
         const app = initializeApp(firebaseconfig);
         this.#db = getFirestore(app);
 
+        this.loadFromFirestore();
     }   
 
     reviewDbConnection(){
@@ -60,6 +61,24 @@ class ModGasolineras {
     getGasolineras() {
         return this.gasolineras;
     }
+
+    async loadFromFirestore() {
+        try {
+            const querySnapshot = await getDocs(collection(this.#db, "gasolineras"));
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const gasolinera = new Gasolinera(
+                    data.fuelLiters,
+                    data.totalCapacity,
+                    data.name
+                );
+                this.gasolineras.set(data.name, gasolinera);
+            });
+        } catch (e) {
+            console.error("Error loading data from Firestore:", e);
+        }
+    }
+
 
     async insertFakeData() {
         if (this.gasolineras.size > 0) {

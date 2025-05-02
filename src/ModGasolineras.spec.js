@@ -42,4 +42,11 @@ describe("Gasolinera", () => {
         const gasolineras = new ModGasolineras();
         expect(gasolineras.reviewDbConnection()).toEqual("Conexión exitosa");
     });
+
+    it("Debería insertar los datos desde la base de datos", async () => {
+        const gasolineras = new ModGasolineras();
+        gasolineras.gasolineras.clear();
+        await gasolineras.loadFromFirestore();
+        expect(gasolineras.gasolineras.size).toBeGreaterThan(0);
+    });
 });
