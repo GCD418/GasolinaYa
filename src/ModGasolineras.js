@@ -37,8 +37,19 @@ class ModGasolineras {
         return "Conexión fallida"
     }
 
-    addGasolinera(gasolinera) {
+    async addGasolinera(gasolinera) {
         this.gasolineras.set(gasolinera.getName(), gasolinera);
+        
+        try {
+            await setDoc(doc(this.#db, "gasolineras", gasolinera.getName()), {
+                name: gasolinera.getName(),
+                fuelLiters: gasolinera.getFuelLiters(),
+                totalCapacity: gasolinera.getTotalCapacity()
+            });
+        } catch (e) {
+            console.error("Error adding gasolinera to Firestore:", e);
+        }
+        
         return this.gasolineras.size;
     }
 

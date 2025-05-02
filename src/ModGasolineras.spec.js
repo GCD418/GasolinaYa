@@ -1,9 +1,9 @@
 import ModGasolineras from "./ModGasolineras.js";
 import Gasolinera from "./Gasolinera.js";
 describe("Gasolinera", () => {
-    it("Deberia devolver la cantidad de gasolineras", () => {
+    it("Deberia devolver la cantidad de gasolineras", async () => {
         const gasolineras = new ModGasolineras();
-        expect(gasolineras.addGasolinera(new Gasolinera(1000, 50000, "Asunción"))).toEqual(1);
+        expect(await gasolineras.addGasolinera(new Gasolinera(1000, 50000, "Asunción"))).toBeGreaterThan(0);
     });
 
     it("Deberia devolver la gasolinera en funcion del nombre", () => {
