@@ -32,4 +32,9 @@ describe("Gasolinera", () => {
         const gasolineras = new ModGasolineras();
         expect(gasolineras.insertFakeData()).toEqual(4);
     });
+
+    it("Debería conectarse correctamente a la BD y devolver un mensaje", () => {
+        const gasolineras = new ModGasolineras();
+        expect(gasolineras.reviewDbConnection()).toEqual("Conexión exitosa");
+    });
 });

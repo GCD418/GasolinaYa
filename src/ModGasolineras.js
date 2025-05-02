@@ -1,14 +1,41 @@
+import { initializeApp } from 'firebase/app';
+import { 
+  getFirestore, collection, doc, setDoc, 
+  getDoc, getDocs, updateDoc, query
+} from 'firebase/firestore';
+
 import Gasolinera from './Gasolinera.js';
 class ModGasolineras {
     static instance = null;
+    #db = null;
 
     constructor() {
-        if(ModGasolineras.instance) {
+        if (ModGasolineras.instance) {
             return ModGasolineras.instance;
         }
-       ModGasolineras.instance = this;
-       this.gasolineras = new Map(); 
+        ModGasolineras.instance = this;
+        this.gasolineras = new Map();
+
+        const firebaseconfig = {
+            apiKey: "AIzaSyB1Txz13AY002WmXTD7oTQPMowt346rQMA",
+            authDomain: "gasolinaya-ccg-ucb.firebaseapp.com",
+            projectId: "gasolinaya-ccg-ucb",
+            storageBucket: "gasolinaya-ccg-ucb.firebasestorage.app",
+            messagingSenderId: "889672025448",
+            appId: "1:889672025448:web:5f89df42bdf09ce31602dd"
+        };
+
+        const app = initializeApp(firebaseconfig);
+        this.#db = getFirestore(app);
+
     }   
+
+    reviewDbConnection(){
+        if (this.#db){
+            return "Conexión exitosa"
+        }
+        return "Conexión fallida"
+    }
 
     addGasolinera(gasolinera) {
         this.gasolineras.set(gasolinera.getName(), gasolinera);
