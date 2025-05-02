@@ -57,7 +57,8 @@ function setupEventListeners(){
         }
         
         gasolinera = new Gasolinera(liters, literCapacity, name);
-        gasolineras.addGasolinera(gasolinera);
+        //gasolineras.addGasolinera(gasolinera);
+        gasolineras.updateGasolinera(gasolinera.getName(), gasolinera.getFuelLiters(), gasolinera.getTotalCapacity());
         showInformation();
     });
     
