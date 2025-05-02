@@ -49,4 +49,9 @@ describe("Gasolinera", () => {
         await gasolineras.loadFromFirestore();
         expect(gasolineras.gasolineras.size).toBeGreaterThan(0);
     });
+
+    it("Debería botar un error cuando se intenta actualizar una gasolinera que no existe", async () => {
+        const gasolineras = new ModGasolineras();
+        expect(await gasolineras.updateGasolinera("EstaGasolineraNoExiste")).toBeFalsy();
+    });
 });

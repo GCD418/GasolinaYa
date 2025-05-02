@@ -54,6 +54,14 @@ class ModGasolineras {
         return this.gasolineras.size;
     }
 
+    async updateGasolinera(gasolineraName, liters) {
+        if (this.gasolineras.get(gasolineraName) === undefined) {
+            return Promise.resolve(false);
+        }
+        
+    }
+
+
     getGasolinera(name) {
         return this.gasolineras.get(name);
     }
