@@ -61,16 +61,25 @@ class ModGasolineras {
         return this.gasolineras;
     }
 
-    insertFakeData() {
+    async insertFakeData() {
+        if (this.gasolineras.size > 0) {
+            return this.gasolineras.size;
+        }
+        
         const gasolinera = new Gasolinera(1000, 50000, "Asunción");
         const gasolinera2 = new Gasolinera(2000, 80000, "El Cristo");
         const gasolinera3 = new Gasolinera(8000, 40000, "Las Islas");
         const gasolinera4 = new Gasolinera(30000, 30000, "El Manantial");
-        this.addGasolinera(gasolinera);
-        this.addGasolinera(gasolinera2);
-        this.addGasolinera(gasolinera3);
-        this.addGasolinera(gasolinera4);
+        
+        await Promise.all([
+            this.addGasolinera(gasolinera),
+            this.addGasolinera(gasolinera2),
+            this.addGasolinera(gasolinera3),
+            this.addGasolinera(gasolinera4)
+        ]);
+        
         return this.gasolineras.size;
+
     }
 };
 

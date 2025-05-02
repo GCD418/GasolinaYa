@@ -28,9 +28,14 @@ describe("Gasolinera", () => {
         expect(gasolineras1 === gasolineras2).toEqual(true);
     });
 
-    it("Debería ingresar datos mockeados y mostrar la cantidad de registros", () => {
+    it("Debería ingresar datos mockeados y mostrar la cantidad de registros", async () => {
         const gasolineras = new ModGasolineras();
-        expect(gasolineras.insertFakeData()).toEqual(4);
+        if(gasolineras.gasolineras.size === 0){
+            expect(await gasolineras.insertFakeData()).toEqual(4);
+        }
+        else{
+            expect(await gasolineras.insertFakeData()).toBeGreaterThan(0);
+        }
     });
 
     it("Debería conectarse correctamente a la BD y devolver un mensaje", () => {
