@@ -54,7 +54,7 @@ class ModGasolineras {
         return this.gasolineras.size;
     }
 
-    async updateGasolinera(gasolineraName, liters) {
+    async updateGasolinera(gasolineraName, liters, capacity) {
         if (this.gasolineras.get(gasolineraName) === undefined) {
             return Promise.resolve(false);
         }
@@ -62,14 +62,14 @@ class ModGasolineras {
         try {
             await updateDoc(doc(this.#db, "gasolineras", gasolineraName), {
                 fuelLiters: liters,
+                totalCapacity: capacity
             });
         } 
         catch (e) {
             console.error("Error updating gasolinera in Firestore:", e);
         }
         
-        const lastGasolineraState = this.gasolineras.get(gasolineraName);
-        this.gasolineras.set(gasolineraName, new Gasolinera(liters, lastGasolineraState.getTotalCapacity(), gasolineraName));
+        this.gasolineras.set(gasolineraName, new Gasolinera(liters, capacity, gasolineraName));
     }
 
 

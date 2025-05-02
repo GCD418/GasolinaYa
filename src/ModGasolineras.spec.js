@@ -61,4 +61,11 @@ describe("Gasolinera", () => {
         await gasolineras.updateGasolinera("GasolineraDePrueba", updateValue);
         expect(gasolineras.getGasolinera("GasolineraDePrueba").getFuelLiters()).toEqual(updateValue);
     });
+
+    it("Debería cambiar la capacidad del surtidor", async () => {
+        const gasolineras = new ModGasolineras();
+        const updateValue = Math.floor(Math.random() * 90000);
+        await gasolineras.updateGasolinera("GasolineraDePrueba", 40000, updateValue);
+        expect(gasolineras.getGasolinera("GasolineraDePrueba").getTotalCapacity()).toEqual(updateValue);
+    });
 });
