@@ -59,6 +59,17 @@ class ModGasolineras {
             return Promise.resolve(false);
         }
         
+        try {
+            await updateDoc(doc(this.#db, "gasolineras", gasolineraName), {
+                fuelLiters: liters,
+            });
+        } 
+        catch (e) {
+            console.error("Error updating gasolinera in Firestore:", e);
+        }
+        
+        const lastGasolineraState = this.gasolineras.get(gasolineraName);
+        this.gasolineras.set(gasolineraName, new Gasolinera(liters, lastGasolineraState.getTotalCapacity(), gasolineraName));
     }
 
 
