@@ -1,10 +1,15 @@
 import ModGasolineras from "./ModGasolineras.js";
 
 const modGasolineras = new ModGasolineras();
-modGasolineras.insertFakeData();
+
+async function initializeApp() {
+    await modGasolineras.ready();
+    
+    renderServiceStatioTable();
+}
 
 
-function renderServiveStatioTable() {
+function renderServiceStatioTable() {
     const container = document.querySelector("#service_stations_container");
     if (!container) return;
 
@@ -68,5 +73,5 @@ function getColorForPercentage(percent) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    renderServiveStatioTable();
+    renderServiceStatioTable();
 });
