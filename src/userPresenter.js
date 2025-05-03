@@ -73,5 +73,5 @@ function getColorForPercentage(percent) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    renderServiceStatioTable();
+    initializeApp();
 });
