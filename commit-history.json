@@ -83,5 +83,22 @@
     },
     "coverage": 0,
     "test_count": 13
+  },
+  {
+    "sha": "313b093ae2f418e763cd2e3444aa3ec1264530c3",
+    "author": "christian-ledezma",
+    "commit": {
+      "date": "2025-05-03T03:26:12.000Z",
+      "message": "Feat: Ajuste para base de datos",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/313b093ae2f418e763cd2e3444aa3ec1264530c3"
+    },
+    "stats": {
+      "total": 28,
+      "additions": 25,
+      "deletions": 3,
+      "date": "2025-05-03"
+    },
+    "coverage": 0,
+    "test_count": 19
   }
 ]
