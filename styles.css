@@ -5,10 +5,22 @@
     margin-top: 20px;
 }
 
+body{
+    color: rgb(39, 39, 39);
+}  
+
 a {
     background-color: red;
     color: white;
     padding: 5px 10px;
     text-decoration: none;
     border-radius: 5px;
+}
+
+.empty-fuel nav {
+    background-color: red !important;
+}
+
+.empty-fuel .fuel-icon {
+    color: red;
 }

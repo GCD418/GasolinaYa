@@ -93,12 +93,16 @@ function showInformation(){
     name_fuel_station.innerHTML = `Estación de servicio "${gasolinera.getName()}"`;
 }
 
-function updateColorBasedOnPercentCapacity(percent){
-    if(percent <= 20){
+function updateColorBasedOnPercentCapacity(percent) {
+    if (percent === 0) {
+        name_fuel_station.style.backgroundColor = "red";
+        document.body.classList.add("empty-fuel");
+    } else if (percent <= 20) {
         name_fuel_station.style.backgroundColor = "yellow";
-    }
-    else if (percent > 20){
+        document.body.classList.remove("empty-fuel");
+    } else if (percent > 20) {
         name_fuel_station.style.backgroundColor = "green";
+        document.body.classList.remove("empty-fuel");
     }
 }
 
