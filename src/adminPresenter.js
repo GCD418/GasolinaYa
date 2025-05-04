@@ -113,11 +113,6 @@ function populateSelect(){
 register_cistern_button.addEventListener("click", (event) => {
     event.preventDefault();
 
-    if (!cisterna_liters_input.value) {
-        alert("Por favor ingrese la cantidad de litros que trae la cisterna");
-        return;
-    }
-
     const cisternLiters = Number.parseInt(cisterna_liters_input.value);
 
     if (cisternLiters <= 0) {

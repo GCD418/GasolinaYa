@@ -49,5 +49,22 @@
     },
     "coverage": 0,
     "test_count": 13
+  },
+  {
+    "sha": "2029ce985ee4e4d897e1e416d1b58ad8114d93ad",
+    "author": "Carla_Diana",
+    "commit": {
+      "date": "2025-05-04T12:38:50.000Z",
+      "message": "fix: correccion del mensaje de exito cuando se registra el arribo de la cisterna",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/2029ce985ee4e4d897e1e416d1b58ad8114d93ad"
+    },
+    "stats": {
+      "total": 12,
+      "additions": 7,
+      "deletions": 5,
+      "date": "2025-05-04"
+    },
+    "coverage": 0,
+    "test_count": 13
   }
 ]
