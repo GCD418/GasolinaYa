@@ -32,5 +32,22 @@
     },
     "coverage": 0,
     "test_count": 13
+  },
+  {
+    "sha": "a7d16cd2cc202e8840a9afe14be60b0057dc561a",
+    "author": "Carla_Diana",
+    "commit": {
+      "date": "2025-05-04T12:21:33.000Z",
+      "message": "fix: correccion de la parte del registro de la sisterna",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/a7d16cd2cc202e8840a9afe14be60b0057dc561a"
+    },
+    "stats": {
+      "total": 66,
+      "additions": 7,
+      "deletions": 59,
+      "date": "2025-05-04"
+    },
+    "coverage": 0,
+    "test_count": 13
   }
 ]

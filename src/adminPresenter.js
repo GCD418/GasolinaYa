@@ -110,47 +110,8 @@ function populateSelect(){
 }
 
 
-// register_cistern_button.addEventListener("click", (event) => {
-//     event.preventDefault();
-
-    
-
-//     if (!cisterna_liters_input.value) {
-//         alert("Por favor ingrese la cantidad de litros que trae la cisterna");
-//         return;
-//     }
-
-//     const cisternLiters = Number.parseInt(cisterna_liters_input.value);
-
-//     if (cisternLiters <= 0) {
-//         alert("La cantidad de litros debe ser mayor a cero");
-//         return;
-//     }
-    
-//     gasolinera.addFuel(cisternLiters);
-
-//     liter_quantity_input.value = gasolinera.getFuelLiters();
-//     liter_capacity_input.value = gasolinera.getTotalCapacity();
-//     name_input.value = gasolinera.getName();
-
-//     gasolineras.updateGasolinera(gasolinera);
-
-//     showInformation();
-
-//     cisterna_liters_input.value = "";
-
-//     alert("¡Registro de arribo de cisterna exitoso!");
-   
-
-    
-// });
 register_cistern_button.addEventListener("click", (event) => {
     event.preventDefault();
-
-    if (!gasolinera) {
-        alert("Primero selecciona una gasolinera");
-        return;
-    }
 
     if (!cisterna_liters_input.value) {
         alert("Por favor ingrese la cantidad de litros que trae la cisterna");
@@ -163,32 +124,19 @@ register_cistern_button.addEventListener("click", (event) => {
         alert("La cantidad de litros debe ser mayor a cero");
         return;
     }
-
-    // 🚀 1. Sumar litros al objeto gasolinera
+    
     gasolinera.addFuel(cisternLiters);
 
-    // 🚀 2. Actualizar en ModGasolineras
+    liter_quantity_input.value = gasolinera.getFuelLiters();
+    liter_capacity_input.value = gasolinera.getTotalCapacity();
+    name_input.value = gasolinera.getName();
+
     gasolineras.updateGasolinera(gasolinera);
 
-    // 🚀 3. Refrescar la pantalla (mostrar nueva cantidad de litros)
     showInformation();
 
-    // 🚀 4. Mostrar mensaje de éxito antes de limpiar
-    result_div.innerHTML = `<p style="color: green; font-weight: bold; font-size: 18px;">¡Registro de arribo de cisterna exitoso!</p>`;
-
-    // 🚀 5. Limpiar todos los campos
-    liter_quantity_input.value = "";
-    liter_capacity_input.value = "";
-    name_input.value = "";
     cisterna_liters_input.value = "";
 
-    // 🚀 6. Ocultar formulario
-    form_container.classList.add("hidden");
-
-    // 🚀 7. Resetear selección
-    select_gasolinera.selectedIndex = 0;
+    alert("¡Registro de arribo de cisterna exitoso!");
+   
 });
-
-function showSuccessMessage(message) {
-    result_div.innerHTML = `<p style="color: green; font-weight: bold; font-size: 18px;">${message}</p>`;
-}
