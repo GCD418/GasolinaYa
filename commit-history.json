@@ -66,5 +66,73 @@
     },
     "coverage": 0,
     "test_count": 13
+  },
+  {
+    "sha": "194cd4c42b9586b812fb9790255ffddf262b532c",
+    "author": "Carla_Diana",
+    "commit": {
+      "date": "2025-04-29T13:07:18.000Z",
+      "message": "feat: Registro llegada de cisterna y suma a la capacidad",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/194cd4c42b9586b812fb9790255ffddf262b532c"
+    },
+    "stats": {
+      "total": 106,
+      "additions": 105,
+      "deletions": 1,
+      "date": "2025-04-29"
+    },
+    "coverage": 0,
+    "test_count": 13
+  },
+  {
+    "sha": "a7d16cd2cc202e8840a9afe14be60b0057dc561a",
+    "author": "Carla_Diana",
+    "commit": {
+      "date": "2025-05-04T12:21:33.000Z",
+      "message": "fix: correccion de la parte del registro de la sisterna",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/a7d16cd2cc202e8840a9afe14be60b0057dc561a"
+    },
+    "stats": {
+      "total": 66,
+      "additions": 7,
+      "deletions": 59,
+      "date": "2025-05-04"
+    },
+    "coverage": 0,
+    "test_count": 13
+  },
+  {
+    "sha": "2029ce985ee4e4d897e1e416d1b58ad8114d93ad",
+    "author": "Carla_Diana",
+    "commit": {
+      "date": "2025-05-04T12:38:50.000Z",
+      "message": "fix: correccion del mensaje de exito cuando se registra el arribo de la cisterna",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/2029ce985ee4e4d897e1e416d1b58ad8114d93ad"
+    },
+    "stats": {
+      "total": 12,
+      "additions": 7,
+      "deletions": 5,
+      "date": "2025-05-04"
+    },
+    "coverage": 0,
+    "test_count": 13
+  },
+  {
+    "sha": "45545b0369a80af37b757723d341181de191e17c",
+    "author": "Carla_Diana",
+    "commit": {
+      "date": "2025-05-04T12:47:47.000Z",
+      "message": "Resueltos conflictos del merge",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/45545b0369a80af37b757723d341181de191e17c"
+    },
+    "stats": {
+      "total": 162,
+      "additions": 162,
+      "deletions": 0,
+      "date": "2025-05-04"
+    },
+    "coverage": 0,
+    "test_count": 0
   }
 ]

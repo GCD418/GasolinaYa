@@ -16,11 +16,3 @@ a {
     text-decoration: none;
     border-radius: 5px;
 }
-
-.empty-fuel nav {
-    background-color: red !important;
-}
-
-.empty-fuel .fuel-icon {
-    color: red;
-}

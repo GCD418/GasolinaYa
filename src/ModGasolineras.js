@@ -132,6 +132,13 @@ class ModGasolineras {
         return this.gasolineras.size;
 
     }
+    updateGasolinera(gasolinera) {
+        if (this.gasolineras.has(gasolinera.getName())) {
+            this.gasolineras.set(gasolinera.getName(), gasolinera);
+            return true;
+        }
+        return false;
+    }
 };
 
 export default ModGasolineras;
