@@ -177,7 +177,7 @@ function populateSelect(){
 }
 
 
-register_cistern_button.addEventListener("click", (event) => {
+register_cistern_button.addEventListener("click", async (event) => {
     event.preventDefault();
 
     const cisternLiters = Number.parseInt(cisterna_liters_input.value);
@@ -186,22 +186,40 @@ register_cistern_button.addEventListener("click", (event) => {
         alert("La cantidad de litros debe ser mayor a cero");
         return;
     }
-    
+
+    await gasolineras.ready();
+
+    const gasolineraName = gasolinera.getName();
+    const currentFuel = gasolinera.getFuelLiters();
+    const capacity = gasolinera.getTotalCapacity();
+    const newFuel = currentFuel + cisternLiters;
+
+    if (newFuel > capacity) {
+        alert(`No se puede agregar ${cisternLiters} L: se excede la capacidad máxima de ${capacity} L`);
+        return;
+    }
+
+    // Actualizar localmente
     gasolinera.addFuel(cisternLiters);
 
+    // Actualizar Firestore usando updateGasolinera(nombre, litros, capacidad)
+    await gasolineras.updateGasolinera(
+        gasolineraName,
+        gasolinera.getFuelLiters(),
+        gasolinera.getTotalCapacity()
+    );
+
+    // Refrescar campos en la interfaz
     liter_quantity_input.value = gasolinera.getFuelLiters();
     liter_capacity_input.value = gasolinera.getTotalCapacity();
     name_input.value = gasolinera.getName();
 
-    gasolineras.updateGasolinera(gasolinera);
-
     showInformation();
-
     cisterna_liters_input.value = "";
 
     alert("¡Registro de arribo de cisterna exitoso!");
-   
 });
+
 
 
 document.addEventListener("DOMContentLoaded", () => {

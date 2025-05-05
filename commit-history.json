@@ -134,5 +134,22 @@
     },
     "coverage": 0,
     "test_count": 0
+  },
+  {
+    "sha": "0a13d1e51c8eb3579f0533e5fca55964d8dea8a3",
+    "author": "Carla_Diana",
+    "commit": {
+      "date": "2025-05-05T23:35:48.000Z",
+      "message": "fix: Corrección de errores",
+      "url": "https://github.com/GCD418/GasolinaYa/commit/0a13d1e51c8eb3579f0533e5fca55964d8dea8a3"
+    },
+    "stats": {
+      "total": 38,
+      "additions": 25,
+      "deletions": 13,
+      "date": "2025-05-05"
+    },
+    "coverage": 0,
+    "test_count": 19
   }
 ]
