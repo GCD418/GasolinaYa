@@ -1,4 +1,5 @@
 import ModGasolineras from "./ModGasolineras.js";
+import calculate_waiting_time from "./user_queue.js";
 
 const modGasolineras = new ModGasolineras();
 
@@ -152,7 +153,9 @@ async function addGasolineraQueue(gasolineraName) {
         await modGasolineras.incrementQueueCount(gasolineraName);
         const aheadOf = queueBefore;
 
-        alert(`Te has registrado exitosamente en la cola de ${gasolineraName}. Hay ${aheadOf} persona(s) delante de ti.`);
+        let waiting_time = calculate_waiting_time(aheadOf)
+
+        alert(`Te has registrado exitosamente en la cola de ${gasolineraName}. Hay ${aheadOf} persona(s) delante de ti. El tiempo de espera aproximado de espera es ${waiting_time} minutos.`);
     } catch (error) {
         console.error(`Error al agregar a la cola: ${error}`);
         alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
