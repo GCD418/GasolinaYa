@@ -79,9 +79,13 @@ function AddToQueueButton() {
 }
 
 function showGasolineraSelector() {
-    let modal = document.querySelector("#gasolinera-selection-modal");
+    let existingModal = document.querySelector("#gasolinera-selection-modal");
+    if (existingModal) {
+        existingModal.style.display = "block";
+        return;
+    }
     
-    modal = document.createElement("div");
+    let modal = document.createElement("div");
     modal.id = "gasolinera-selection-modal";
     modal.className = "modal";
         
@@ -112,7 +116,7 @@ function showGasolineraSelector() {
     confirmButton.addEventListener("click", function() {
     const selectedGasolinera = document.getElementById("gasolinera-selector").value;
     if (selectedGasolinera) {
-        addGasolineraToQueue(selectedGasolinera);
+        addGasolineraQueue(selectedGasolinera);
         closeModal(modal);
     } else {
         alert("Por favor, seleccione una gasolinera.");
@@ -136,8 +140,23 @@ function closeModal(modal) {
     }
 }
 
-function addGasolineraToQueue(gasolineraName) {
-    alert(`La gasolinera ${gasolineraName} se ha agregado a la cola.`);
+async function addGasolineraQueue(gasolineraName) {
+    try {
+        const gasolinera = modGasolineras.getGasolinera(gasolineraName);
+        if (!gasolinera) {
+            console.error(`Gasolinera ${gasolineraName} no encontrada`);
+            alert(`Error: Gasolinera ${gasolineraName} no encontrada`);
+            return;
+        }
+        const queueBefore = await modGasolineras.getGasolinera(gasolineraName).getQueueCount();
+        await modGasolineras.incrementQueueCount(gasolineraName);
+        const aheadOf = queueBefore;
+
+        alert(`Te has registrado exitosamente en la cola de ${gasolineraName}. Hay ${aheadOf} persona(s) delante de ti.`);
+    } catch (error) {
+        console.error(`Error al agregar a la cola: ${error}`);
+        alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
+    }
 }
 
 

@@ -133,6 +133,16 @@ class ModGasolineras {
         }
     }
 
+    async getQueueCount(gasolineraName) {
+        const docRef = doc(this.#db, "colas", gasolineraName);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            return docSnap.data().count || 0;
+        } else {
+            return 0;
+        }
+    }
+
     getGasolinera(name) {
         return this.gasolineras.get(name);
     }
@@ -156,6 +166,9 @@ class ModGasolineras {
                     data.totalCapacity,
                     data.name
                 );
+                if (data.queueCount !== undefined) {
+                    gasolinera.setQueueCount(data.queueCount);
+                }
                 this.gasolineras.set(data.name, gasolinera);
             });
 
