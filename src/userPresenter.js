@@ -104,6 +104,12 @@ function showGasolineraSelector() {
         modal.appendChild(modalContent);
         document.body.appendChild(modal);
 
+        const cancelButton = document.getElementById("cancel-selection");
+        cancelButton.addEventListener("click", function() {
+            closeModal(modal);
+        });
+
+
         modal.style.display = "block";
     }
         
@@ -116,7 +122,15 @@ function getGasolinerasOptions() {
       return `<option value="${gasolinera.getName()}">${gasolinera.getName()}</option>`;
     }).join("");
 }
-  
+
+function closeModal(modal) {
+    if (modal) {
+        modal.style.display = "none";
+    } else {
+        console.error("Error");
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
     initializeApp();
