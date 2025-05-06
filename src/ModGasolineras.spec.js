@@ -85,5 +85,22 @@ describe("Gasolinera", () => {
         await gasolineras.incrementQueueCount("GasolineraDePrueba");
         expect(gasolineras.getGasolinera("GasolineraDePrueba").getQueueCount()).toEqual(2);
     });
+
+    it("Debería disminuir la cola de autos en uno", async () => {
+        const gasolineras = new ModGasolineras();
+        await gasolineras.decrementQueueCount("GasolineraDePrueba");
+        expect(gasolineras.getGasolinera("GasolineraDePrueba").getQueueCount()).toEqual(1);
+    });
     
+    it("Debería disminuir la cola de autos en uno", async () => {
+        const gasolineras = new ModGasolineras();
+        await gasolineras.decrementQueueCount("GasolineraDePrueba");
+        expect(gasolineras.getGasolinera("GasolineraDePrueba").getQueueCount()).toEqual(0);
+    });
+
+    it("Debería devolver un error al intentar disminuir la cola de autos a menos de cero", async () => {
+        const gasolineras = new ModGasolineras();
+        await gasolineras.decrementQueueCount("GasolineraDePrueba");
+        expect(gasolineras.getGasolinera("GasolineraDePrueba").getQueueCount()).toEqual(0);
+    });
 });
