@@ -3,6 +3,7 @@ class Gasolinera {
         this.liters = liters;
         this.capacity = capacity;
         this.name = name;
+        this.queueCount = 0;
 
     }
 
@@ -26,6 +27,27 @@ class Gasolinera {
         if (this.liters > this.capacity) {
             this.liters = this.capacity;
         }
+    }
+
+
+    getQueueCount() {
+        return this.queueCount;
+    }
+
+    setQueueCount(count) {
+        this.queueCount = Math.max(0, count);
+    }
+
+    incrementQueueCount() {
+        this.queueCount++;
+        return this.queueCount;
+    }
+
+    decrementQueueCount() {
+        if (this.queueCount > 0) {
+            this.queueCount--;
+        }
+        return this.queueCount;
     }
 
 }
