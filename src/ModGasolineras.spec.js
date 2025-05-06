@@ -73,4 +73,10 @@ describe("Gasolinera", () => {
         const gasolineras = new ModGasolineras();
         expect(await gasolineras.ready()).toBeTruthy();
     });
+
+    it("Debería adicionar el monto actual al combustible ya disponible y devolver el nuevo monto", async () => {
+        const gasolineras = new ModGasolineras();
+        await gasolineras.updateGasolinera("GasolineraDePrueba", 40000, 90000);
+        expect(await gasolineras.addFuel("GasolineraDePrueba", 20000)).toEqual(60000);
+    });
 });
