@@ -34,4 +34,9 @@ describe("Gasolinera", () => {
         const gasolinera = new Gasolinera(40000, 40000, "El Cristo");
         expect(gasolinera.getName()).toEqual("El Cristo");
     });
+
+    it("Deberia adicionar la cantidad de combustible", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo");
+        expect(gasolinera.addFuel(10000)).toEqual(30000);
+    });
 });

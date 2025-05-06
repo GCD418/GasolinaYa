@@ -26,6 +26,7 @@ class Gasolinera {
         if (this.liters > this.capacity) {
             this.liters = this.capacity;
         }
+        return this.liters;
     }
 
 }
