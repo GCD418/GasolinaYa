@@ -73,4 +73,17 @@ describe("Gasolinera", () => {
         const gasolineras = new ModGasolineras();
         expect(await gasolineras.ready()).toBeTruthy();
     });
+
+    it("Debería aumentar la cola de autos en uno", async () => {
+        const gasolineras = new ModGasolineras();
+        await gasolineras.incrementQueueCount("GasolineraDePrueba");
+        expect(gasolineras.getGasolinera("GasolineraDePrueba").getQueueCount()).toEqual(1);
+    });
+
+    it("Debería aumentar la cola de autos en dos", async () => {
+        const gasolineras = new ModGasolineras();
+        await gasolineras.incrementQueueCount("GasolineraDePrueba");
+        expect(gasolineras.getGasolinera("GasolineraDePrueba").getQueueCount()).toEqual(2);
+    });
+    
 });

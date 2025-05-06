@@ -37,19 +37,6 @@ class Gasolinera {
     setQueueCount(count) {
         this.queueCount = Math.max(0, count);
     }
-
-    incrementQueueCount() {
-        this.queueCount++;
-        return this.queueCount;
-    }
-
-    decrementQueueCount() {
-        if (this.queueCount > 0) {
-            this.queueCount--;
-        }
-        return this.queueCount;
-    }
-
 }
 
 export default Gasolinera;

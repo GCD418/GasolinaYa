@@ -78,6 +78,61 @@ class ModGasolineras {
     }
 
 
+    async incrementQueueCount(gasolineraName) {
+        const gasolinera = this.gasolineras.get(gasolineraName);
+        if (!gasolinera) {
+            console.error(`Gasolinera ${gasolineraName} no encontrada para incrementar cola`);
+            return false;
+        }
+        
+        const currentCount = gasolinera.getQueueCount() || 0;
+        const newCount = currentCount + 1;
+        gasolinera.setQueueCount(newCount);
+        
+        try {
+            await updateDoc(doc(this.#db, "gasolineras", gasolineraName), {
+                queueCount: newCount
+            });
+            
+            console.log(`Cola incrementada para ${gasolineraName}: ${newCount}`);
+            return true;
+        } catch (e) {
+            console.error("Error updating queue count in Firestore:", e);
+            gasolinera.setQueueCount(currentCount);
+            return false;
+        }
+    }
+    
+    async decrementQueueCount(gasolineraName) {
+        const gasolinera = this.gasolineras.get(gasolineraName);
+        if (!gasolinera) {
+            console.error(`Gasolinera ${gasolineraName} no encontrada para decrementar cola`);
+            return false;
+        }
+        
+        const currentCount = gasolinera.getQueueCount() || 0;
+        const newCount = Math.max(0, currentCount - 1);
+        if (newCount === currentCount) {
+            console.log(`La cola ya está en 0 para ${gasolineraName}`);
+            return true;
+        }
+        
+        gasolinera.setQueueCount(newCount);
+        
+        try {
+            await updateDoc(doc(this.#db, "gasolineras", gasolineraName), {
+                queueCount: newCount
+            });
+            
+            console.log(`Cola decrementada para ${gasolineraName}: ${newCount}`);
+            return true;
+        } catch (e) {
+            console.error("Error updating queue count in Firestore:", e);
+            gasolinera.setQueueCount(currentCount);
+            return false;
+        }
+    }
+
     getGasolinera(name) {
         return this.gasolineras.get(name);
     }

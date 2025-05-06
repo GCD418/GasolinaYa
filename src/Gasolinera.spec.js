@@ -39,8 +39,5 @@ describe("Gasolinera", () => {
         const gasolinera = new Gasolinera(40000, 40000, "El Cristo");
         expect(gasolinera.getQueueCount()).toEqual(0);
     });
-  
-    
-
 
 });
