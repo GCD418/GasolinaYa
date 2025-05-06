@@ -6,6 +6,7 @@ async function initializeApp() {
     await modGasolineras.ready();
     
     renderServiceStatioTable();
+    AddToQueueButton();
 }
 
 
@@ -72,6 +73,54 @@ function getColorForPercentage(percent) {
     }
 }
 
+function AddToQueueButton() {
+    const addToQueueButton = document.querySelector("#add_queue_button"); 
+    addToQueueButton.addEventListener("click", showGasolineraSelector);
+}
+
+function showGasolineraSelector() {
+    let modal = document.querySelector("#gasolinera-selection-modal");
+    
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "gasolinera-selection-modal";
+        modal.className = "modal";
+        
+        const modalContent = document.createElement("div");
+        modalContent.className = "modal-content";
+        
+        modalContent.innerHTML = `
+            <h2>Seleccionar Gasolinera</h2>
+            <select id="gasolinera-selector">
+            <option value="">-- Seleccione una gasolinera --</option>
+            ${getGasolinerasOptions()}
+            </select>
+            <div class="modal-buttons">
+            <button id="cancel-selection">Cancelar</button>
+            <button id="confirm-selection" class="confirm-btn">Confirmar</button>
+            </div>
+        `;
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+
+        modal.style.display = "block";
+    }
+        
+    modal.style.display = "block";
+}
+  
+function getGasolinerasOptions() {
+    const gasolineras = Array.from(modGasolineras.getGasolineras().values());
+    return gasolineras.map(gasolinera => {
+      return `<option value="${gasolinera.getName()}">${gasolinera.getName()}</option>`;
+    }).join("");
+}
+  
+
 document.addEventListener("DOMContentLoaded", () => {
     initializeApp();
+    const addToQueueButton = document.querySelector("#add_queue_button");
+    addToQueueButton.addEventListener("click", () => {
+        });
 });
