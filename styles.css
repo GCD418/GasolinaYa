@@ -12,3 +12,27 @@ a {
     text-decoration: none;
     border-radius: 5px;
 }
+
+.queue_button{
+    padding-top: 20px;
+    border-radius: 5px;
+}
+
+#queue_button {
+    background-color: rgba(76, 175, 80, 1);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#queue_button a{
+    border-radius: 5px;
+}
+
+#queue_button:hover {
+    background-color: rgba(69,160,73,1);
+}
