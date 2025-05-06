@@ -81,38 +81,43 @@ function AddToQueueButton() {
 function showGasolineraSelector() {
     let modal = document.querySelector("#gasolinera-selection-modal");
     
-    if (!modal) {
-        modal = document.createElement("div");
-        modal.id = "gasolinera-selection-modal";
-        modal.className = "modal";
+    modal = document.createElement("div");
+    modal.id = "gasolinera-selection-modal";
+    modal.className = "modal";
         
-        const modalContent = document.createElement("div");
-        modalContent.className = "modal-content";
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
         
-        modalContent.innerHTML = `
-            <h2>Seleccionar Gasolinera</h2>
-            <select id="gasolinera-selector">
-            <option value="">-- Seleccione una gasolinera --</option>
-            ${getGasolinerasOptions()}
-            </select>
-            <div class="modal-buttons">
-            <button id="cancel-selection">Cancelar</button>
-            <button id="confirm-selection" class="confirm-btn">Confirmar</button>
-            </div>
-        `;
+    modalContent.innerHTML = `
+        <h2>Seleccionar Gasolinera</h2>
+        <select id="gasolinera-selector">
+        <option value="">-- Seleccione una gasolinera --</option>
+        ${getGasolinerasOptions()}
+        </select>
+        <div class="modal-buttons">
+        <button id="cancel-selection">Cancelar</button>
+        <button id="confirm-selection" class="confirm-btn">Confirmar</button>
+        </div>
+    `;
         
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
 
-        const cancelButton = document.getElementById("cancel-selection");
-        cancelButton.addEventListener("click", function() {
-            closeModal(modal);
-        });
+    const cancelButton = document.getElementById("cancel-selection");
+    cancelButton.addEventListener("click", function() {
+        closeModal(modal);
+    });
 
-
-        modal.style.display = "block";
-    }
-        
+    const confirmButton = document.getElementById("confirm-selection");
+    confirmButton.addEventListener("click", function() {
+    const selectedGasolinera = document.getElementById("gasolinera-selector").value;
+    if (selectedGasolinera) {
+        addGasolineraToQueue(selectedGasolinera);
+        closeModal(modal);
+    } else {
+        alert("Por favor, seleccione una gasolinera.");
+    }});
+  
     modal.style.display = "block";
 }
   
@@ -129,6 +134,10 @@ function closeModal(modal) {
     } else {
         console.error("Error");
     }
+}
+
+function addGasolineraToQueue(gasolineraName) {
+    alert(`La gasolinera ${gasolineraName} se ha agregado a la cola.`);
 }
 
 
