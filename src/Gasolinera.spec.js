@@ -39,4 +39,9 @@ describe("Gasolinera", () => {
         const gasolinera = new Gasolinera(20000, 40000, "El Cristo");
         expect(gasolinera.addFuel(10000)).toEqual(30000);
     });
+
+    it("Deberia devolver la capacidad del surtidor si el tamaño de la cisterna mas mi stock actual es mayor", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo");
+        expect(gasolinera.addFuel(30000)).toEqual(40000);
+    });
 });
