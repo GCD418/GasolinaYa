@@ -200,6 +200,17 @@ class ModGasolineras {
         return this.gasolineras.size;
 
     }
+
+    async addFuel(gasolineraName, liters) {
+        const gasolinera = this.gasolineras.get(gasolineraName);
+        await this.updateGasolinera(
+            gasolineraName,
+            gasolinera.getFuelLiters() + liters,
+            gasolinera.getTotalCapacity()
+        );
+        gasolinera.addFuel(liters);
+        return gasolinera.getFuelLiters();
+    }
     
 };
 
