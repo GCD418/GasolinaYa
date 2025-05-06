@@ -4,3 +4,11 @@
 .form_container{
     margin-top: 20px;
 }
+
+a {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}

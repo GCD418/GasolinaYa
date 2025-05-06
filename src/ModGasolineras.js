@@ -132,6 +132,7 @@ class ModGasolineras {
         return this.gasolineras.size;
 
     }
+    
 };
 
 export default ModGasolineras;

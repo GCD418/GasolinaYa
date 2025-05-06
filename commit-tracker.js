@@ -149,4 +149,3 @@ try {
   console.error('Error en el script de seguimiento de commits:', error);
   process.exit(1);
 }
-

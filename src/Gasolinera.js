@@ -21,6 +21,12 @@ class Gasolinera {
     getName() {
         return this.name;
     }
+    addFuel(extraLiters) {
+        this.liters += extraLiters;
+        if (this.liters > this.capacity) {
+            this.liters = this.capacity;
+        }
+    }
 
 }
 
