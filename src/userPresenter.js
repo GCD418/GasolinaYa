@@ -1,5 +1,5 @@
 import ModGasolineras from "./ModGasolineras.js";
-import calculate_waiting_time from "./user_queue.js";
+import { setupQueueFunctionality } from "./queueManager.js";
 
 const modGasolineras = new ModGasolineras();
 
@@ -7,7 +7,7 @@ async function initializeApp() {
     await modGasolineras.ready();
     
     renderServiceStatioTable();
-    AddToQueueButton();
+    setupQueueFunctionality(modGasolineras);
 }
 
 
@@ -74,6 +74,7 @@ function getColorForPercentage(percent) {
     }
 }
 
+/*
 function AddToQueueButton() {
     const addToQueueButton = document.querySelector("#add_queue_button"); 
     addToQueueButton.addEventListener("click", showGasolineraSelector);
@@ -161,11 +162,6 @@ async function addGasolineraQueue(gasolineraName) {
         alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
     }
 }
+*/
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    initializeApp();
-    const addToQueueButton = document.querySelector("#add_queue_button");
-    addToQueueButton.addEventListener("click", () => {
-        });
-});
+document.addEventListener("DOMContentLoaded", initializeApp);
