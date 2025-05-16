@@ -15,15 +15,13 @@ function renderServiceStatioTable() {
     const container = document.querySelector("#service_stations_container");
     if (!container) return;
 
-    const gasolineras = modGasolineras.getGasolineras();
-    
     let tableHTML = createTableWithHeader();
     
+    const gasolineras = modGasolineras.getGasolineras();
     gasolineras.forEach((gasolinera) => {
-        const percent = gasolinera.getFuelPercent();
-        let colorClass = '';
-        
+        const percent = gasolinera.getFuelPercent().toFixed(2);
         const colorStyle = getColorForPercentage(percent);
+        let colorClass = '';
         colorClass = `background-color: ${colorStyle.backgroundColor}; color: ${colorStyle.textColor};`;
         
         tableHTML += `
@@ -31,7 +29,7 @@ function renderServiceStatioTable() {
                 <td>${gasolinera.getName()}</td>
                 <td>${gasolinera.getFuelLiters()} L</td>
                 <td>${gasolinera.getTotalCapacity()} L</td>
-                <td style="${colorClass}">${percent.toFixed(2)}%</td>
+                <td style="${colorClass} text-align: right">${percent}%</td>
             </tr>
         `;
     });
@@ -62,7 +60,6 @@ function getColorForPercentage(percent) {
         };
     }
 }
-
 
 function createTableWithHeader(){
     let tableHTML = `
