@@ -17,18 +17,7 @@ function renderServiceStatioTable() {
 
     const gasolineras = modGasolineras.getGasolineras();
     
-    let tableHTML = `
-        <table border="1" class="gasolineras-table">
-            <thead>
-                <tr>
-                    <th>Gasolinera</th>
-                    <th>Combustible Actual [Lt]</th>
-                    <th>Capacidad Total [Lt]</th>
-                    <th>Porcentaje de combustible</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+    let tableHTML = createTableWithHeader();
     
     gasolineras.forEach((gasolinera) => {
         const percent = gasolinera.getFuelPercent();
@@ -72,6 +61,23 @@ function getColorForPercentage(percent) {
             textColor: 'white'
         };
     }
+}
+
+
+function createTableWithHeader(){
+    let tableHTML = `
+        <table border="1" class="gasolineras-table">
+            <thead>
+                <tr>
+                    <th>Gasolinera</th>
+                    <th>Combustible Actual [Lt]</th>
+                    <th>Capacidad Total [Lt]</th>
+                    <th>Porcentaje de combustible</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+   return tableHTML;
 }
 
 /*
