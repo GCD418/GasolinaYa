@@ -1,4 +1,4 @@
-import calculate_waiting_time from "./user_queue.js";
+import { calculate_waiting_time } from "./user_queue.js";
 
 export function setupQueueFunctionality(modGasolineras) {
     const addToQueueButton = document.querySelector("#add_queue_button");

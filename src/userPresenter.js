@@ -1,6 +1,6 @@
 import ModGasolineras from "./ModGasolineras.js";
 import { setupQueueFunctionality } from "./queueManager.js";
-import calculate_waiting_time from "./user_queue.js";
+import { calculate_waiting_time, estimate_fuel_load } from "./user_queue.js";
 
 const modGasolineras = new ModGasolineras();
 
@@ -26,6 +26,7 @@ function renderServiceStatioTable() {
         colorClass = `background-color: ${colorStyle.backgroundColor}; color: ${colorStyle.textColor};`;
         
         let waiting_time = calculate_waiting_time(gasolinera.getQueueCount());
+        let possibility = estimate_fuel_load(gasolinera.getFuelLiters(), gasolinera.getQueueCount());
         tableHTML += `
             <tr>
                 <td>${gasolinera.getName()}</td>
@@ -34,6 +35,7 @@ function renderServiceStatioTable() {
                 <td style="${colorClass} text-align: right">${percent}%</td>
                 <td style="${colorClass} text-align: right">${gasolinera.getQueueCount()}</td>
                 <td style="${colorClass} text-align: right">${waiting_time}</td>
+                <td style="text-align: center">${possibility}</td>
             </tr>
         `;
     });
@@ -76,6 +78,7 @@ function createTableWithHeader(){
                     <th>Porcentaje de combustible</th>
                     <th>Autos en fila</th>
                     <th>Tiempo de espera [min]</th>
+                    <th>Posibilidad de cargar</th>
                 </tr>
             </thead>
             <tbody>
