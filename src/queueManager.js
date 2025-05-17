@@ -18,26 +18,14 @@ function showGasolineraSelector(modGasolineras) {
         return;
     }
     
-    const modalContent = `
-        <h2>Seleccionar Gasolinera</h2>
-        <select id="gasolinera-selector">
-            <option value="">-- Seleccione una gasolinera --</option>
-            ${getGasolinerasOptions(modGasolineras)}
-        </select>
-        <div class="modal-buttons">
-            <button id="cancel-selection">Cancelar</button>
-            <button id="confirm-selection" class="confirm-btn">Confirmar</button>
-        </div>
-    `;
-    
-    const modal = showModal("gasolinera-selection-modal", modalContent);
-    
-    const cancelButton = document.getElementById("cancel-selection");
+    const modal = createModal();
+
+    const cancelButton = modal.querySelector("#cancel-selection");
     cancelButton.addEventListener("click", () => closeModal(modal));
-    
-    const confirmButton = document.getElementById("confirm-selection");
+
+    const confirmButton = modal.querySelector("#confirm-selection");
     confirmButton.addEventListener("click", () => {
-        const selectedGasolinera = document.getElementById("gasolinera-selector").value;
+        const selectedGasolinera = modal.querySelector("#gasolinera-selector").value;
         if (selectedGasolinera) {
             addGasolineraQueue(selectedGasolinera, modGasolineras);
             closeModal(modal);
@@ -56,22 +44,35 @@ function getGasolinerasOptions(modGasolineras) {
 }
 
 
-function showModal(id, content) {
+function createModal(){
     let modal = document.createElement("div");
-    modal.id = id;
+    modal.id = "gasolinera-selection-modal";
     modal.className = "modal";
     
-    const modalContent = document.createElement("div");
-    modalContent.className = "modal-content";
-    modalContent.innerHTML = content;
-    
+    const modalContent = createModalContent();
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
-    
     modal.style.display = "block";
     
     return modal;
 }
+
+function createModalContent() {
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+    modalContent.innerHTML = `
+        <h2>Seleccionar Gasolinera</h2>
+        <select id="gasolinera-selector">
+            <option value="">-- Seleccione una gasolinera --</option>
+            ${getGasolinerasOptions(modGasolineras)}
+        </select>
+        <div class="modal-buttons">
+            <button id="cancel-selection">Cancelar</button>
+            <button id="confirm-selection" class="confirm-btn">Confirmar</button>
+        </div>
+    `;
+}
+
 
 function closeModal(modal) {
     if (modal) {
