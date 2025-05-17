@@ -7,6 +7,9 @@ describe("Agregar en la fila", () => {
   it("deberia estimar si tiene posibilidad de cargar combustible", () => {
     expect(estimate_fuel_load(100, 2)).toEqual("Si");
   });
+  it("deberia estimar si tiene posibilidad de cargar combustible", () => {
+    expect(estimate_fuel_load(110, 3)).toEqual("No");
+  });
 });
 
 
