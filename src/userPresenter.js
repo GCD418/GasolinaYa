@@ -30,6 +30,7 @@ function renderServiceStatioTable() {
                 <td>${gasolinera.getFuelLiters()} L</td>
                 <td>${gasolinera.getTotalCapacity()} L</td>
                 <td style="${colorClass} text-align: right">${percent}%</td>
+                <td style="${colorClass} text-align: right">${gasolinera.getQueueCount()}</td>
             </tr>
         `;
     });
@@ -70,6 +71,7 @@ function createTableWithHeader(){
                     <th>Combustible Actual [Lt]</th>
                     <th>Capacidad Total [Lt]</th>
                     <th>Porcentaje de combustible</th>
+                    <th>Autos en fila</th>
                 </tr>
             </thead>
             <tbody>
