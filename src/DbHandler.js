@@ -14,14 +14,20 @@ class DbHandler {
         appId: "1:889672025448:web:5f89df42bdf09ce31602dd"
     };
     app = null;
+    db = null;
 
 
     constructor() {
         this.app = initializeApp(this.firebaseconfig);
+        this.db = getFirestore(this.app);
     }
 
     getDb() {
-        return getFirestore(this.app);
+        return this.db;
+    }
+
+    async getQuerySnapshot(collectionName) {
+        return await getDocs(collection(this.db, collectionName));
     }
 };
 

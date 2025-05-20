@@ -121,31 +121,20 @@ class ModGasolineras {
     }
 
     async loadFromFirestore() {
-        try {
-            const querySnapshot = await getDocs(collection(this.#db, "gasolineras"));
-            if (querySnapshot.empty) {
-                console.log("No se encontraron gasolineras en Firestore. Insertando datos de prueba...");
-                await this.insertFakeData();
-                return true;
+        const querySnapshot = await this.dbHandler.getQuerySnapshot("gasolineras");
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const gasolinera = new Gasolinera(
+                data.fuelLiters,
+                data.totalCapacity,
+                data.name
+            );
+            if (data.queueCount !== undefined) {
+                gasolinera.setQueueCount(data.queueCount);
             }
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const gasolinera = new Gasolinera(
-                    data.fuelLiters,
-                    data.totalCapacity,
-                    data.name
-                );
-                if (data.queueCount !== undefined) {
-                    gasolinera.setQueueCount(data.queueCount);
-                }
-                this.gasolineras.set(data.name, gasolinera);
-            });
-
-            return true;
-        } catch (e) {
-            console.error("Error loading data from Firestore:", e);
-            return false;
-        }
+            this.gasolineras.set(data.name, gasolinera);
+        });
+        return true;
     }
 
 

@@ -10,5 +10,9 @@ describe("Firestore database Handler", () => {
         expect(typeof dbHandler.getDb()).toEqual("object");
     });
 
+    it("Debería devolver el query snapshot de la BD", async() => {
+        const dbHandler = new DbHandler();
+        expect(typeof (await dbHandler.getQuerySnapshot("gasolineras"))).toEqual("object");
+    });
 
 });
