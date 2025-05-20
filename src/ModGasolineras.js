@@ -20,11 +20,7 @@ class ModGasolineras {
         this.gasolineras = new Map();
 
         this.dbHandler = new DbHandler();
-
-        const firebaseconfig = this.dbHandler.firebaseconfig;
-
-        const app = initializeApp(firebaseconfig);
-        this.#db = getFirestore(app);
+        this.#db = this.dbHandler.getDb();
 
         this.#readyPromise = this.loadFromFirestore();
     }   
