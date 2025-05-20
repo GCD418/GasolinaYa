@@ -4,11 +4,13 @@ import {
   getDoc, getDocs, updateDoc, query
 } from 'firebase/firestore';
 
+import DbHandler from './DbHandler.js';
 import Gasolinera from './Gasolinera.js';
 class ModGasolineras {
     static instance = null;
     #db = null;
     #readyPromise = null;
+    dbHandler = null;
 
     constructor() {
         if (ModGasolineras.instance) {
@@ -17,14 +19,9 @@ class ModGasolineras {
         ModGasolineras.instance = this;
         this.gasolineras = new Map();
 
-        const firebaseconfig = {
-            apiKey: "AIzaSyB1Txz13AY002WmXTD7oTQPMowt346rQMA",
-            authDomain: "gasolinaya-ccg-ucb.firebaseapp.com",
-            projectId: "gasolinaya-ccg-ucb",
-            storageBucket: "gasolinaya-ccg-ucb.firebasestorage.app",
-            messagingSenderId: "889672025448",
-            appId: "1:889672025448:web:5f89df42bdf09ce31602dd"
-        };
+        this.dbHandler = new DbHandler();
+
+        const firebaseconfig = this.dbHandler.firebaseconfig;
 
         const app = initializeApp(firebaseconfig);
         this.#db = getFirestore(app);
