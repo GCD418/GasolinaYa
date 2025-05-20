@@ -38,11 +38,6 @@ describe("Gasolinera", () => {
         }
     });
 
-    it("Debería conectarse correctamente a la BD y devolver un mensaje", () => {
-        const gasolineras = new ModGasolineras();
-        expect(gasolineras.reviewDbConnection()).toEqual("Conexión exitosa");
-    });
-
     it("Debería insertar los datos desde la base de datos", async () => {
         const gasolineras = new ModGasolineras();
         gasolineras.gasolineras.clear();

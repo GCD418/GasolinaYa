@@ -36,13 +36,6 @@ class ModGasolineras {
         return this.#readyPromise;
     }
 
-    reviewDbConnection(){
-        if (this.#db){
-            return "Conexión exitosa"
-        }
-        return "Conexión fallida"
-    }
-
     async addGasolinera(gasolinera) {
         this.gasolineras.set(gasolinera.getName(), gasolinera);
         
