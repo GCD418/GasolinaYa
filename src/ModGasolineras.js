@@ -39,7 +39,7 @@ class ModGasolineras {
                 totalCapacity: gasolinera.getTotalCapacity()
             });
         } catch (e) {
-            console.error("Error adding gasolinera to Firestore:", e);
+            // console.error("Error adding gasolinera to Firestore:", e);
         }
         
         return this.gasolineras.size;
@@ -57,7 +57,7 @@ class ModGasolineras {
             });
         } 
         catch (e) {
-            console.error("Error updating gasolinera in Firestore:", e);
+            // console.error("Error updating gasolinera in Firestore:", e);
         }
         
         this.gasolineras.set(gasolineraName, new Gasolinera(liters, capacity, gasolineraName));
@@ -67,7 +67,7 @@ class ModGasolineras {
     async updateQueueCount(gasolineraName, change) {
         const gasolinera = this.gasolineras.get(gasolineraName);
         if (!gasolinera) {
-            console.error(`Gasolinera ${gasolineraName} no encontrada para actualizar cola`);
+            // console.error(`Gasolinera ${gasolineraName} no encontrada para actualizar cola`);
             return false;
         }
         
@@ -85,10 +85,10 @@ class ModGasolineras {
             await updateDoc(doc(this.#db, "gasolineras", gasolineraName), {
             queueCount: newCount
             });
-            console.log(`Cola para ${gasolineraName} es: ${newCount}`);
+            // console.log(`Cola para ${gasolineraName} es: ${newCount}`);
             return true;
         } catch (e) {
-            console.error("Error updating queue count in Firestore:", e);
+            // console.error("Error updating queue count in Firestore:", e);
             gasolinera.setQueueCount(currentCount); 
             return false;
         }
