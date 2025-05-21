@@ -13,6 +13,9 @@ class Usuario{
     getConTicket(){
         return this.conTicket;
     }
+    setEnFila(nombreGasolinera){
+        this.enFila = nombreGasolinera;
+    }
 }
 
 export default Usuario;

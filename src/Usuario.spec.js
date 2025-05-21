@@ -12,5 +12,10 @@ describe("Usuario", () => {
         const usuario = new Usuario("XYZ123");
         expect(usuario.getConTicket()).toEqual(null);
     });
+    it("Deberia devolver el nombre de la E.S. que esta en fila", () => {
+        const usuario = new Usuario("XYZ123");
+        usuario.setEnFila("EstacionDePrueba");
+        expect(usuario.getEnFila()).toEqual("EstacionDePrueba");
+    });
 });
 
