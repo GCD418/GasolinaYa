@@ -65,4 +65,9 @@ describe("Gasolinera", () => {
         const updateValue = Math.floor(Math.random() * 90000);
         expect(gasolinera.setHosesNumber(updateValue)).toEqual(updateValue);
     });
+
+    it("Deberia devolver 0 mangueras disponibles cuando la cantidad indicada es menor a 0", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo", 5);
+        expect(gasolinera.setHosesNumber(-30)).toEqual(0);
+    });
 });

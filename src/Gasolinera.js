@@ -14,6 +14,9 @@ class Gasolinera {
 
     setHosesNumber(hosesNumber) {
         this.hosesNumber = hosesNumber;
+        if (hosesNumber < 0) {
+            this.hosesNumber = 0;
+        }
         return this.hosesNumber;
     }
 
