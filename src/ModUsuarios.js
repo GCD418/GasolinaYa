@@ -49,7 +49,9 @@ class ModUsuarios {
         return Promise.resolve(true);
     }
 
-
+    getUsuario(placa) {
+        return this.usuarios.get(placa);
+    }
 
 }
 

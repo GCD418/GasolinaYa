@@ -13,4 +13,11 @@ describe("ModUsuarios", () => {
         const usuarios = new ModUsuarios();
         expect(await usuarios.addUsuario(new Usuario("ABC123"))).toBeGreaterThan(0);
     });
+
+    it("Deberia devolver el usuario en funcion de la placa", () => {
+        const usuarios = new ModUsuarios();
+        const usuario = new Usuario("ABC123");
+        usuarios.addUsuario(usuario);
+        expect(usuarios.getUsuario("ABC123")).toEqual(usuario);
+    });
 });
