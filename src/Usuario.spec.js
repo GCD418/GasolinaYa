@@ -17,5 +17,10 @@ describe("Usuario", () => {
         usuario.setEnFila("EstacionDePrueba");
         expect(usuario.getEnFila()).toEqual("EstacionDePrueba");
     });
+    it("Deberia devolver el nombre de la E.S. que tiene reserva", () => {
+        const usuario = new Usuario("XYZ123");
+        usuario.setConTicket("EstacionDePrueba");
+        expect(usuario.getConTicket()).toEqual("EstacionDePrueba");
+    });
 });
-
+    
