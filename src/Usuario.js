@@ -10,7 +10,9 @@ class Usuario{
     getEnFila(){
         return this.enFila;
     }
-    
+    getConTicket(){
+        return this.conTicket;
+    }
 }
 
 export default Usuario;
