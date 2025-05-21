@@ -98,4 +98,12 @@ describe("Gasolinera", () => {
         await gasolineras.decrementQueueCount("GasolineraDePrueba");
         expect(gasolineras.getGasolinera("GasolineraDePrueba").getQueueCount()).toEqual(0);
     });
+
+    it("Debería agregar la cantidad de combustible a la capacidad actual", async () => {
+        const gasolineras = new ModGasolineras();
+        const gasolinera = gasolineras.getGasolinera("GasolineraDePrueba");
+        const fuelAvailable = gasolinera.getFuelLiters();
+        await gasolineras.addFuel("GasolineraDePrueba", 666);
+        expect(gasolineras.getGasolinera("GasolineraDePrueba").getFuelLiters()).toEqual(fuelAvailable + 666);
+    });
 });
