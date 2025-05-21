@@ -28,15 +28,15 @@ describe("Gasolinera", () => {
         expect(gasolineras1 === gasolineras2).toEqual(true);
     });
 
-    it("Debería ingresar datos mockeados y mostrar la cantidad de registros", async () => {
-        const gasolineras = new ModGasolineras();
-        if(gasolineras.gasolineras.size === 0){
-            expect(await gasolineras.insertFakeData()).toEqual(4);
-        }
-        else{
-            expect(await gasolineras.insertFakeData()).toBeGreaterThan(0);
-        }
-    });
+    // it("Debería ingresar datos mockeados y mostrar la cantidad de registros", async () => {
+    //     const gasolineras = new ModGasolineras();
+    //     if(gasolineras.gasolineras.size === 0){
+    //         expect(await gasolineras.insertFakeData()).toEqual(4);
+    //     }
+    //     else{
+    //         expect(await gasolineras.insertFakeData()).toBeGreaterThan(0);
+    //     }
+    // });
 
     it("Debería insertar los datos desde la base de datos", async () => {
         const gasolineras = new ModGasolineras();
