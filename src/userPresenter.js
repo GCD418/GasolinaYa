@@ -10,10 +10,27 @@ async function initializeApp() {
     await modGasolineras.ready();
     await modUsuarios.ready();
 
-    renderServiceStatioTable();
+    createQueueButton();
     setupQueueFunctionality(modGasolineras, modUsuarios);
+    renderServiceStatioTable();
 }
 
+function createQueueButton() {
+    const container = document.querySelector("#service_stations_container");
+    if (!container) return;
+    
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "queue-button-container";
+
+    const addToQueueButton = document.createElement("button");
+    addToQueueButton.id = "add_queue_button";
+    addToQueueButton.className = "btn btn-primary";
+    addToQueueButton.textContent = "Registrarse en Cola";
+
+    buttonContainer.appendChild(addToQueueButton);
+    
+    container.insertBefore(buttonContainer, container.firstChild);
+}
 
 function renderServiceStatioTable() {
     const container = document.querySelector("#service_stations_container");
@@ -48,7 +65,10 @@ function renderServiceStatioTable() {
         </table>
     `;
     
-    container.innerHTML = tableHTML;
+    const tableContainer = document.createElement("div");
+    tableContainer.className = "table-container";
+    tableContainer.innerHTML = tableHTML;
+    container.appendChild(tableContainer);
 }
 
 function getColorForPercentage(percent) {

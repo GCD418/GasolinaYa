@@ -36,3 +36,60 @@ a {
 #queue_button:hover {
     background-color: rgba(69,160,73,1);
 }
+
+.queue-button-container {
+    margin-bottom: 20px;
+}
+
+
+
+
+.popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 400px;
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .popup select, .popup button {
+            transition: all 0.2s ease;
+        }
+        
+        .popup select:hover, .popup button:hover {
+            transform: scale(1.02);
+        }
+        
+        .popup button {
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 8px 15px;
+        }
+        
+        .popup button:active {
+            transform: scale(0.98);
+        }
+        
+        .popup select {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+        
+        .popup .confirm-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
