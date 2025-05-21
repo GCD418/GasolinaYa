@@ -16,4 +16,8 @@ describe("abandonarfila", () => {
   it("debería permitir abandonar si está en fila y el selector no está visible", () => {
     expect(can_abandon_queue({ isInQueue: true, isSelectorVisible: false })).toBe(true);
   });
+  
+  it("no debería permitir abandonar si no está en fila", () => {
+    expect(can_abandon_queue({ isInQueue: false, isSelectorVisible: false })).toBe(false);
+  });
 });
