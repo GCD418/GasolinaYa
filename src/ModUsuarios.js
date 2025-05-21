@@ -24,7 +24,19 @@ class ModUsuarios {
     async ready() {
         return this.#readyPromise;
     }
+    async addUsuario(usuario) {
+        this.usuarios.set(usuario.getPlaca(), usuario);
 
+        const document = {
+            placa: usuario.getPlaca(),
+            enFila: usuario.getEnFila(),
+            conTicket: usuario.getConTicket()
+        };
+
+        this.dbHandler.setDocument("usuarios", usuario.getPlaca(), document);
+
+        return this.usuarios.size;
+    }
     
 
     async loadFromFirestore() {
