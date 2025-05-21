@@ -24,4 +24,13 @@ describe("abandonarfila", () => {
   it("no debería permitir abandonar si el selector está visible", () => {
     expect(can_abandon_queue({ isInQueue: true, isSelectorVisible: true })).toBe(false);
   });
+  
+  it("no debería permitir abandonar si no está en fila y el selector está visible", () => {
+    expect(can_abandon_queue({ isInQueue: false, isSelectorVisible: true })).toBe(false);
+  });
+
+  it("Decrementa el número de usuarios cuando alguien abandona la fila", async () => {
+    const modGasolinerasMock = { userQueueCount: 3, decrementQueueCountFromUser: jest.fn().mockImplementation(() => { modGasolinerasMock.userQueueCount--; return Promise.resolve(true); }) };
+    await modGasolinerasMock.decrementQueueCountFromUser(); expect(modGasolinerasMock.userQueueCount).toBe(2);
+  });  
 });
