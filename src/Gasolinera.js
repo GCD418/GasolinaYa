@@ -12,6 +12,11 @@ class Gasolinera {
         return this.hosesNumber;
     }
 
+    setHosesNumber(hosesNumber) {
+        this.hosesNumber = hosesNumber;
+        return this.hosesNumber;
+    }
+
     getFuelLiters() {
         return this.liters;
     }

@@ -59,4 +59,10 @@ describe("Gasolinera", () => {
         const gasolinera = new Gasolinera(20000, 40000, "El Cristo", 5);
         expect(gasolinera.getHosesNumber()).toEqual(5);
     });
+
+    it("Deberia modificar la cantidad de mangueras disponibles en el surtidor", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo", 5);
+        const updateValue = Math.floor(Math.random() * 90000);
+        expect(gasolinera.setHosesNumber(updateValue)).toEqual(updateValue);
+    });
 });
