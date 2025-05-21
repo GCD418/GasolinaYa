@@ -44,7 +44,7 @@ class ModUsuarios {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const usuario = new Usuario(data.placa, data.enFila, data.conTicket);
-            this.usuarios.set(data.name, usuario);
+            this.usuarios.set(data.placa, usuario);
         });
         return Promise.resolve(true);
     }
