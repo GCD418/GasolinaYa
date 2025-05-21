@@ -8,7 +8,7 @@ export function setupQueueFunctionality(modGasolineras) {
         showGasolineraSelector(modGasolineras);
     });
 
-    const abandonQueueButton = document.querySelector("#queue_button1");
+    const abandonQueueButton = document.querySelector("#add_queue_button1");
     if (abandonQueueButton) {
         abandonQueueButton.addEventListener("click", () => {
             handleAbandonQueue(modGasolineras);
