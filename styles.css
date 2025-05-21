@@ -13,13 +13,13 @@ a {
     border-radius: 5px;
 }
 
-.queue_button{
+.queue_button, .queue_button1{
     padding-top: 20px;
     border-radius: 5px;
 }
 
-#add_queue_button {
-    background-color: rgba(76, 175, 80, 1);
+#add_queue_button, #add_queue_button1 {
+    background-color: red;
     color: white;
     border: none;
     padding: 12px 24px;
@@ -29,10 +29,6 @@ a {
     transition: background-color 0.3s;
 }
 
-#queue_button a{
+#queue_button a, #queue_button1 a{
     border-radius: 5px;
-}
-
-#queue_button:hover {
-    background-color: rgba(69,160,73,1);
 }

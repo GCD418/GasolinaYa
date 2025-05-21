@@ -1,4 +1,4 @@
-import { calculate_waiting_time } from "./user_queue.js";
+import { calculate_waiting_time, can_abandon_queue } from "./user_queue.js";
 
 export function setupQueueFunctionality(modGasolineras) {
     const addToQueueButton = document.querySelector("#add_queue_button");
@@ -7,6 +7,13 @@ export function setupQueueFunctionality(modGasolineras) {
     addToQueueButton.addEventListener("click", () => {
         showGasolineraSelector(modGasolineras);
     });
+
+    const abandonQueueButton = document.querySelector("#queue_button1");
+    if (abandonQueueButton) {
+        abandonQueueButton.addEventListener("click", () => {
+            handleAbandonQueue(modGasolineras);
+        });
+    }
 }
 
 function showGasolineraSelector(modGasolineras) {
@@ -102,4 +109,46 @@ async function addGasolineraQueue(gasolineraName, modGasolineras) {
         console.error(`Error al agregar a la cola: ${error}`);
         alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
     }
+}
+
+function handleAbandonQueue(modGasolineras) {
+    const isInQueue = modGasolineras.isUserInQueue();
+    const isSelectorVisible = document.querySelector("#gasolinera-selection-modal")?.style.display === "block";
+
+    if (!can_abandon_queue({ isInQueue, isSelectorVisible })) {
+        alert("No puedes abandonar la fila ahora. Verifica que estás en una fila y que el selector no esté abierto.");
+        return;
+    }
+
+    showConfirmAbandonModal(modGasolineras);
+}
+
+function showConfirmAbandonModal(modGasolineras) {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.innerHTML = `
+        <div class="modal-content">
+            <p>¿Estás seguro que deseas abandonar la fila?</p>
+            <div class="modal-buttons">
+                <button id="cancel-abandon">Cancelar</button>
+                <button id="confirm-abandon">Sí, abandonar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById("cancel-abandon").onclick = () => modal.remove();
+
+    document.getElementById("confirm-abandon").onclick = async () => {
+        const userGasolinera = modGasolineras.getUserGasolinera();
+        if (!userGasolinera) {
+            alert("No estás registrado en ninguna fila.");
+            modal.remove();
+            return;
+        }
+
+        await modGasolineras.unregisterUserFromQueue();
+        modal.remove();
+        alert(`Has abandonado la fila de ${userGasolinera}.`);
+    };
 }

@@ -11,6 +11,8 @@ class ModGasolineras {
     #db = null;
     #readyPromise = null;
     dbHandler = null;
+    #userCurrentGasolinera = null;
+
 
     constructor() {
         if (ModGasolineras.instance) {
@@ -162,7 +164,32 @@ class ModGasolineras {
         gasolinera.addFuel(liters);
         return gasolinera.getFuelLiters();
     }
+
+    async registerUserToQueue(gasolineraName) {
+        const result = await this.incrementQueueCount(gasolineraName);
+        if (result) {
+            this.#userCurrentGasolinera = gasolineraName;
+        }
+        return result;
+    }
     
+    async unregisterUserFromQueue() {
+        if (this.#userCurrentGasolinera === null) return false;
+    
+        const result = await this.decrementQueueCount(this.#userCurrentGasolinera);
+        if (result) {
+            this.#userCurrentGasolinera = null;
+        }
+        return result;
+    }
+    
+    isUserInQueue() {
+        return this.#userCurrentGasolinera !== null;
+    }
+    
+    getUserGasolinera() {
+        return this.#userCurrentGasolinera;
+    }    
 };
 
 export default ModGasolineras;

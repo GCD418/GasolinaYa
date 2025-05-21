@@ -1,4 +1,4 @@
-import { calculate_waiting_time, estimate_fuel_load } from "./user_queue";
+import { calculate_waiting_time, estimate_fuel_load, can_abandon_queue } from "./user_queue";
 
 describe("Agregar en la fila", () => {
   it("deberia calcular el tiempo de espera", () => {
@@ -12,4 +12,8 @@ describe("Agregar en la fila", () => {
   });
 });
 
-
+describe("abandonarfila", () => {
+  it("debería permitir abandonar si está en fila y el selector no está visible", () => {
+    expect(can_abandon_queue({ isInQueue: true, isSelectorVisible: false })).toBe(true);
+  });
+});

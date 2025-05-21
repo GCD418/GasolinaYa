@@ -8,4 +8,8 @@
         return fuel_liters >= total_fuel_needed ? "Si" : "No";
     }
 
-    export { calculate_waiting_time, estimate_fuel_load };
+function can_abandon_queue({ isInQueue, isSelectorVisible }) {
+    return isInQueue && !isSelectorVisible;
+}    
+
+    export { calculate_waiting_time, estimate_fuel_load, can_abandon_queue };
