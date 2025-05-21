@@ -22,5 +22,17 @@ describe("Usuario", () => {
         usuario.setConTicket("EstacionDePrueba");
         expect(usuario.getConTicket()).toEqual("EstacionDePrueba");
     });
+    it("Deberia devolver null cuando no esta en fila", () => {
+        const usuario = new Usuario("XYZ123");
+        usuario.setEnFila("EstacionDePrueba");
+        usuario.setEnFila(null);
+        expect(usuario.getEnFila()).toEqual(null);
+    });
+    it("Deberia devolver null cuando no tiene reserva", () => {
+        const usuario = new Usuario("XYZ123");
+        usuario.setConTicket("EstacionDePrueba");
+        usuario.setConTicket(null);
+        expect(usuario.getConTicket()).toEqual(null);
+    });
 });
     
