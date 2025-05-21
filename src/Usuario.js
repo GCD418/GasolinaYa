@@ -7,6 +7,10 @@ class Usuario{
     getPlaca(){
         return this.placa;
     }
+    getEnFila(){
+        return this.enFila;
+    }
+    
 }
 
 export default Usuario;
