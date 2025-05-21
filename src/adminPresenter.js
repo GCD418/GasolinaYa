@@ -8,6 +8,7 @@ const button_update_liters = document.getElementById("update_liters");
 const result_div = document.getElementById("result");
 const liter_capacity_input = document.getElementById("liter_capacity_input");
 const name_input = document.getElementById("name_input");
+const hoses_input = document.getElementById("hoses_input");
 const form = document.getElementById("liters_form");
 const form_container = document.getElementById("liters_form_container");
 let gasolinera = null;
@@ -56,7 +57,7 @@ form.addEventListener("submit", (event) => {
         return;
     }
     
-    gasolinera = new Gasolinera(liters, literCapacity, name);
+    gasolinera = new Gasolinera(liters, literCapacity, name, hoses_input.value);
     gasolineras.addGasolinera(gasolinera);
     showInformation();
 });
