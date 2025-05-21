@@ -166,7 +166,6 @@ function updateColorBasedOnPercentCapacity(percent){
 }
 
 function populateSelect(){
-    gasolineras.insertFakeData();
     const gasolinerasMap = gasolineras.getGasolineras();
     for (const [key, value] of gasolinerasMap) {
         const option = document.createElement("option");

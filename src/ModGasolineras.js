@@ -127,7 +127,7 @@ class ModGasolineras {
             }
             this.gasolineras.set(data.name, gasolinera);
         });
-        return true;
+        return Promise.resolve(true);
     }
 
 
