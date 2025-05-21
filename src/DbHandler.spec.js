@@ -15,4 +15,15 @@ describe("Firestore database Handler", () => {
         expect(typeof (await dbHandler.getQuerySnapshot("gasolineras"))).toEqual("object");
     });
 
+    it("Debería devolver true después de insertar el documento en la DB", async() => {
+        const dbHandler = new DbHandler();
+        const document = {
+            name: "GasolineraDePrueba",
+            fuelLiters: 1000,
+            totalCapacity: 50000
+        };
+        const result = await dbHandler.setDocument("gasolineras", "GasolineraDePrueba", document);
+        expect(result).toBeTruthy();
+    });
+
 });

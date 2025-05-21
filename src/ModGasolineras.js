@@ -32,16 +32,14 @@ class ModGasolineras {
     async addGasolinera(gasolinera) {
         this.gasolineras.set(gasolinera.getName(), gasolinera);
         
-        try {
-            await setDoc(doc(this.#db, "gasolineras", gasolinera.getName()), {
-                name: gasolinera.getName(),
-                fuelLiters: gasolinera.getFuelLiters(),
-                totalCapacity: gasolinera.getTotalCapacity()
-            });
-        } catch (e) {
-            // console.error("Error adding gasolinera to Firestore:", e);
-        }
-        
+        const document = {
+            name: gasolinera.getName(),
+            fuelLiters: gasolinera.getFuelLiters(),
+            totalCapacity: gasolinera.getTotalCapacity()
+        };
+
+        this.dbHandler.setDocument("gasolineras", gasolinera.getName(), document);
+       
         return this.gasolineras.size;
     }
 

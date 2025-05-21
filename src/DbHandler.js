@@ -29,6 +29,11 @@ class DbHandler {
     async getQuerySnapshot(collectionName) {
         return await getDocs(collection(this.db, collectionName));
     }
+
+    async setDocument(collectionName, documentName, document) {
+        await setDoc(doc(this.db, collectionName, documentName), document);
+        return true;
+    }
 };
 
 export default DbHandler;
