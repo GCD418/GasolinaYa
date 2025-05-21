@@ -26,4 +26,14 @@ describe("Firestore database Handler", () => {
         expect(result).toBeTruthy();
     });
 
+    it("Debería devolver true después de actualizar el documento", async() => {
+        const dbHandler = new DbHandler();
+        const document = {
+            fuelLiters: 9870,
+            totalCapacity: 50000
+        };
+        const result = await dbHandler.updateDocument("gasolineras", "GasolineraDePrueba", document);
+        expect(result).toBeTruthy();
+    });
+
 });

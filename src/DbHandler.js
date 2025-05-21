@@ -34,6 +34,11 @@ class DbHandler {
         await setDoc(doc(this.db, collectionName, documentName), document);
         return true;
     }
+
+    async updateDocument(collectionName, documentName, document) {
+        await updateDoc(doc(this.db, collectionName, documentName), document);
+        return true;
+    }
 };
 
 export default DbHandler;
