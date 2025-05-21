@@ -1,12 +1,28 @@
 import { calculate_waiting_time } from "./user_queue.js";
 
-export function setupQueueFunctionality(modGasolineras) {
+
+
+export function setupQueueFunctionality(modGasolineras, modUsuarios) {
     const addToQueueButton = document.querySelector("#add_queue_button");
     if (!addToQueueButton) return;
     
     addToQueueButton.addEventListener("click", () => {
+        showUsuarioSelector(modUsuarios);
         showGasolineraSelector(modGasolineras);
     });
+}
+
+function showUsuarioSelector(modUsuarios) {
+    let existingModal = document.querySelector("#usuario-selection-modal");
+    if (existingModal) {
+        existingModal.style.display = "block";
+        return;
+    }
+
+    const modal = createUsuarioModal(modUsuarios);
+
+    const confirmButton = modal.querySelector("#confirm-selection");
+    confirmButton.addEventListener("click", () => confirmUsuarioSelection(modUsuarios));   
 }
 
 function showGasolineraSelector(modGasolineras) {
@@ -33,7 +49,50 @@ function getGasolinerasOptions(modGasolineras) {
     }).join("");
 }
 
-
+function createUsuarioModal(modUsuarios) {
+    let modal = document.createElement("div");
+    modal.id = "usuario-selection-modal";
+    modal.className = "modal";
+    const modalContent = createUsuarioModalContent(modUsuarios);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    modal.style.display = "block";
+    return modal;
+}
+function createUsuarioModalContent(modUsuarios) {
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+    modalContent.innerHTML = `
+        <h2>Seleccionar Placa de vehiculo</h2>
+        <select id="usuario-selector">
+            <option value="">-- Seleccione una placa --</option>
+            ${getUsuariosOptions(modUsuarios)}
+        </select>
+        <div class="modal-buttons">
+            <button id="cancel-selection">Cancelar</button>
+            <button id="confirm-selection" class="confirm-btn">Confirmar</button>
+        </div>
+    `;
+    return modalContent;
+}
+function getUsuariosOptions(modUsuarios) {
+    const usuarios = Array.from(modUsuarios.getUsuarios().values());
+    return usuarios.map(usuario => {
+        return `<option value="${usuario.getPlaca()}">${usuario.getPlaca()}</option>`;
+    }).join("");
+}
+function confirmUsuarioSelection(modUsuarios) {
+    const selectedUsuario = document.querySelector("#usuario-selector").value;
+    if (selectedUsuario) {
+        const usuario = modUsuarios.getUsuario(selectedUsuario);
+        if (!usuario) {
+            console.error(`Usuario ${selectedUsuario} no encontrado`);
+            alert(`Error: Usuario ${selectedUsuario} no encontrado`);
+            return;
+        }
+        // Aquí puedes manejar la selección del usuario y la gasolinera
+    }
+}
 function createModal(modGasolineras){
     let modal = document.createElement("div");
     modal.id = "gasolinera-selection-modal";

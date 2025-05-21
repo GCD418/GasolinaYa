@@ -1,14 +1,17 @@
 import ModGasolineras from "./ModGasolineras.js";
+import ModUsuarios from "./ModUsuarios.js";
 import { setupQueueFunctionality } from "./queueManager.js";
 import { calculate_waiting_time, estimate_fuel_load } from "./user_queue.js";
 
 const modGasolineras = new ModGasolineras();
+const modUsuarios = new ModUsuarios();
 
 async function initializeApp() {
     await modGasolineras.ready();
-    
+    await modUsuarios.ready();
+
     renderServiceStatioTable();
-    setupQueueFunctionality(modGasolineras);
+    setupQueueFunctionality(modGasolineras, modUsuarios);
 }
 
 
