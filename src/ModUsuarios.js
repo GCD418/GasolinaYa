@@ -53,6 +53,10 @@ class ModUsuarios {
         return this.usuarios.get(placa);
     }
 
+    getUsuarios() {
+        return this.usuarios;
+    }
+
 }
 
 export default ModUsuarios;

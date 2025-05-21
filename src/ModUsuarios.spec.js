@@ -16,8 +16,18 @@ describe("ModUsuarios", () => {
 
     it("Deberia devolver el usuario en funcion de la placa", () => {
         const usuarios = new ModUsuarios();
+        const usuario = new Usuario("AAA123");
+        usuarios.addUsuario(usuario);
+        expect(usuarios.getUsuario("AAA123")).toEqual(usuario);
+    });
+
+    it("Deberia devolver un tipo de dato resultante de una instancia de Map", () => {
+        const usuarios = new ModUsuarios();
         const usuario = new Usuario("ABC123");
         usuarios.addUsuario(usuario);
-        expect(usuarios.getUsuario("ABC123")).toEqual(usuario);
+        expect(usuarios.getUsuarios() instanceof Map).toEqual(true);
     });
+
+
+    
 });
