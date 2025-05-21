@@ -33,4 +33,18 @@ describe("ModUsuarios", () => {
         expect(await usuarios.updateUsuario("EsteUsuarioNoExiste")).toBeFalsy();
     });
 
+    it("Debería cambiar el estado de enFila", async () => {
+        const usuarios = new ModUsuarios();
+        const usuario = new Usuario("ABC123");
+        await usuarios.addUsuario(usuario);
+        await usuarios.updateUsuario("ABC123", "GasolineraPrueba");
+        expect(usuarios.getUsuario("ABC123").getEnFila()).toEqual("GasolineraPrueba");
+    });
+    it("Debería cambiar el estado de conTicket", async () => {
+        const usuarios = new ModUsuarios();
+        const usuario = new Usuario("ABC123");
+        await usuarios.addUsuario(usuario);
+        await usuarios.updateUsuario("ABC123", null, null);
+        expect(usuarios.getUsuario("ABC123").getConTicket()).toEqual(null);
+    });
 });
