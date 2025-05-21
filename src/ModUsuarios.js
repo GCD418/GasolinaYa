@@ -57,6 +57,18 @@ class ModUsuarios {
         return this.usuarios;
     }
 
+    async updateUsuario(placa, enFila = null, conTicket = null) {
+        if (this.usuarios.get(placa) === undefined) {
+            return Promise.resolve(false);
+        }
+
+        await this.dbHandler.updateDocument("usuarios", placa, {
+            enFila: enFila,
+            conTicket: conTicket
+        });
+
+        this.usuarios.set(placa, new Usuario(placa, enFila, conTicket));
+    }
 }
 
 export default ModUsuarios;

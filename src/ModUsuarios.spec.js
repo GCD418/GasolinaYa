@@ -28,6 +28,9 @@ describe("ModUsuarios", () => {
         expect(usuarios.getUsuarios() instanceof Map).toEqual(true);
     });
 
+    it("Debería mostrar error cuando se intenta actualizar un usuario que no existe", async () => {
+        const usuarios = new ModUsuarios();
+        expect(await usuarios.updateUsuario("EsteUsuarioNoExiste")).toBeFalsy();
+    });
 
-    
 });
