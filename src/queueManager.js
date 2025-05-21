@@ -12,6 +12,7 @@ export function setupQueueFunctionality(modGasolineras, modUsuarios) {
     });
 }
 
+
 function showUsuarioSelector(modUsuarios, modGasolineras) {
     let existingModal = document.querySelector("#usuario-selection-modal");
     if (existingModal) {
@@ -28,30 +29,6 @@ function showUsuarioSelector(modUsuarios, modGasolineras) {
     cancelButton.addEventListener("click", () => closeModal(modal));
 }
 
-function showGasolineraSelector(modGasolineras) {
-    let existingModal = document.querySelector("#gasolinera-selection-modal");
-    if (existingModal) {
-        existingModal.style.display = "block";
-        return;
-    }
-    
-    const modal = createModal(modGasolineras);
-
-    const cancelButton = modal.querySelector("#cancel-selection");
-    cancelButton.addEventListener("click", () => closeModal(modal));
-
-    const confirmButton = modal.querySelector("#confirm-selection");
-    confirmButton.addEventListener("click", () => confirmGasolineraSelection(modGasolineras));   
-}
-
-
-function getGasolinerasOptions(modGasolineras) {
-    const gasolineras = Array.from(modGasolineras.getGasolineras().values());
-    return gasolineras.map(gasolinera => {
-        return `<option value="${gasolinera.getName()}">${gasolinera.getName()}</option>`;
-    }).join("");
-}
-
 function createUsuarioModal(modUsuarios, modGasolineras) {
     let modal = document.createElement("div");
     modal.id = "usuario-selection-modal";
@@ -62,6 +39,7 @@ function createUsuarioModal(modUsuarios, modGasolineras) {
     modal.style.display = "block";
     return modal;
 }
+
 function createUsuarioModalContent(modUsuarios, modGasolineras) {
     console.log("Usuarios disponibles:", modUsuarios.getUsuarios().size);
     const modalContent = document.createElement("div");
@@ -79,6 +57,7 @@ function createUsuarioModalContent(modUsuarios, modGasolineras) {
     `;
     return modalContent;
 }
+
 function getUsuariosOptions(modUsuarios, modGasolineras) {
     const usuarios = Array.from(modUsuarios.getUsuarios().values());
     return usuarios.map(usuario => {
@@ -105,8 +84,27 @@ function confirmUsuarioSelection(modUsuarios, modGasolineras) {
     }
 
     closeModal(document.querySelector("#usuario-selection-modal"));
-    showGasolineraSelector(modGasolineras);
-            
+    showGasolineraSelector(modGasolineras, usuario, modUsuarios);
+}
+
+
+
+
+
+function showGasolineraSelector(modGasolineras, usuarioSelected, modUsuarios) {
+    let existingModal = document.querySelector("#gasolinera-selection-modal");
+    if (existingModal) {
+        existingModal.style.display = "block";
+        return;
+    }
+
+    const modal = createModal(modGasolineras);
+
+    const cancelButton = modal.querySelector("#cancel-selection");
+    cancelButton.addEventListener("click", () => closeModal(modal));
+
+    const confirmButton = modal.querySelector("#confirm-selection");
+    confirmButton.addEventListener("click", () => confirmGasolineraSelection(modGasolineras, usuarioSelected, modUsuarios));   
 }
 
 function createModal(modGasolineras){
@@ -139,26 +137,44 @@ function createModalContent(modGasolineras) {
     return modalContent;
 }
 
-
-function closeModal(modal) {
-    if (modal) {
-        modal.style.display = "none";
-    } else {
-        console.error("Error: No se pudo cerrar el modal");
-    }
+function getGasolinerasOptions(modGasolineras) {
+    const gasolineras = Array.from(modGasolineras.getGasolineras().values());
+    return gasolineras.map(gasolinera => {
+        return `<option value="${gasolinera.getName()}">${gasolinera.getName()}</option>`;
+    }).join("");
 }
 
-function confirmGasolineraSelection(modGasolineras) {
+function confirmGasolineraSelection(modGasolineras, usuarioSelected, modUsuarios) {
     const selectedGasolinera = document.querySelector("#gasolinera-selector").value;
     if (selectedGasolinera) {
-        addGasolineraQueue(selectedGasolinera, modGasolineras);
+        addGasolineraQueue(selectedGasolinera, modGasolineras, usuarioSelected);
+        addUsuarioQueueGasolinera(usuarioSelected.getPlaca(), selectedGasolinera, modUsuarios);
+        closeModal(document.querySelector("#gasolinera-selection-modal"));
     } else {
         alert("Por favor, seleccione una gasolinera.");
     }
 }
 
+async function addUsuarioQueueGasolinera(placa, gasolineraName, modUsuarios) {
+    try {
+        const usuario = modUsuarios.getUsuario(placa);
+        if (!usuario) {
+            console.error(`Usuario ${placa} no encontrado`);
+            alert(`Error: Usuario ${placa} no encontrado`);
+            return;
+        }
+        console.log("Usuario encontrado:", usuario);
+        console.log("Gasolinera seleccionada:", gasolineraName);
+        usuario.setEnFila(gasolineraName);
+        await modUsuarios.updateUsuario(placa, gasolineraName, null);
+    }
+    catch (error) {
+        console.error(`Error al agregar a la cola: ${error}`);
+        alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
+    }
+}
 
-async function addGasolineraQueue(gasolineraName, modGasolineras) {
+async function addGasolineraQueue(gasolineraName, modGasolineras, modUsuarios) {
     try {
         const gasolinera = modGasolineras.getGasolinera(gasolineraName);
         if (!gasolinera) {
@@ -171,10 +187,19 @@ async function addGasolineraQueue(gasolineraName, modGasolineras) {
         await modGasolineras.incrementQueueCount(gasolineraName);
         const aheadOf = queueBefore;
         
+        
         let waiting_time = calculate_waiting_time(aheadOf);
         alert(`Te has registrado exitosamente en la cola de ${gasolineraName}. Hay ${aheadOf} persona(s) delante de ti. El tiempo de espera aproximado de espera es ${waiting_time} minutos.`);
     } catch (error) {
         console.error(`Error al agregar a la cola: ${error}`);
         alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
+    }
+}
+
+function closeModal(modal) {
+    if (modal) {
+        modal.style.display = "none";
+    } else {
+        console.error("Error: No se pudo cerrar el modal");
     }
 }
