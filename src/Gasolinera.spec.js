@@ -49,4 +49,9 @@ describe("Gasolinera", () => {
         const gasolinera = new Gasolinera(20000, 40000, "El Cristo");
         expect(gasolinera.addFuel(30000)).toEqual(40000);
     });
+
+    it("Deberia devolver la cantidad de mangueras funcionando del surtidor", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo");
+        expect(gasolinera.getHosesNumber()).toEqual(1);
+    });
 });
