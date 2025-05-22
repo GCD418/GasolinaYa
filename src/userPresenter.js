@@ -42,8 +42,6 @@ function renderServiceStatioTable() {
     gasolineras.forEach((gasolinera) => {
         const percent = gasolinera.getFuelPercent().toFixed(2);
         const colorStyle = getColorForPercentage(percent);
-        //let colorClass = '';
-        //colorClass = `background-color: ${colorStyle.backgroundColor}; color: ${colorStyle.textColor};`;
         
         let waiting_time = calculate_waiting_time(gasolinera.getQueueCount());
         let possibility = estimate_fuel_load(gasolinera.getFuelLiters(), gasolinera.getQueueCount());
@@ -72,26 +70,7 @@ function renderServiceStatioTable() {
     tableContainer.innerHTML = tableHTML;
     container.appendChild(tableContainer);
 }
-/*
-function getColorForPercentage(percent) {
-    if (percent === 0) {
-        return {
-            backgroundColor: 'red',
-            textColor: 'white'
-        };
-    } else if (percent <= 20) {
-        return {
-            backgroundColor: 'yellow',
-            textColor: 'black'
-        };
-    } else {
-        return {
-            backgroundColor: 'green',
-            textColor: 'white'
-        };
-    }
-}
-*/
+
 function createTableWithHeader(){
     let tableHTML = `
         <table border="1" class="gasolineras-table">
@@ -146,6 +125,5 @@ document.addEventListener('tableUpdateRequired', async (event) => {
         renderServiceStatioTable();
     }
 });
-
 
 document.addEventListener("DOMContentLoaded", initializeApp);
