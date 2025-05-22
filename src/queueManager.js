@@ -216,14 +216,13 @@ export function setupQueueFunctionality(modGasolineras, modUsuarios) {
     
     addToQueueButton.addEventListener("click", () => {
         showQueuePopup(modUsuarios, modGasolineras);
-    });
+    }); 
 }
 
 function showQueuePopup(modUsuarios, modGasolineras) {
     let existingPopup = document.querySelector("#queue-popup");
     if (existingPopup) {
-        existingPopup.style.display = "block";
-        return;
+            existingPopup.remove();
     }
 
     const popup = createPopup(modUsuarios, modGasolineras);
@@ -286,6 +285,7 @@ async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
     
     try {
         await addUsuarioToGasolineraQueue(selectedPlaca, selectedGasolinera, modUsuarios, modGasolineras);
+        
         closePopup(popup);
         
         const updateEvent = new CustomEvent('tableUpdateRequired', {
@@ -365,14 +365,13 @@ function createPopupContent(popup, modUsuarios, modGasolineras) {
             <button id="cancel-popup">Cancelar</button>
             <button id="confirm-placa" class="confirm-btn">Continuar</button>
             <button id="confirm-queue" class="confirm-btn" style="display: none;">Confirmar</button>
-        </div>
-    `;
+        </div>`;
    return popup;
 }
 
 function closePopup(popup) {
     if (popup) {
-        popup.style.display = "none";
+       popup.remove();
     }
 }
 
