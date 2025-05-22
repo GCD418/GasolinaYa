@@ -13,6 +13,9 @@ describe("Agregar en la fila", () => {
   it("deberia cambiar el tiempo de espera cuando se tiene más de una manguera disponible en la E.S.", () => {
     expect(calculate_waiting_time(5, 5)).toEqual(1);
   });
+  it("deberia cambiar el tiempo de espera cuando se tienen más mangueras que autos en la fila", () => {
+    expect(calculate_waiting_time(5, 9)).toEqual(0);
+  });
 });
 
 
