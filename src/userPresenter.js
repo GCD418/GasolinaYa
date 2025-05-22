@@ -133,4 +133,29 @@ function getColorForPercentage(percent) {
     }
 }
 
+document.addEventListener('tableUpdateRequired', async (event) => {
+    console.log('Actualizando tabla por:', event.detail);
+
+    const container = document.querySelector("#service_stations_container");
+    if (container) {
+        const existingTableContainer = container.querySelector(".table-container");
+        if (existingTableContainer) {
+            existingTableContainer.remove();
+        }
+
+        renderServiceStatioTable();
+    }
+});
+
+function refreshTable() {
+    const container = document.querySelector("#service_stations_container");
+    if (container) {
+        const existingTableContainer = container.querySelector(".table-container");
+        if (existingTableContainer) {
+            existingTableContainer.remove();
+        }
+        renderServiceStatioTable();
+    }
+}
+
 document.addEventListener("DOMContentLoaded", initializeApp);

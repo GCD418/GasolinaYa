@@ -287,6 +287,15 @@ async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
         await addUsuarioToGasolineraQueue(selectedPlaca, selectedGasolinera, modUsuarios, modGasolineras);
         closePopup(popup);
         
+        const updateEvent = new CustomEvent('tableUpdateRequired', {
+            detail: { 
+                type: 'queueUpdate',
+                placa: selectedPlaca,
+                gasolinera: selectedGasolinera
+            }
+        });
+        document.dispatchEvent(updateEvent);
+
         const container = document.querySelector("#service_stations_container");
         if (container) {
             const event = new CustomEvent('updateGasolineraTable');
