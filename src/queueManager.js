@@ -317,7 +317,7 @@ async function addUsuarioToGasolineraQueue(placa, gasolineraName, modUsuarios, m
     usuario.setEnFila(gasolineraName);
     await modUsuarios.updateUsuario(placa, gasolineraName, null);
     
-    let waiting_time = calculate_waiting_time(aheadOf);
+    let waiting_time = calculate_waiting_time(aheadOf, gasolinera.getHosesNumber());
 
     alert(`Te has registrado exitosamente en la cola de ${gasolineraName}. Hay ${aheadOf} persona(s) delante de ti. El tiempo de espera aproximado es ${waiting_time} minutos.`);
     
