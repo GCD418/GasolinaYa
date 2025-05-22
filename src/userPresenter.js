@@ -43,7 +43,7 @@ function renderServiceStatioTable() {
         const percent = gasolinera.getFuelPercent().toFixed(2);
         const colorStyle = getColorForPercentage(percent);
         
-        let waiting_time = calculate_waiting_time(gasolinera.getQueueCount());
+        let waiting_time = calculate_waiting_time(gasolinera.getQueueCount(), gasolinera.getHosesNumber());
         let possibility = estimate_fuel_load(gasolinera.getFuelLiters(), gasolinera.getQueueCount());
         tableHTML += `
             <tr>

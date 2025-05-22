@@ -8,6 +8,7 @@ const button_update_liters = document.getElementById("update_liters");
 const result_div = document.getElementById("result");
 const liter_capacity_input = document.getElementById("liter_capacity_input");
 const name_input = document.getElementById("name_input");
+const hoses_input = document.getElementById("hoses_input");
 const form = document.getElementById("liters_form");
 const form_container = document.getElementById("liters_form_container");
 let gasolinera = null;
@@ -56,7 +57,7 @@ form.addEventListener("submit", (event) => {
         return;
     }
     
-    gasolinera = new Gasolinera(liters, literCapacity, name);
+    gasolinera = new Gasolinera(liters, literCapacity, name, Number.parseInt(hoses_input.value));
     gasolineras.addGasolinera(gasolinera);
     showInformation();
 });
@@ -74,6 +75,7 @@ select_gasolinera.addEventListener("change", (event) => {
         liter_quantity_input.value = selectedGasolinera.getFuelLiters();
         liter_capacity_input.value = selectedGasolinera.getTotalCapacity();
         name_input.value = selectedGasolinera.getName();
+        hoses_input.value = selectedGasolinera.getHosesNumber();
         form_container.classList.remove("hidden");
         gasolinera = selectedGasolinera;
         showInformation();
@@ -105,6 +107,7 @@ function setupEventListeners(){
         const liters = Number.parseInt(liter_quantity_input.value);
         const literCapacity = Number.parseInt(liter_capacity_input.value);
         const name = name_input.value;
+        const hosesInput = Number.parseInt(hoses_input.value);
         
         if(liters < 0){
             alert("La cantidad de litros no puede ser negativa");
@@ -119,7 +122,7 @@ function setupEventListeners(){
             return;
         }
         
-        gasolinera = new Gasolinera(liters, literCapacity, name);
+        gasolinera = new Gasolinera(liters, literCapacity, name, hosesInput);
         //gasolineras.addGasolinera(gasolinera);
         gasolineras.updateGasolinera(gasolinera.getName(), gasolinera.getFuelLiters(), gasolinera.getTotalCapacity());
         showInformation();
@@ -138,6 +141,7 @@ function setupEventListeners(){
             liter_quantity_input.value = selectedGasolinera.getFuelLiters();
             liter_capacity_input.value = selectedGasolinera.getTotalCapacity();
             name_input.value = selectedGasolinera.getName();
+            hoses_input.value = selectedGasolinera.getHosesNumber();
             form_container.classList.remove("hidden");
             gasolinera = selectedGasolinera;
             showInformation();

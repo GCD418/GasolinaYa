@@ -49,4 +49,25 @@ describe("Gasolinera", () => {
         const gasolinera = new Gasolinera(20000, 40000, "El Cristo");
         expect(gasolinera.addFuel(30000)).toEqual(40000);
     });
+
+    it("Deberia devolver la cantidad de mangueras funcionando del surtidor", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo");
+        expect(gasolinera.getHosesNumber()).toEqual(1);
+    });
+
+    it("Deberia devolver la cantidad de mangueras disponibles indicadas", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo", 5);
+        expect(gasolinera.getHosesNumber()).toEqual(5);
+    });
+
+    it("Deberia modificar la cantidad de mangueras disponibles en el surtidor", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo", 5);
+        const updateValue = Math.floor(Math.random() * 90000);
+        expect(gasolinera.setHosesNumber(updateValue)).toEqual(updateValue);
+    });
+
+    it("Deberia devolver 0 mangueras disponibles cuando la cantidad indicada es menor a 0", () => {
+        const gasolinera = new Gasolinera(20000, 40000, "El Cristo", 5);
+        expect(gasolinera.setHosesNumber(-30)).toEqual(0);
+    });
 });

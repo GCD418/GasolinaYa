@@ -1,5 +1,5 @@
-    function calculate_waiting_time(queue_count) {
-        return 5 * queue_count; // 5 minutos por cada auto en la cola
+    function calculate_waiting_time(queue_count, hoses_number = 1) {
+        return 5 * Math.max(0,((queue_count - (hoses_number - 1)) / hoses_number)); // 5 minutos por cada auto en la cola
     }
 
     function estimate_fuel_load(fuel_liters, queue_count) {
