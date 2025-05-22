@@ -208,6 +208,8 @@ function closeModal(modal) {
 
 import { calculate_waiting_time } from "./user_queue.js";
 
+let currentPlaca = null;
+
 export function setupQueueFunctionality(modGasolineras, modUsuarios) {
     const addToQueueButton = document.querySelector("#add_queue_button");
     if (!addToQueueButton) return;
@@ -265,7 +267,6 @@ function confirmPlacaSelection(popup, modUsuarios, modGasolineras) {
     const usuario = modUsuarios.getUsuario(selectedPlaca);
     if (usuario.getEnFila() !== null) {
         alert(`El usuario ${selectedPlaca} ya está en la cola de ${usuario.getEnFila()}`);
-        
         return;
     }
 
@@ -301,6 +302,10 @@ async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
             const event = new CustomEvent('updateGasolineraTable');
             document.dispatchEvent(event);
         }
+
+        currentUserPlaca = selectedPlaca;
+        updatePlacaLabel(selectedPlaca);
+
     } catch (error) {
         console.error(`Error al agregar a la cola: ${error}`);
         alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
@@ -370,3 +375,28 @@ function closePopup(popup) {
         popup.style.display = "none";
     }
 }
+
+function updatePlacaLabel(placa) {
+    const buttonContainer = document.querySelector(".queue-button-container");
+    if (!buttonContainer) return;
+    
+    const existingLabel = buttonContainer.querySelector(".placa-label");
+    if (existingLabel) {
+        existingLabel.remove();
+    }
+
+    const placaLabel = document.createElement("div");
+    placaLabel.className = "placa-label";
+    placaLabel.innerHTML = `<span class="placa-text">${placa} en fila</span>`;
+    
+    buttonContainer.appendChild(placaLabel);
+}
+
+/*
+function clearPlacaLabel() {
+    const existingLabel = document.querySelector(".placa-label");
+    if (existingLabel) {
+        existingLabel.remove();
+    }
+    currentUserPlaca = null;
+}*/
