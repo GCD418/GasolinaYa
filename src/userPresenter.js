@@ -42,8 +42,8 @@ function renderServiceStatioTable() {
     gasolineras.forEach((gasolinera) => {
         const percent = gasolinera.getFuelPercent().toFixed(2);
         const colorStyle = getColorForPercentage(percent);
-        let colorClass = '';
-        colorClass = `background-color: ${colorStyle.backgroundColor}; color: ${colorStyle.textColor};`;
+        //let colorClass = '';
+        //colorClass = `background-color: ${colorStyle.backgroundColor}; color: ${colorStyle.textColor};`;
         
         let waiting_time = calculate_waiting_time(gasolinera.getQueueCount());
         let possibility = estimate_fuel_load(gasolinera.getFuelLiters(), gasolinera.getQueueCount());
@@ -52,12 +52,14 @@ function renderServiceStatioTable() {
                 <td>${gasolinera.getName()}</td>
                 <td>${gasolinera.getFuelLiters()} L</td>
                 <td>${gasolinera.getTotalCapacity()} L</td>
-                <td style="${colorClass} text-align: right">${percent}%</td>
-                <td style="${colorClass} text-align: right">${gasolinera.getQueueCount()}</td>
-                <td style="${colorClass} text-align: right">${waiting_time}</td>
-                <td style="text-align: center">${possibility}</td>
-            </tr>
-        `;
+                <td>
+                    <span>${percent}%</span>
+                    <span class="fuel-indicator ${colorStyle.ledClass}"></span>
+                </td>
+                <td>${gasolinera.getQueueCount()}</td>
+                <td>${waiting_time}</td>
+                <td>${possibility}</td>
+            </tr>`;
     });
     
     tableHTML += `
@@ -70,7 +72,7 @@ function renderServiceStatioTable() {
     tableContainer.innerHTML = tableHTML;
     container.appendChild(tableContainer);
 }
-
+/*
 function getColorForPercentage(percent) {
     if (percent === 0) {
         return {
@@ -89,7 +91,7 @@ function getColorForPercentage(percent) {
         };
     }
 }
-
+*/
 function createTableWithHeader(){
     let tableHTML = `
         <table border="1" class="gasolineras-table">
@@ -107,6 +109,28 @@ function createTableWithHeader(){
             <tbody>
     `;
    return tableHTML;
+}
+
+function getColorForPercentage(percent) {
+    if (percent === 0) {
+        return {
+            backgroundColor: 'red',
+            textColor: 'white',
+            ledClass: 'empty'
+        };
+    } else if (percent <= 20) {
+        return {
+            backgroundColor: 'yellow',
+            textColor: 'black',
+            ledClass: 'low'
+        };
+    } else {
+        return {
+            backgroundColor: 'green',
+            textColor: 'white',
+            ledClass: 'good'
+        };
+    }
 }
 
 document.addEventListener("DOMContentLoaded", initializeApp);
