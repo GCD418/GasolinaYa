@@ -1,5 +1,7 @@
 import Gasolinera from "./Gasolinera";
 import ModGasolineras from "./ModGasolineras";
+import ModUsuarios from "./ModUsuarios.js";
+
 
 const name_fuel_station = document.querySelector("h1");
 const select_gasolinera = document.getElementById("select_gasolinera");
@@ -16,6 +18,10 @@ const gasolineras = new ModGasolineras();
 
 const cisterna_liters_input = document.getElementById("cisterna_liters_input");
 const register_cistern_button = document.getElementById("register_cistern_button");
+const viewQueueBtn = document.getElementById("view_queue_btn");
+const queueContainer = document.getElementById("queue_container");
+const queueList = document.getElementById("queue_list");
+
 
 
 async function initializeElements(){
@@ -23,7 +29,7 @@ async function initializeElements(){
     await gasolineras.ready();
 
     populateSelect();
-
+    
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     if(!liter_quantity_input.value){
@@ -85,6 +91,43 @@ select_gasolinera.addEventListener("change", (event) => {
 
 
     setupEventListeners();
+
+    //
+    const users = new ModUsuarios();
+    await users.ready();
+    //
+
+    viewQueueBtn.addEventListener("click", () => {
+        if (!gasolinera) {
+            alert("Primero selecciona una gasolinera.");
+            return;
+        }
+    
+        const stationName = gasolinera.getName();
+        const usuarios = Array.from(users.getUsuarios().values());
+    
+        const placasEnFila = usuarios
+            .filter(user => user.getEnFila() === stationName)
+            .map(user => user.getPlaca());
+    
+        queueList.innerHTML = "";
+    
+        if (placasEnFila.length === 0) {
+            queueList.innerHTML = "<li>No hay autos en la fila</li>";
+        } else {
+            placasEnFila.forEach(placa => {
+                const li = document.createElement("li");
+                li.textContent = placa;
+                queueList.appendChild(li);
+            });
+        }
+    
+        queueContainer.classList.remove("hidden");
+    });
+    
+    
+
+
 }
 
 function setupEventListeners(){
@@ -228,3 +271,4 @@ register_cistern_button.addEventListener("click", async (event) => {
 document.addEventListener("DOMContentLoaded", () => {
     initializeElements();
 });
+
