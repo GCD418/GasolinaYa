@@ -1,17 +1,28 @@
 import { getPlacasEnFila } from "./GestionColas";
+import ModUsuarios from "./ModUsuarios";
+import Usuario from "./Usuario";
 
 describe("Gestión de colas - SP2.5", () => {
-  it("debería retornar placas en fila para una gasolinera específica", () => {
-    const usuarios = [
-      { placa: "AAA111", enFila: "Cristo" },
-      { placa: "BBB222", enFila: "Cristo" },
-      { placa: "CCC333", enFila: "Manantial" },
-      { placa: "DDD444", enFila: null },
-    ];
+  it("debería retornar placas en fila para una gasolinera específica", async () => {
+    const modUsuarios = new ModUsuarios();
+    modUsuarios.usuarios.clear(); // Limpiar datos previos (evita interferencias)
 
-    const resultadoCristo = getPlacasEnFila("Cristo", usuarios);
-    const resultadoManantial = getPlacasEnFila("Manantial", usuarios);
-    const resultadoVacio = getPlacasEnFila("NoExiste", usuarios);
+    // Crear instancias reales de Usuario
+    const u1 = new Usuario("AAA111", "El Cristo");
+    const u2 = new Usuario("BBB222", "El Cristo");
+    const u3 = new Usuario("CCC333", "Asunción");
+    const u4 = new Usuario("DDD444", null);
+
+    // Agregarlos al sistema
+    await modUsuarios.addUsuario(u1);
+    await modUsuarios.addUsuario(u2);
+    await modUsuarios.addUsuario(u3);
+    await modUsuarios.addUsuario(u4);
+
+    // Obtener resultado llamando a la función real
+    const resultadoCristo = getPlacasEnFila("El Cristo", modUsuarios);
+    const resultadoManantial = getPlacasEnFila("Asunción", modUsuarios);
+    const resultadoVacio = getPlacasEnFila("NoExiste", modUsuarios);
 
     expect(resultadoCristo).toEqual(["AAA111", "BBB222"]);
     expect(resultadoManantial).toEqual(["CCC333"]);

@@ -1,6 +1,5 @@
-export function getPlacasEnFila(nombreGasolinera, listaUsuarios) {
-    return listaUsuarios
-      .filter((u) => u.enFila === nombreGasolinera)
-      .map((u) => u.placa);
-  }
-  
+export function getPlacasEnFila(nombreGasolinera, modUsuarios) {
+  return Array.from(modUsuarios.getUsuarios().values())
+    .filter(usuario => usuario.getEnFila() === nombreGasolinera)
+    .map(usuario => usuario.getPlaca());
+}
