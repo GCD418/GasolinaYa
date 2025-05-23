@@ -30,6 +30,7 @@
     "parcel": "^2.12.0"
   },
   "dependencies": {
+    "@stdlib/stats-base-dists-normal-cdf": "^0.2.2",
     "firebase": "^11.6.1",
     "parcel-jest-base": "file:"
   }
