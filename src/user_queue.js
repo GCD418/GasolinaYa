@@ -3,9 +3,11 @@
     }
 
     function estimate_fuel_load(fuel_liters, queue_count) {
+        var cdf = require( '@stdlib/stats-base-dists-normal-cdf' );
         const fuel_per_car = 40.1; // Litros por auto
-        const total_fuel_needed = fuel_per_car * queue_count;
-        return fuel_liters >= total_fuel_needed ? "Si" : "No";
+        const fuel_charge_deviation = 25;
+        const probability_of_fueling = cdf(fuel_liters, fuel_per_car * queue_count, fuel_charge_deviation * queue_count);
+        return (probability_of_fueling * 100).toFixed(2);
     }
 
     export { calculate_waiting_time, estimate_fuel_load };
