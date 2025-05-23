@@ -7,7 +7,7 @@
         const fuel_per_car = 40.1; // Litros por auto
         const fuel_charge_deviation = 25;
         const probability_of_fueling = cdf(fuel_liters, fuel_per_car * queue_count, fuel_charge_deviation * queue_count);
-        return (probability_of_fueling * 100).toFixed(2);
+        return (probability_of_fueling * 100).toFixed(0);
     }
 
     export { calculate_waiting_time, estimate_fuel_load };
