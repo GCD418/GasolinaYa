@@ -86,6 +86,8 @@ select_gasolinera.addEventListener("change", (event) => {
         form_container.classList.remove("hidden");
         gasolinera = selectedGasolinera;
         showInformation();
+        queueContainer.classList.add("hidden");
+        queueList.innerHTML = "";
     }
 });
 
