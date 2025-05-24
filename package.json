@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "aggregate-error": "^5.0.0",
+    "@stdlib/stats-base-dists-normal-cdf": "^0.2.2",
     "firebase": "^11.6.1",
     "parcel-jest-base": "file:"
   }

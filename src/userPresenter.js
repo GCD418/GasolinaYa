@@ -56,7 +56,7 @@ function renderServiceStatioTable() {
                 </td>
                 <td>${gasolinera.getQueueCount()}</td>
                 <td>${waiting_time}</td>
-                <td>${possibility}</td>
+                <td>${possibility}%</td>
             </tr>`;
     });
     

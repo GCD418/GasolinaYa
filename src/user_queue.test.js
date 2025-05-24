@@ -5,10 +5,10 @@ describe("Agregar en la fila", () => {
     expect(calculate_waiting_time(4)).toEqual(20);
   });
   it("deberia estimar si tiene posibilidad de cargar combustible", () => {
-    expect(estimate_fuel_load(100, 2)).toEqual("Si");
+    expect(estimate_fuel_load(100, 2)).toEqual("65");
   });
   it("deberia estimar si tiene posibilidad de cargar combustible", () => {
-    expect(estimate_fuel_load(110, 3)).toEqual("No");
+    expect(estimate_fuel_load(110, 3)).toEqual("45");
   });
   it("deberia cambiar el tiempo de espera cuando se tiene más de una manguera disponible en la E.S.", () => {
     expect(calculate_waiting_time(5, 5)).toEqual(1);
