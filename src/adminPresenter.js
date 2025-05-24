@@ -26,9 +26,9 @@ const queueList = document.getElementById("queue_list");
 
 
 async function initializeElements(){
-
+    viewQueueBtn.classList.add("hidden");
     await gasolineras.ready();
-
+    
     populateSelect();
     
 form.addEventListener("submit", (event) => {
@@ -89,6 +89,7 @@ select_gasolinera.addEventListener("change", (event) => {
         queueContainer.classList.add("hidden");
         queueList.innerHTML = "";
     }
+    viewQueueBtn.classList.remove("hidden");
 });
 
 
