@@ -43,3 +43,20 @@ describe("Gestión de colas - SP2.5", () => {
       expect(modUsuarios.getUsuario("AAA111").getEnFila()).toBe(null);
     });
   });
+
+  it("debería llamar a decrementQueueCount al remover de la fila", async () => {
+    const modUsuarios = new ModUsuarios();
+    modUsuarios.usuarios.clear();
+  
+    const mockGasolineras = {
+      decrementQueueCount: jest.fn().mockResolvedValue(true)
+    };
+  
+    const u1 = new Usuario("BBB222", "El Cristo");
+    await modUsuarios.addUsuario(u1);
+  
+    await removeFromQueue("BBB222", "El Cristo", modUsuarios, mockGasolineras);
+  
+    expect(mockGasolineras.decrementQueueCount).toHaveBeenCalledWith("El Cristo");
+  });
+  
