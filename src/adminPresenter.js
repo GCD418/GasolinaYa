@@ -1,6 +1,7 @@
 import Gasolinera from "./Gasolinera";
 import ModGasolineras from "./ModGasolineras";
 import ModUsuarios from "./ModUsuarios.js";
+import { removeFromQueue } from "./GestionColas.js";
 
 
 const name_fuel_station = document.querySelector("h1");
@@ -114,13 +115,23 @@ select_gasolinera.addEventListener("change", (event) => {
     
         if (placasEnFila.length === 0) {
             queueList.innerHTML = "<li>No hay autos en la fila</li>";
-        } else {
+        }  else {
             placasEnFila.forEach(placa => {
-                const li = document.createElement("li");
-                li.textContent = placa;
-                queueList.appendChild(li);
+              const li = document.createElement("li");
+              li.textContent = placa + " ";
+              
+              const btn = document.createElement("button");
+              btn.textContent = "Remover";
+              btn.addEventListener("click", async () => {
+                await removeFromQueue(placa, stationName, users, gasolineras);
+                li.remove(); // Quita visualmente
+                alert(`Placa ${placa} removida de la fila`);
+              });
+        
+              li.appendChild(btn);
+              queueList.appendChild(li);
             });
-        }
+          }
     
         queueContainer.classList.remove("hidden");
     });
