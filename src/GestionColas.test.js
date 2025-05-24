@@ -1,4 +1,4 @@
-import { getPlacasEnFila, removeFromQueue, confirmarCarguio } from "./GestionColas";  
+import { getPlacasEnFila, removeFromQueue, confirmFuelLoad } from "./GestionColas";  
 import ModUsuarios from "./ModUsuarios";
 import Usuario from "./Usuario";
 
@@ -75,7 +75,7 @@ describe("Gestión de colas - SP2.5", () => {
 
     expect(modUsuarios.getUsuario("ZZZ999").getEnFila()).toBe("Asunción");
 
-    await confirmarCarguio("ZZZ999", "Asunción", modUsuarios, modGasolineras);
+    await confirmFuelLoad("ZZZ999", "Asunción", modUsuarios, modGasolineras);
 
     expect(modUsuarios.getUsuario("ZZZ999").getEnFila()).toBe(null);
     });

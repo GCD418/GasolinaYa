@@ -13,7 +13,7 @@ export async function removeFromQueue(placa, gasolineraName, modUsuarios, modGas
     await modGasolineras.decrementQueueCount(gasolineraName);
   }
 }
-export async function confirmarCarguio(placa, gasolineraName, modUsuarios, modGasolineras) {
+export async function confirmFuelLoad(placa, gasolineraName, modUsuarios, modGasolineras) {
   const usuario = modUsuarios.getUsuario(placa);
   if (!usuario) return;
 
