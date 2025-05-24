@@ -126,6 +126,14 @@ select_gasolinera.addEventListener("change", (event) => {
                 await removeFromQueue(placa, stationName, users, gasolineras);
                 li.remove(); // Quita visualmente
                 alert(`Placa ${placa} removida de la fila`);
+                const usuarios = Array.from(users.getUsuarios().values());
+                const placasRestantes = usuarios
+                    .filter(user => user.getEnFila() === stationName)
+                    .map(user => user.getPlaca());
+
+                if (placasRestantes.length === 0) {
+                    queueList.innerHTML = "<li>No hay autos en la fila</li>";
+                }
               });
         
               li.appendChild(btn);
