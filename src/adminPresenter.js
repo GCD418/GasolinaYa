@@ -1,7 +1,7 @@
 import Gasolinera from "./Gasolinera";
 import ModGasolineras from "./ModGasolineras";
 import ModUsuarios from "./ModUsuarios.js";
-import { removeFromQueue } from "./GestionColas.js";
+import { confirmFuelLoad, removeFromQueue } from "./GestionColas.js";
 
 
 const name_fuel_station = document.querySelector("h1");
@@ -127,7 +127,7 @@ select_gasolinera.addEventListener("change", (event) => {
               btn.textContent = "Remover";
               btn.addEventListener("click", async () => {
                 await removeFromQueue(placa, stationName, users, gasolineras);
-                li.remove(); // Quita visualmente
+                li.remove();
                 alert(`Placa ${placa} removida de la fila`);
                 const usuarios = Array.from(users.getUsuarios().values());
                 const placasRestantes = usuarios
@@ -138,7 +138,37 @@ select_gasolinera.addEventListener("change", (event) => {
                     queueList.innerHTML = "<li>No hay autos en la fila</li>";
                 }
               });
-        
+                const btnCargar = document.createElement("button");
+                btnCargar.textContent = "Confirmar carguío";
+                btnCargar.addEventListener("click", async () => {
+                
+                const usuario = users.getUsuario(placa);
+                usuario.setEnFila(null);
+                await users.updateUsuario(placa, null, null);
+
+                
+                await confirmFuelLoad(placa, stationName, users, gasolineras);
+                gasolinera = gasolineras.getGasolinera(stationName);
+                liter_quantity_input.value = gasolinera.getFuelLiters();
+
+                li.remove();
+                alert(`Combustible cargado para placa ${placa}`);
+
+                const usuarios = Array.from(users.getUsuarios().values());
+                const placasRestantes = usuarios
+                    .filter(user => user.getEnFila() === stationName)
+                    .map(user => user.getPlaca());
+
+                if (placasRestantes.length === 0) {
+                    queueList.innerHTML = "<li>No hay autos en la fila</li>";
+                }
+
+                showInformation();
+                });
+
+                             
+
+              li.appendChild(btnCargar); 
               li.appendChild(btn);
               queueList.appendChild(li);
             });
@@ -267,17 +297,14 @@ register_cistern_button.addEventListener("click", async (event) => {
         return;
     }
 
-    // Actualizar localmente
     gasolinera.addFuel(cisternLiters);
 
-    // Actualizar Firestore usando updateGasolinera(nombre, litros, capacidad)
     await gasolineras.updateGasolinera(
         gasolineraName,
         gasolinera.getFuelLiters(),
         gasolinera.getTotalCapacity()
     );
 
-    // Refrescar campos en la interfaz
     liter_quantity_input.value = gasolinera.getFuelLiters();
     liter_capacity_input.value = gasolinera.getTotalCapacity();
     name_input.value = gasolinera.getName();

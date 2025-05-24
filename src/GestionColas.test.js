@@ -80,4 +80,29 @@ describe("Gestión de colas - SP2.5", () => {
     expect(modUsuarios.getUsuario("ZZZ999").getEnFila()).toBe(null);
     });
 
+
+    it("Deberían disminuir los litros de combustible de la gasolinera al confirmar la carga de combustible.", async () => {
+        const modUsuarios = new ModUsuarios();
+        modUsuarios.usuarios.clear();
+      
+        const mockGasolinera = {
+          getFuelLiters: () => 100,
+          getTotalCapacity: () => 500,
+          getHosesNumber: () => 2,
+          name: "Asunción"
+        };
+      
+        const modGasolineras = {
+          getGasolinera: () => mockGasolinera,
+          updateGasolinera: jest.fn()
+        };
+      
+        const u1 = new Usuario("YYY888", "Asunción");
+        await modUsuarios.addUsuario(u1);
+      
+        await confirmFuelLoad("YYY888", "Asunción", modUsuarios, modGasolineras);
+      
+        expect(modGasolineras.updateGasolinera).toHaveBeenCalledWith("Asunción", 60, 500); // 100 - 40
+      });
+      
   });
