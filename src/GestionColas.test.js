@@ -1,4 +1,4 @@
-import { getPlacasEnFila, removeFromQueue } from "./GestionColas";  
+import { getPlacasEnFila, removeFromQueue, confirmarCarguio } from "./GestionColas";  
 import ModUsuarios from "./ModUsuarios";
 import Usuario from "./Usuario";
 
@@ -60,3 +60,24 @@ describe("Gestión de colas - SP2.5", () => {
     expect(mockGasolineras.decrementQueueCount).toHaveBeenCalledWith("El Cristo");
   });
   
+  describe("Gestión de colas - SP2.5", () => {
+    it("debería eliminar la placa de la fila al confirmar carguío", async () => {
+    const modUsuarios = new ModUsuarios();
+    modUsuarios.usuarios.clear();
+
+    const modGasolineras = {
+        getGasolinera: () => ({ getFuelLiters: () => 100, getTotalCapacity: () => 500, getHosesNumber: () => 1 }),
+        updateGasolinera: jest.fn()
+    };
+
+    const u1 = new Usuario("ZZZ999", "Asunción");
+    await modUsuarios.addUsuario(u1);
+
+    expect(modUsuarios.getUsuario("ZZZ999").getEnFila()).toBe("Asunción");
+
+    await confirmarCarguio("ZZZ999", "Asunción", modUsuarios, modGasolineras);
+
+    expect(modUsuarios.getUsuario("ZZZ999").getEnFila()).toBe(null);
+    });
+
+  });
