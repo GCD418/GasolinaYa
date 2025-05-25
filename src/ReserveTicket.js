@@ -23,4 +23,9 @@ export async function reserveTicket(user, station, getCurrentHour) {
     export async function cancelTicket(user) {
     user.ticket = null;
 }
+
+export function canReserve(user) {
+    return !user.ticket;
+  }
+  
     

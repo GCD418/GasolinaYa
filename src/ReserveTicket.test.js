@@ -1,4 +1,4 @@
-import { getAvailableStations, getReservationMessage, reserveTicket, cancelTicket} from "./ReserveTicket";
+import { getAvailableStations, getReservationMessage, reserveTicket, cancelTicket, canReserve} from "./ReserveTicket";
 
 describe("Reserva de Tickets", () => {
     it("Debe devolver todas las estaciones disponibles cuando el usuario no tiene ningún Ticket reservado", () => {
@@ -65,4 +65,13 @@ it("Debe cancelar el ticket y dejar el campo ticket como null", async () => {
     expect(user.ticket).toBeNull();
   });
   
+
+  it("Debe impedir reservar un ticket si el usuario ya tiene uno", () => {
+    const user = {
+      plate: "TST888",
+      ticket: { station: "Cristo", hour: "08:00" }
+    };
+  
+    expect(canReserve(user)).toBe(false);
+  });
 });
