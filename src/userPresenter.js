@@ -9,8 +9,11 @@ const modGasolineras = new ModGasolineras();
 const modUsuarios = new ModUsuarios();
 
 async function initializeApp() {
+   
+      
     await modGasolineras.ready();
     await modUsuarios.ready();
+    
 
     createQueueButton();
     setupQueueFunctionality(modGasolineras, modUsuarios);
@@ -32,7 +35,6 @@ async function initializeApp() {
     }
     await populateUserSelect();
     setupUserSelection();
-    setupReservationButton();
 
 
 }
@@ -136,32 +138,51 @@ function getColorForPercentage(percent) {
 }
 
 function setupUserSelection() {
-    const select = document.getElementById("user_select");
+    const userSelect = document.getElementById("user_select");
     const message = document.getElementById("reservation_message");
     const stationContainer = document.getElementById("station_select_container");
+    const stationSelect = document.getElementById("station_select");
+    const reserveButton = document.getElementById("reserve_button");
 
-    if (!select || !message || !stationContainer) return;
+    if (!userSelect || !message || !stationContainer || !stationSelect || !reserveButton) return;
 
-    select.addEventListener("change", () => {
-        const selectedPlaca = select.value;
+    // Siempre ocultamos al principio
+    stationContainer.style.display = "none";
+    reserveButton.style.display = "none";
+
+    userSelect.addEventListener("change", () => {
+        const selectedPlaca = userSelect.value;
         const user = modUsuarios.getUsuario(selectedPlaca);
+
+        reserveButton.style.display = "none"; // ocultamos por seguridad
+        stationContainer.style.display = "none";
 
         if (!user) {
             message.textContent = "Usuario no encontrado.";
-            stationContainer.style.display = "none";
             return;
         }
 
         if (user.getConTicket()) {
             message.textContent = `Ya tienes una reserva activa en la estación ${user.getConTicket()}`;
-            stationContainer.style.display = "none";
         } else {
             message.textContent = "No tienes ninguna reserva activa. Puedes seleccionar una estación.";
             populateStationSelect(modGasolineras);
             stationContainer.style.display = "block";
+
+            // Escuchar cambio de estación (limpio)
+            stationSelect.addEventListener("change", () => {
+                if (stationSelect.value) {
+                    reserveButton.style.display = "inline-block";
+                } else {
+                    reserveButton.style.display = "none";
+                }
+            }, { once: true }); // solo una vez por selección
         }
+
+        setupReservationButton(); // importante que esté después
     });
 }
+
 
 function populateStationSelect(modGasolineras) {
     const select = document.getElementById("station_select");
