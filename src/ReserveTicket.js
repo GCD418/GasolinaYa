@@ -6,16 +6,21 @@ export function getAvailableStations(user, stations) {
   }
 
 export function getReservationMessage(user) {
-if (user.ticket) {
-    const { station, hour } = user.ticket;
-    return `Ya tienes un ticket reservado para la estación ${station} a las ${hour}.`;
+    if (user.ticket) {
+        const { station, hour } = user.ticket;
+        return `Ya tienes un ticket reservado para la estación ${station} a las ${hour}.`;
+    }
+    return "No tienes ningún ticket reservado.";
 }
-return "No tienes ningún ticket reservado.";
-}
+
+
 export async function reserveTicket(user, station, getCurrentHour) {
     const hour = getCurrentHour();
     const ticket = { station, hour };
     user.ticket = ticket;
     return ticket;
-  }
-  
+    }
+    export async function cancelTicket(user) {
+    user.ticket = null;
+}
+    
