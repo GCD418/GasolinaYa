@@ -29,7 +29,8 @@ async function initializeApp() {
         });
     }
     await populateUserSelect();
-    
+    setupUserSelection();
+
 }
 
 function createQueueButton() {
@@ -128,6 +129,30 @@ function getColorForPercentage(percent) {
         };
     }
 }
+
+function setupUserSelection() {
+    const select = document.getElementById("user_select");
+    if (!select) return;
+
+    select.addEventListener("change", () => {
+        const selectedPlaca = select.value;
+        const user = modUsuarios.getUsuario(selectedPlaca);
+
+        if (!user) {
+            alert("Usuario no encontrado.");
+            return;
+        }
+
+        if (user.getConTicket()) {
+            alert(`Ya tienes una reserva activa en la estación ${user.getConTicket()}`);
+            
+        } else {
+            alert("No tienes ninguna reserva activa. Puedes seleccionar una estación.");
+            
+        }
+    });
+}
+
 
 document.addEventListener('tableUpdateRequired', async (event) => {
     console.log('Actualizando tabla por:', event.detail);
