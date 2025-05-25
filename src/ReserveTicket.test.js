@@ -52,4 +52,26 @@ describe("SP2.6 - Reservar Ticket", () => {
     expect(updatedUser.getConTicket()).toBe("Estación Central");
     expect(updatedStation.getQueueCount()).toBe(1);
   });
+  
+  
+  it("Debería no reservar un ticket si el usuario ya tiene uno", async () => {
+    const modUsuarios = new ModUsuarios();
+    const modGasolineras = new ModGasolineras();
+    modUsuarios.usuarios.clear();
+    modGasolineras.gasolineras.clear();
+  
+    const user = new Usuario("ABC123", null, "Estación A");
+    await modUsuarios.addUsuario(user);
+  
+    await modGasolineras.addGasolinera(new Gasolinera(300, 1000, "Estación A", 2));
+    await modGasolineras.addGasolinera(new Gasolinera(500, 1000, "Estación B", 1));
+  
+    await reserveTicket("ABC123", "Estación B", modUsuarios, modGasolineras);
+  
+    const updatedUser = modUsuarios.getUsuario("ABC123");
+    expect(updatedUser.getConTicket()).toBe("Estación A"); // no cambia
+  
+    const estacionB = modGasolineras.getGasolinera("Estación B");
+    expect(estacionB.getQueueCount()).toBe(0); // no se incrementa
+  });
 });
