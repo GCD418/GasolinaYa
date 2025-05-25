@@ -13,6 +13,23 @@ async function initializeApp() {
     createQueueButton();
     setupQueueFunctionality(modGasolineras, modUsuarios);
     renderServiceStatioTable();
+
+
+    async function populateUserSelect() {
+        const select = document.getElementById("user_select");
+        if (!select) return;
+    
+        const users = Array.from(modUsuarios.getUsuarios().values());
+    
+        users.forEach(user => {
+            const option = document.createElement("option");
+            option.value = user.getPlaca();
+            option.textContent = user.getPlaca();
+            select.appendChild(option);
+        });
+    }
+    await populateUserSelect();
+    
 }
 
 function createQueueButton() {
