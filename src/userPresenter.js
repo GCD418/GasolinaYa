@@ -52,6 +52,7 @@ function createQueueButton() {
 
 function renderServiceStatioTable() {
     const container = document.querySelector("#service_stations_container");
+
     if (!container) return;
 
     let tableHTML = createTableWithHeader();
@@ -133,7 +134,9 @@ function getColorForPercentage(percent) {
 function setupUserSelection() {
     const select = document.getElementById("user_select");
     const message = document.getElementById("reservation_message");
-    if (!select || !message) return;
+    const stationContainer = document.getElementById("station_select_container");
+
+    if (!select || !message || !stationContainer) return;
 
     select.addEventListener("change", () => {
         const selectedPlaca = select.value;
@@ -141,16 +144,37 @@ function setupUserSelection() {
 
         if (!user) {
             message.textContent = "Usuario no encontrado.";
+            stationContainer.style.display = "none";
             return;
         }
 
         if (user.getConTicket()) {
             message.textContent = `Ya tienes una reserva activa en la estación ${user.getConTicket()}`;
+            stationContainer.style.display = "none";
         } else {
             message.textContent = "No tienes ninguna reserva activa. Puedes seleccionar una estación.";
+            populateStationSelect(modGasolineras);
+            stationContainer.style.display = "block";
         }
     });
 }
+
+function populateStationSelect(modGasolineras) {
+    const select = document.getElementById("station_select");
+    if (!select) return;
+
+    // Limpiar opciones previas
+    select.innerHTML = '<option disabled selected value="">-- Elige una estación --</option>';
+
+    const gasolineras = modGasolineras.getGasolineras();
+    gasolineras.forEach(gas => {
+        const option = document.createElement("option");
+        option.value = gas.getName();
+        option.textContent = gas.getName();
+        select.appendChild(option);
+    });
+}
+
 
 
 document.addEventListener('tableUpdateRequired', async (event) => {
