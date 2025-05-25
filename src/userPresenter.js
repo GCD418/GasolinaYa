@@ -231,25 +231,53 @@ function setupReservationButton() {
     });
 }
 
+
 function setupCancelButton() {
     const cancelButton = document.getElementById("cancel_reservation_button");
     const userSelect = document.getElementById("user_select");
     const message = document.getElementById("reservation_message");
+    const stationContainer = document.getElementById("station_select_container");
+    const reserveButton = document.getElementById("reserve_button");
+    const stationSelect = document.getElementById("station_select");
 
-    if (!cancelButton || !userSelect || !message) return;
+    if (!cancelButton || !userSelect || !message || !stationContainer || !reserveButton || !stationSelect) return;
 
+    // Usar onclick para evitar múltiples listeners
     cancelButton.onclick = async () => {
         const selectedPlaca = userSelect.value;
         const success = await cancelReservation(selectedPlaca, modUsuarios);
-      
+
         if (success) {
-          message.textContent = "Tu reserva ha sido cancelada.";
-          cancelButton.style.display = "none";
-          userSelect.dispatchEvent(new Event("change"));
+            alert("Reserva cancelada correctamente.");
+
+            // Mostrar mensaje actualizado
+            message.textContent = "No tienes ninguna reserva activa. Puedes seleccionar una estación.";
+            cancelButton.style.display = "none";
+
+            // Mostrar selección de estaciones
+            populateStationSelect(modGasolineras);
+            stationContainer.style.display = "block";
+            reserveButton.style.display = "none";
+
+            // Reactivar evento para mostrar botón reservar al seleccionar estación
+            stationSelect.addEventListener("change", () => {
+                if (stationSelect.value) {
+                    reserveButton.style.display = "inline-block";
+                } else {
+                    reserveButton.style.display = "none";
+                }
+            }, { once: true });
+
+            // 🔁 Opcional: actualizar tabla si reservas afectan la cola
+            document.dispatchEvent(new CustomEvent("tableUpdateRequired", {
+                detail: selectedPlaca
+            }));
+        } else {
+            alert("Error al cancelar la reserva.");
         }
-      };
-      
+    };
 }
+
 
 
 document.addEventListener('tableUpdateRequired', async (event) => {
