@@ -54,16 +54,16 @@ describe("Reserva de Tickets", () => {
   });
 
 
-it("Debe cancelar el ticket y dejar el campo ticket como null", async () => {
-    const user = {
-      plate: "TST999",
-      ticket: { station: "Cristo", hour: "10:00" }
-    };
-  
-    await cancelTicket(user);
-  
-    expect(user.ticket).toBeNull();
-  });
+    it("Debe cancelar el ticket y dejar el campo ticket como null", async () => {
+        const user = {
+        plate: "TST999",
+        ticket: { station: "Cristo", hour: "10:00" }
+        };
+    
+        await cancelTicket(user);
+    
+        expect(user.ticket).toBeNull();
+    });
   
 
   it("Debe impedir reservar un ticket si el usuario ya tiene uno", () => {
@@ -74,4 +74,14 @@ it("Debe cancelar el ticket y dejar el campo ticket como null", async () => {
   
     expect(canReserve(user)).toBe(false);
   });
+
+  it("Debe permitir reservar un ticket si el usuario no tiene ninguno", () => {
+    const user = {
+      plate: "TST777",
+      ticket: null
+    };
+  
+    expect(canReserve(user)).toBe(true);
+  });
+  
 });
