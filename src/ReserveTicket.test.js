@@ -2,7 +2,7 @@ import Usuario from "./Usuario";
 import ModGasolineras from "./ModGasolineras.js";
 import ModUsuarios from "./ModUsuarios.js";
 import Gasolinera from "./Gasolinera.js";
-import { reserveTicket } from "./ReserveTicket.js";
+import { reserveTicket, cancelReservation } from "./ReserveTicket.js";
 
 
 describe("SP2.6 - Reservar Ticket", () => {
@@ -74,4 +74,18 @@ describe("SP2.6 - Reservar Ticket", () => {
     const estacionB = modGasolineras.getGasolinera("Estación B");
     expect(estacionB.getQueueCount()).toBe(0); // no se incrementa
   });
+
+  it("Debería permitir a un usuario cancelar su reserva", async () => {
+    const modUsuarios = new ModUsuarios();
+    modUsuarios.usuarios.clear();
+  
+    const user = new Usuario("ABC999", null, "Estación Sur");
+    await modUsuarios.addUsuario(user);
+  
+    await cancelReservation("ABC999", modUsuarios);
+  
+    const updated = modUsuarios.getUsuario("ABC999");
+    expect(updated.getConTicket()).toBe(null);
+  });
+
 });
