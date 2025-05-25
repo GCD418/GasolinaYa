@@ -35,8 +35,9 @@ describe("Gestión de colas - SP2.5", () => {
     await gasolineras.ready();
   
     const result = await removeFromQueue("NO_EXISTE", "Cristo", usuarios, gasolineras);
-    expect(result).toBeUndefined(); // o no lanza error
+    expect(result).toBeUndefined();
   });
+  
 });
 
 describe("Gestión de colas - SP2.5", () => {
@@ -113,7 +114,21 @@ describe("Gestión de colas - SP2.5", () => {
       
         await confirmFuelLoad("YYY888", "Asunción", modUsuarios, modGasolineras);
       
-        expect(modGasolineras.updateGasolinera).toHaveBeenCalledWith("Asunción", 60, 500); // 100 - 40
+        expect(modGasolineras.updateGasolinera).toHaveBeenCalledWith("Asunción", 60, 500);
+      });
+      test("confirmFuelLoad no hace nada si la gasolinera no existe", async () => {
+        const usuarios = new ModUsuarios();
+        await usuarios.ready();
+      
+        const usuario = usuarios.getUsuarios().values().next().value;
+        usuario.setEnFila("ESTACION_FANTASMA");
+      
+        const modGasolineras = {
+          getGasolinera: () => null,
+        };
+      
+        const result = await confirmFuelLoad(usuario.getPlaca(), "ESTACION_FANTASMA", usuarios, modGasolineras);
+        expect(result).toBeUndefined();
       });
       
   });
