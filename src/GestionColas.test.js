@@ -1,6 +1,8 @@
 import { getPlacasEnFila, removeFromQueue, confirmFuelLoad } from "./GestionColas";  
 import ModUsuarios from "./ModUsuarios";
 import Usuario from "./Usuario";
+import ModGasolineras from "./ModGasolineras";
+
 
 
 describe("Gestión de colas - SP2.5", () => {
@@ -25,6 +27,15 @@ describe("Gestión de colas - SP2.5", () => {
     expect(resultadoCristo).toEqual(["AAA111", "BBB222"]);
     expect(resultadoManantial).toEqual(["CCC333"]);
     expect(resultadoVacio).toEqual([]);
+  });
+  test("removeFromQueue no hace nada si el usuario no existe", async () => {
+    const usuarios = new ModUsuarios();
+    await usuarios.ready();
+    const gasolineras = new ModGasolineras();
+    await gasolineras.ready();
+  
+    const result = await removeFromQueue("NO_EXISTE", "Cristo", usuarios, gasolineras);
+    expect(result).toBeUndefined(); // o no lanza error
   });
 });
 
