@@ -1,4 +1,4 @@
-import { getAvailableStations, getReservationMessage } from "./ReserveTicket";
+import { getAvailableStations, getReservationMessage, reserveTicket} from "./ReserveTicket";
 
 describe("Reserva de Tickets", () => {
     it("Debe devolver todas las estaciones disponibles cuando el usuario no tiene ningún Ticket reservado", () => {
@@ -39,6 +39,18 @@ describe("Reserva de Tickets", () => {
   
     const msg = getReservationMessage(user);
     expect(msg).toBe("No tienes ningún ticket reservado.");
+  });
+  it("Debe registrar un ticket con la estación y la hora actual", async () => {
+    const user = { plate: "JKL987", ticket: null };
+    const station = "Asunción";
+  
+    const fixedHour = "14:30";
+    const getCurrentHour = () => fixedHour;
+  
+    const reserved = await reserveTicket(user, station, getCurrentHour);
+  
+    expect(reserved.station).toBe("Asunción");
+    expect(reserved.hour).toBe(fixedHour);
   });
   
 });

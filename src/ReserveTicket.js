@@ -12,3 +12,10 @@ if (user.ticket) {
 }
 return "No tienes ningún ticket reservado.";
 }
+export async function reserveTicket(user, station, getCurrentHour) {
+    const hour = getCurrentHour();
+    const ticket = { station, hour };
+    user.ticket = ticket;
+    return ticket;
+  }
+  
