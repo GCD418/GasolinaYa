@@ -2,6 +2,8 @@ import ModGasolineras from "./ModGasolineras.js";
 import ModUsuarios from "./ModUsuarios.js";
 import { setupQueueFunctionality } from "./queueManager.js";
 import { calculate_waiting_time, estimate_fuel_load } from "./user_queue.js";
+import { reserveTicket } from "./ReserveTicket.js";
+
 
 const modGasolineras = new ModGasolineras();
 const modUsuarios = new ModUsuarios();
@@ -30,6 +32,8 @@ async function initializeApp() {
     }
     await populateUserSelect();
     setupUserSelection();
+    setupReservationButton();
+
 
 }
 
@@ -175,6 +179,31 @@ function populateStationSelect(modGasolineras) {
     });
 }
 
+function setupReservationButton() {
+    const button = document.getElementById("reserve_button");
+    const stationSelect = document.getElementById("station_select");
+    const userSelect = document.getElementById("user_select");
+    const message = document.getElementById("reservation_message");
+    const container = document.getElementById("station_select_container");
+
+    if (!button || !stationSelect || !userSelect || !message || !container) return;
+
+    button.addEventListener("click", async () => {
+        const selectedStation = stationSelect.value;
+        const selectedPlaca = userSelect.value;
+
+        if (!selectedStation || !selectedPlaca) {
+            alert("Selecciona una estación y una placa válida.");
+            return;
+        }
+
+        await reserveTicket(selectedPlaca, selectedStation, modUsuarios, modGasolineras);
+
+        const updatedUser = modUsuarios.getUsuario(selectedPlaca);
+        message.textContent = `¡Reservaste en la estación ${updatedUser.getConTicket()}!`;
+        container.style.display = "none";
+    });
+}
 
 
 document.addEventListener('tableUpdateRequired', async (event) => {
