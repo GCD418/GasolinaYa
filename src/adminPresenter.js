@@ -27,6 +27,8 @@ const viewTicketBtn = document.getElementById("view_ticket_btn");
 const ticketContainer = document.getElementById("ticket_container");
 const ticketList = document.getElementById("ticket_list");
 
+let users = null;
+
 async function initializeElements(){
     viewQueueBtn.classList.add("hidden");
     viewTicketBtn.classList.add("hidden");
@@ -91,6 +93,8 @@ select_gasolinera.addEventListener("change", (event) => {
         showInformation();
         queueContainer.classList.add("hidden");
         queueList.innerHTML = "";
+        ticketContainer.classList.add("hidden");
+        ticketList.innerHTML = "";          
     }
     viewQueueBtn.classList.remove("hidden");
     viewTicketBtn.classList.remove("hidden");
@@ -101,7 +105,7 @@ select_gasolinera.addEventListener("change", (event) => {
     setupEventListeners();
 
     //
-    const users = new ModUsuarios();
+    users = new ModUsuarios();
     await users.ready();
     //
 
@@ -183,6 +187,7 @@ select_gasolinera.addEventListener("change", (event) => {
     
     
     viewTicketBtn.addEventListener("click", () => {
+        console.log("Se hizo clic en Ver Ticket");
         if (!gasolinera) {
             alert("Primero selecciona una gasolinera.");
             return;
@@ -190,11 +195,10 @@ select_gasolinera.addEventListener("change", (event) => {
     
         const stationName = gasolinera.getName();
         const usuarios = Array.from(users.getUsuarios().values());
-    
         const placasConTicket = usuarios
             .filter(user => user.getConTicket() === stationName)
             .map(user => user.getPlaca());
-    
+        
         ticketList.innerHTML = "";
     
         if (placasConTicket.length === 0) {
@@ -202,17 +206,17 @@ select_gasolinera.addEventListener("change", (event) => {
         } else {
             placasConTicket.forEach(placa => {
                 const li = document.createElement("li");
-                li.textContent = placa;
+                li.textContent = placa + " ";
                 ticketList.appendChild(li);
             });
         }
     
-        ticketContainer.classList.remove("hidden");
+    ticketContainer.classList.remove("hidden");
     });
-    
-
-
 }
+
+
+
 
 function setupEventListeners(){
     form.addEventListener("submit", (event) => {
