@@ -240,7 +240,7 @@ select_gasolinera.addEventListener("change", (event) => {
 
                     const usuarios = Array.from(users.getUsuarios().values());
                     const placasRestantes = usuarios
-                        .filter(user => user.getConTicket() === stationName) // CORREGIDO: usar getConTicket
+                        .filter(user => user.getConTicket() === stationName)
                         .map(user => user.getPlaca());
 
                     if (placasRestantes.length === 0) {
@@ -252,17 +252,14 @@ select_gasolinera.addEventListener("change", (event) => {
 
                 li.appendChild(btnCargar); 
                 li.appendChild(btnRemoverTicket);
-                ticketList.appendChild(li); // CORREGIDO: usar ticketList en lugar de queueList
+                ticketList.appendChild(li);
             });
         }
 
         ticketContainer.classList.remove("hidden");
     });
 
-    
 }
-
-
 
 
 function setupEventListeners(){
