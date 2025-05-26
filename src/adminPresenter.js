@@ -23,10 +23,13 @@ const viewQueueBtn = document.getElementById("view_queue_btn");
 const queueContainer = document.getElementById("queue_container");
 const queueList = document.getElementById("queue_list");
 
-
+const viewTicketBtn = document.getElementById("view_ticket_btn");
+const ticketContainer = document.getElementById("ticket_container");
+const ticketList = document.getElementById("ticket_list");
 
 async function initializeElements(){
     viewQueueBtn.classList.add("hidden");
+    viewTicketBtn.classList.add("hidden");
     await gasolineras.ready();
     
     populateSelect();
@@ -90,6 +93,7 @@ select_gasolinera.addEventListener("change", (event) => {
         queueList.innerHTML = "";
     }
     viewQueueBtn.classList.remove("hidden");
+    viewTicketBtn.classList.remove("hidden");
 });
 
 
@@ -177,6 +181,34 @@ select_gasolinera.addEventListener("change", (event) => {
         queueContainer.classList.remove("hidden");
     });
     
+    
+    viewTicketBtn.addEventListener("click", () => {
+        if (!gasolinera) {
+            alert("Primero selecciona una gasolinera.");
+            return;
+        }
+    
+        const stationName = gasolinera.getName();
+        const usuarios = Array.from(users.getUsuarios().values());
+    
+        const placasConTicket = usuarios
+            .filter(user => user.getConTicket() === stationName)
+            .map(user => user.getPlaca());
+    
+        ticketList.innerHTML = "";
+    
+        if (placasConTicket.length === 0) {
+            ticketList.innerHTML = "<li>No hay autos con ticket</li>";
+        } else {
+            placasConTicket.forEach(placa => {
+                const li = document.createElement("li");
+                li.textContent = placa;
+                ticketList.appendChild(li);
+            });
+        }
+    
+        ticketContainer.classList.remove("hidden");
+    });
     
 
 
