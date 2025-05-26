@@ -166,7 +166,10 @@ function setupUserSelection() {
 
         if (user.getConTicket()) {
             message.textContent = `Ya tienes una reserva activa en la estación ${user.getConTicket()}`;
-            cancelButton.style.display = "inline-block";
+            cancelButton.classList.remove("hidden");
+            cancelButton.style.removeProperty("display");
+            cancelButton.style.setProperty("display", "inline-block", "important");
+            
         } else {
             message.textContent = "No tienes ninguna reserva activa. Puedes seleccionar una estación.";
             populateStationSelect(modGasolineras);
@@ -228,9 +231,10 @@ function setupReservationButton() {
         const updatedUser = modUsuarios.getUsuario(selectedPlaca);
         message.textContent = `¡Reservaste en la estación ${updatedUser.getConTicket()}!`;
         container.style.display = "none";
+        userSelect.dispatchEvent(new Event("change"));
+
     });
 }
-
 
 function setupCancelButton() {
     const cancelButton = document.getElementById("cancel_reservation_button");
@@ -240,43 +244,53 @@ function setupCancelButton() {
     const reserveButton = document.getElementById("reserve_button");
     const stationSelect = document.getElementById("station_select");
 
-    if (!cancelButton || !userSelect || !message || !stationContainer || !reserveButton || !stationSelect) return;
+    if (!cancelButton || !userSelect || !message || !stationContainer || !reserveButton || !stationSelect) {
+        console.warn("setupCancelButton: algún elemento no está disponible");
+        return;
+    }
 
-    // Usar onclick para evitar múltiples listeners
     cancelButton.onclick = async () => {
-        const selectedPlaca = userSelect.value;
-        const success = await cancelReservation(selectedPlaca, modUsuarios);
+        try {
+            const selectedPlaca = userSelect.value;
+            console.log("→ Cancelando reserva para:", selectedPlaca);
 
-        if (success) {
-            alert("Reserva cancelada correctamente.");
+            const success = await cancelReservation(selectedPlaca, modUsuarios);
+            console.log("→ Resultado de cancelReservation:", success);
 
-            // Mostrar mensaje actualizado
-            message.textContent = "No tienes ninguna reserva activa. Puedes seleccionar una estación.";
-            cancelButton.style.display = "none";
+            if (success) {
+                alert("Reserva cancelada correctamente.");
 
-            // Mostrar selección de estaciones
-            populateStationSelect(modGasolineras);
-            stationContainer.style.display = "block";
-            reserveButton.style.display = "none";
+                
+                const updatedUser = modUsuarios.getUsuario(selectedPlaca);
+                console.log("→ Usuario después de cancelar:", updatedUser);
 
-            // Reactivar evento para mostrar botón reservar al seleccionar estación
-            stationSelect.addEventListener("change", () => {
-                if (stationSelect.value) {
-                    reserveButton.style.display = "inline-block";
-                } else {
-                    reserveButton.style.display = "none";
-                }
-            }, { once: true });
+                message.textContent = "No tienes ninguna reserva activa. Puedes seleccionar una estación.";
+                cancelButton.style.display = "none";
 
-            // 🔁 Opcional: actualizar tabla si reservas afectan la cola
-            document.dispatchEvent(new CustomEvent("tableUpdateRequired", {
-                detail: selectedPlaca
-            }));
-        } else {
-            alert("Error al cancelar la reserva.");
+                populateStationSelect(modGasolineras);
+                stationContainer.style.display = "block";
+                reserveButton.style.display = "none";
+
+                stationSelect.addEventListener("change", () => {
+                    if (stationSelect.value) {
+                        reserveButton.style.display = "inline-block";
+                    } else {
+                        reserveButton.style.display = "none";
+                    }
+                }, { once: true });
+
+                document.dispatchEvent(new CustomEvent("tableUpdateRequired", {
+                    detail: selectedPlaca
+                }));
+            } else {
+                alert("Error al cancelar la reserva.");
+            }
+        } catch (error) {
+            console.error("Error inesperado al cancelar:", error);
         }
     };
 }
+
 
 
 

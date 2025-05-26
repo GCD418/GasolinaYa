@@ -13,5 +13,6 @@ export async function cancelReservation(plate, modUsuarios) {
 
     user.setConTicket(null);
     await modUsuarios.updateUsuario(plate, null, null);
+    return true;
 }
   
