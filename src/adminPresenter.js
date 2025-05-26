@@ -186,7 +186,6 @@ select_gasolinera.addEventListener("change", (event) => {
     });
     
     viewTicketBtn.addEventListener("click", () => {
-        console.log("Se hizo clic en Ver Ticket");
         if (!gasolinera) {
             alert("Primero selecciona una gasolinera.");
             return;
