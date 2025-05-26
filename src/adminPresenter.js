@@ -1,7 +1,7 @@
 import Gasolinera from "./Gasolinera";
 import ModGasolineras from "./ModGasolineras";
 import ModUsuarios from "./ModUsuarios.js";
-import { confirmFuelLoad, removeFromQueue } from "./GestionColas.js";
+import { confirmFuelLoad, removeFromQueue, removeTicket} from "./GestionColas.js";
 
 
 const name_fuel_station = document.querySelector("h1");
@@ -23,10 +23,15 @@ const viewQueueBtn = document.getElementById("view_queue_btn");
 const queueContainer = document.getElementById("queue_container");
 const queueList = document.getElementById("queue_list");
 
+const viewTicketBtn = document.getElementById("view_ticket_btn");
+const ticketContainer = document.getElementById("ticket_container");
+const ticketList = document.getElementById("ticket_list");
 
+let users = null;
 
 async function initializeElements(){
     viewQueueBtn.classList.add("hidden");
+    viewTicketBtn.classList.add("hidden");
     await gasolineras.ready();
     
     populateSelect();
@@ -88,8 +93,11 @@ select_gasolinera.addEventListener("change", (event) => {
         showInformation();
         queueContainer.classList.add("hidden");
         queueList.innerHTML = "";
+        ticketContainer.classList.add("hidden");
+        ticketList.innerHTML = "";          
     }
     viewQueueBtn.classList.remove("hidden");
+    viewTicketBtn.classList.remove("hidden");
 });
 
 
@@ -97,7 +105,7 @@ select_gasolinera.addEventListener("change", (event) => {
     setupEventListeners();
 
     //
-    const users = new ModUsuarios();
+    users = new ModUsuarios();
     await users.ready();
     //
 
@@ -177,10 +185,81 @@ select_gasolinera.addEventListener("change", (event) => {
         queueContainer.classList.remove("hidden");
     });
     
-    
+    viewTicketBtn.addEventListener("click", () => {
+        if (!gasolinera) {
+            alert("Primero selecciona una gasolinera.");
+            return;
+        }
 
+        const stationName = gasolinera.getName();
+        const usuarios = Array.from(users.getUsuarios().values());
+        const placasConTicket = usuarios
+            .filter(user => user.getConTicket() === stationName)
+            .map(user => user.getPlaca());
+        
+        ticketList.innerHTML = "";
+
+        if (placasConTicket.length === 0) {
+            ticketList.innerHTML = "<li>No hay autos con ticket</li>";
+        } else {
+            placasConTicket.forEach(placa => {
+                const li = document.createElement("li");
+                li.textContent = placa + " ";
+
+                const btnRemoverTicket = document.createElement("button");
+                btnRemoverTicket.textContent = "Remover Ticket";
+                btnRemoverTicket.addEventListener("click", async () => {
+                    await removeTicket(placa, stationName, users, gasolineras);
+                    li.remove();
+                    alert(`El ticket de la Placa ${placa} fue removido`);
+                    
+                    const usuarios = Array.from(users.getUsuarios().values());
+                    const placasRestantes = usuarios
+                        .filter(user => user.getConTicket() === stationName)
+                        .map(user => user.getPlaca());
+
+                    if (placasRestantes.length === 0) {
+                        ticketList.innerHTML = "<li>No hay autos con ticket</li>";
+                    }
+                });
+
+                const btnCargar = document.createElement("button");
+                btnCargar.textContent = "Confirmar carguío";
+                btnCargar.addEventListener("click", async () => {
+                    const usuario = users.getUsuario(placa);
+                    usuario.setConTicket(null);
+                    await users.updateUsuario(placa, null, null);
+
+                    await confirmFuelLoad(placa, stationName, users, gasolineras);
+                    gasolinera = gasolineras.getGasolinera(stationName);
+                    liter_quantity_input.value = gasolinera.getFuelLiters();
+
+                    li.remove();
+                    alert(`Combustible cargado para placa ${placa}`);
+
+                    const usuarios = Array.from(users.getUsuarios().values());
+                    const placasRestantes = usuarios
+                        .filter(user => user.getConTicket() === stationName)
+                        .map(user => user.getPlaca());
+
+                    if (placasRestantes.length === 0) {
+                        ticketList.innerHTML = "<li>No hay autos con ticket</li>";
+                    }
+
+                    showInformation();
+                });
+
+                li.appendChild(btnCargar); 
+                li.appendChild(btnRemoverTicket);
+                ticketList.appendChild(li);
+            });
+        }
+
+        ticketContainer.classList.remove("hidden");
+    });
 
 }
+
 
 function setupEventListeners(){
     form.addEventListener("submit", (event) => {
