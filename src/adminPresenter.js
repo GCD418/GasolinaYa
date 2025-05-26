@@ -207,7 +207,63 @@ select_gasolinera.addEventListener("change", (event) => {
             placasConTicket.forEach(placa => {
                 const li = document.createElement("li");
                 li.textContent = placa + " ";
-                ticketList.appendChild(li);
+                //ticketList.appendChild(li);
+
+                const btn = document.createElement("button");
+                btn.textContent = "Remover";
+                btn.addEventListener("click", async () => {
+                await removeFromQueue(placa, stationName, users, gasolineras);//
+                li.remove();
+                alert(`El ticket de la Placa ${placa} fue removido`);
+                const usuarios = Array.from(users.getUsuarios().values());
+                const placasRestantes = usuarios
+                    .filter(user => user.getConTicket() === stationName)
+                    .map(user => user.getPlaca());
+
+                if (placasRestantes.length === 0) {
+                    queueList.innerHTML = "<li>No hay tickets de reerva</li>";
+                }
+              });
+                const btnCargar = document.createElement("button");
+                btnCargar.textContent = "Confirmar carguío";
+                btnCargar.addEventListener("click", async () => {
+                
+                const usuario = users.getUsuario(placa);
+                usuario.setConTicket(null);
+                await users.updateUsuario(placa, null, null);
+
+                
+                await confirmFuelLoad(placa, stationName, users, gasolineras);
+                gasolinera = gasolineras.getGasolinera(stationName);
+                liter_quantity_input.value = gasolinera.getFuelLiters();
+
+                li.remove();
+                alert(`Combustible cargado para placa ${placa}`);
+
+                const usuarios = Array.from(users.getUsuarios().values());
+                const placasRestantes = usuarios
+                    .filter(user => user.getEnFila() === stationName)
+                    .map(user => user.getPlaca());
+
+                if (placasRestantes.length === 0) {
+                    queueList.innerHTML = "<li>No hay autos en la fila</li>";
+                }
+
+                showInformation();
+                });
+
+                             
+
+              li.appendChild(btnCargar); 
+              li.appendChild(btn);
+              queueList.appendChild(li);
+
+            
+
+
+
+
+
             });
         }
     

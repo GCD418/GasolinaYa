@@ -14,6 +14,13 @@ export async function removeFromQueue(placa, gasolineraName, modUsuarios, modGas
   }
 }
 
+export async function removeTicket(placa, gasolineraName, modUsuarios, modGasolineras) {
+  const usuario = modUsuarios.getUsuario(placa);
+  if (!usuario) return;
+  usuario.setConTicket(null);
+  await modUsuarios.updateUsuario(placa, null, null);
+}
+
 
 export async function confirmFuelLoad(plate, gasStationName, modUsuarios, modGasolineras) {
 
