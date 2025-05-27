@@ -77,12 +77,7 @@ async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
         
         closePopup(popup);
         dispatchTableUpdateEvent(selectedPlaca, selectedGasolinera);
-
-        const container = document.querySelector("#service_stations_container");
-        if (container) {
-            const event = new CustomEvent('updateGasolineraTable');
-            document.dispatchEvent(event);
-        }
+        dispatchGasolineraUpdateEvent();
 
         currentUserPlaca = selectedPlaca;
         updatePlacaLabel(selectedPlaca);
@@ -108,6 +103,14 @@ function dispatchTableUpdateEvent(selectedPlaca, selectedGasolinera) {
         }
     });
     document.dispatchEvent(updateEvent);
+}
+
+function dispatchGasolineraUpdateEvent() {
+    const container = document.querySelector("#service_stations_container");
+    if (container) {
+        const event = new CustomEvent('updateGasolineraTable');
+        document.dispatchEvent(event);
+    }
 }
 
 async function addUsuarioToGasolineraQueue(placa, gasolineraName, modUsuarios, modGasolineras) {
