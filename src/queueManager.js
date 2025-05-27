@@ -76,15 +76,7 @@ async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
         await addUsuarioToGasolineraQueue(selectedPlaca, selectedGasolinera, modUsuarios, modGasolineras);
         
         closePopup(popup);
-        
-        const updateEvent = new CustomEvent('tableUpdateRequired', {
-            detail: { 
-                type: 'queueUpdate',
-                placa: selectedPlaca,
-                gasolinera: selectedGasolinera
-            }
-        });
-        document.dispatchEvent(updateEvent);
+        dispatchTableUpdateEvent(selectedPlaca, selectedGasolinera);
 
         const container = document.querySelector("#service_stations_container");
         if (container) {
@@ -106,6 +98,16 @@ function getSelectedValues(popup) {
     return { selectedPlaca, selectedGasolinera };
 }
 
+function dispatchTableUpdateEvent(selectedPlaca, selectedGasolinera) {
+    const updateEvent = new CustomEvent('tableUpdateRequired', {
+        detail: {
+            type: 'queueUpdate',
+            placa: selectedPlaca,
+            gasolinera: selectedGasolinera
+        }
+    });
+    document.dispatchEvent(updateEvent);
+}
 
 async function addUsuarioToGasolineraQueue(placa, gasolineraName, modUsuarios, modGasolineras) {
     const usuario = modUsuarios.getUsuario(placa);
