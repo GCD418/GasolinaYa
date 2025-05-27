@@ -1,4 +1,5 @@
-import { getPlacasEnFila, removeFromQueue, confirmFuelLoad } from "./GestionColas";  
+import { getPlacasEnFila, removeFromQueue, confirmFuelLoad, reserveTicket, removeTicket} from "./GestionColas";
+
 import ModUsuarios from "./ModUsuarios";
 import Usuario from "./Usuario";
 import ModGasolineras from "./ModGasolineras";
@@ -53,7 +54,9 @@ describe("Gestión de colas - SP2.5", () => {
       await removeFromQueue("AAA111", "El Cristo", modUsuarios);
   
       expect(modUsuarios.getUsuario("AAA111").getEnFila()).toBe(null);
+      
     });
+    
   });
 
   it("debería llamar a decrementQueueCount al remover de la fila", async () => {
@@ -131,4 +134,33 @@ describe("Gestión de colas - SP2.5", () => {
         expect(result).toBeUndefined();
       });
       
+      it("reserveTicket no agrega ticket si el usuario ya tiene uno", async () => {
+        const modUsuarios = new ModUsuarios();
+        modUsuarios.usuarios.clear();
+
+        const u1 = new Usuario("CON123", null);
+        u1.setConTicket("Cristo");
+        await modUsuarios.addUsuario(u1);
+
+        const modGasolineras = {
+          incrementQueueCount: jest.fn()
+        };
+
+        const result = await reserveTicket("CON123", "Cristo", modUsuarios, modGasolineras);
+        expect(result).toBeUndefined();
+        expect(modGasolineras.incrementQueueCount).not.toHaveBeenCalled();
+      });
+
+
+      it("removeTicket no hace nada si el usuario no existe", async () => {
+        const modUsuarios = new ModUsuarios();
+        modUsuarios.usuarios.clear();
+
+        const modGasolineras = {};
+
+        const result = await removeTicket("PLACA_INEXISTENTE", "Asunción", modUsuarios, modGasolineras);
+        expect(result).toBeUndefined();
+      });
+
+
   });
