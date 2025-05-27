@@ -93,7 +93,6 @@ async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
             document.dispatchEvent(event);
         }
 
-        //currentUserPlaca = selectedPlaca;
         updatePlacaLabel(selectedPlaca);
 
     } catch (error) {
@@ -180,12 +179,3 @@ function updatePlacaLabel(placa) {
     
     buttonContainer.appendChild(placaLabel);
 }
-
-/*
-function clearPlacaLabel() {
-    const existingLabel = document.querySelector(".placa-label");
-    if (existingLabel) {
-        existingLabel.remove();
-    }
-    currentUserPlaca = null;
-}*/
