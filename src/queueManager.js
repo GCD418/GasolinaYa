@@ -65,8 +65,7 @@ function confirmPlacaSelection(popup, modUsuarios, modGasolineras) {
 }
 
 async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
-    const selectedPlaca = popup.querySelector("#usuario-selector").value;
-    const selectedGasolinera = popup.querySelector("#gasolinera-selector").value;
+    const { selectedPlaca, selectedGasolinera } = getSelectedValues(popup);
     
     if (!selectedGasolinera) {
         alert("Por favor, seleccione una gasolinera.");
@@ -101,6 +100,13 @@ async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
         alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
     }
 }
+
+function getSelectedValues(popup) {
+    const selectedPlaca = popup.querySelector("#usuario-selector").value;
+    const selectedGasolinera = popup.querySelector("#gasolinera-selector").value;
+    return { selectedPlaca, selectedGasolinera };
+}
+
 
 async function addUsuarioToGasolineraQueue(placa, gasolineraName, modUsuarios, modGasolineras) {
     const usuario = modUsuarios.getUsuario(placa);
