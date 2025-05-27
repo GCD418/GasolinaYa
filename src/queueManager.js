@@ -93,7 +93,7 @@ async function confirmGasolineraSelection(popup, modUsuarios, modGasolineras) {
             document.dispatchEvent(event);
         }
 
-        currentUserPlaca = selectedPlaca;
+        //currentUserPlaca = selectedPlaca;
         updatePlacaLabel(selectedPlaca);
 
     } catch (error) {
