@@ -210,14 +210,7 @@ select_gasolinera.addEventListener("change", (event) => {
                     li.remove();
                     alert(`El ticket de la Placa ${placa} fue removido`);
                     
-                    const usuarios = Array.from(users.getUsuarios().values());
-                    const placasRestantes = usuarios
-                        .filter(user => user.getConTicket() === stationName)
-                        .map(user => user.getPlaca());
-
-                    if (placasRestantes.length === 0) {
-                        ticketList.innerHTML = "<li>No hay autos con ticket</li>";
-                    }
+                    checkRemainingTickets(stationName);
                 });
 
                 const btnCargar = document.createElement("button");
@@ -264,6 +257,12 @@ function getPlacasConTicket(stationName) {
         .map(user => user.getPlaca());
 }
 
+function checkRemainingTickets(stationName) {
+    const placasRestantes = getPlacasConTicket(stationName);
+    if (placasRestantes.length === 0) {
+        ticketList.innerHTML = "<li>No hay autos con ticket</li>";
+    }
+}
 
 function setupEventListeners(){
     form.addEventListener("submit", (event) => {
