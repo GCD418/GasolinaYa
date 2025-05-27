@@ -221,15 +221,7 @@ function createTicketListItem(placa, stationName) {
     const li = document.createElement("li");
     li.textContent = placa + " ";
 
-    const btnRemoverTicket = document.createElement("button");
-    btnRemoverTicket.textContent = "Remover Ticket";
-    btnRemoverTicket.addEventListener("click", async () => {
-        await removeTicket(placa, stationName, users, gasolineras);
-        li.remove();
-        alert(`El ticket de la Placa ${placa} fue removido`);
-                    
-        checkRemainingTickets(stationName);
-    });
+    const btnRemoverTicket = createRemoveTicketButton(placa, stationName);
 
     const btnCargar = document.createElement("button");
     btnCargar.textContent = "Confirmar carguío";
@@ -261,6 +253,20 @@ function createTicketListItem(placa, stationName) {
         li.appendChild(btnRemoverTicket);
 
     return li;
+}
+
+function createRemoveTicketButton(placa, stationName) {
+    const btnRemoverTicket = document.createElement("button");
+    btnRemoverTicket.textContent = "Remover Ticket";
+    btnRemoverTicket.addEventListener("click", async () => {
+        await removeTicket(placa, stationName, users, gasolineras);
+        
+        btnRemoverTicket.parentElement.remove();
+        
+        alert(`El ticket de la Placa ${placa} fue removido`);
+        checkRemainingTickets(stationName);
+    });
+    return btnRemoverTicket;
 }
 
 function checkRemainingTickets(stationName) {
