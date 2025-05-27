@@ -150,9 +150,9 @@ select_gasolinera.addEventListener("change", (event) => {
                 btnCargar.textContent = "Confirmar carguío";
                 btnCargar.addEventListener("click", async () => {
                 
-                const usuario = users.getUsuario(placa);
-                usuario.setEnFila(null);
-                await users.updateUsuario(placa, null, null);
+                // const usuario = users.getUsuario(placa);
+                // usuario.setEnFila(null);
+                // await users.updateUsuario(placa, null, null);
 
                 
                 await confirmFuelLoad(placa, stationName, users, gasolineras);
