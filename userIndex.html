@@ -9,24 +9,38 @@
 <body>
     <div class="main_container">
         <nav>
-            <a href="index.html">Inicio</a>
+            <a href="index.html" class="btn">Inicio</a>
         </nav>
         
-        <h1>Listado de Gasolineras</h1>
+        <h1 class="tituloUsuario">Listado de Gasolineras</h1>
         
+
         <div class="section">
             <div id="service_stations_container">
-                <p>Cargando datos...</p>
+               <!--<p>Cargando datos...</p> -->
             </div>
         </div>
 
-        <div class="queue_button">
-            <button id="add_queue_button">Registrarse en cola</button>
-        </div>
+        <label for="user_select">Selecciona tu placa:</label>
+        <select id="user_select">
+        <option disabled selected value="">-- Elige tu vehículo --</option>
+        </select>
+        <p id="reservation_message" style="margin-top: 10px; font-weight: bold;"></p>
 
-        <div class="queue_button1">
-            <button id="add_queue_button1">Abandonar la fila</button>
+        <div id="station_select_container" style="display: none; margin-top: 10px;">
+            <label for="station_select">Selecciona estación de servicio:</label>
+            <select id="station_select">
+              <option disabled sselected value="">-- Elige una estación --</option>
+            </select>
+            <button id="reserve_button" class="reserve-button">Reservar</button>
+            
         </div>
+        <button id="cancel_reservation_button" style="display: none; margin-top: 10px;">
+            Cancelar reserva
+        </button>
+        
+
+          
     </div>
     
     <script type="module" src="./src/userPresenter.js"></script>

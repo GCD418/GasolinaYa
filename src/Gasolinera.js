@@ -1,10 +1,23 @@
 class Gasolinera {
-    constructor(liters, capacity = 50000, name = "Gasolinera") {
+    constructor(liters, capacity = 50000, name = "Gasolinera", hosesNumber = 1) {
         this.liters = liters;
         this.capacity = capacity;
         this.name = name;
         this.queueCount = 0;
+        this.hosesNumber = hosesNumber;
 
+    }
+
+    getHosesNumber() {
+        return this.hosesNumber;
+    }
+
+    setHosesNumber(hosesNumber) {
+        this.hosesNumber = hosesNumber;
+        if (hosesNumber < 0) {
+            this.hosesNumber = 0;
+        }
+        return this.hosesNumber;
     }
 
     getFuelLiters() {

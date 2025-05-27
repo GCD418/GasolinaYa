@@ -37,7 +37,8 @@ class ModGasolineras {
         const document = {
             name: gasolinera.getName(),
             fuelLiters: gasolinera.getFuelLiters(),
-            totalCapacity: gasolinera.getTotalCapacity()
+            totalCapacity: gasolinera.getTotalCapacity(),
+            hosesNumber: gasolinera.getHosesNumber(),
         };
 
         this.dbHandler.setDocument("gasolineras", gasolinera.getName(), document);
@@ -52,10 +53,11 @@ class ModGasolineras {
         
         await this.dbHandler.updateDocument("gasolineras", gasolineraName, {
             fuelLiters: liters,
-            totalCapacity: capacity
+            totalCapacity: capacity,
+            hosesNumber: this.gasolineras.get(gasolineraName).getHosesNumber(),
         });
         
-        this.gasolineras.set(gasolineraName, new Gasolinera(liters, capacity, gasolineraName));
+        this.gasolineras.set(gasolineraName, new Gasolinera(liters, capacity, gasolineraName, this.gasolineras.get(gasolineraName).getHosesNumber()));
     }
 
 
@@ -122,7 +124,8 @@ class ModGasolineras {
             const gasolinera = new Gasolinera(
                 data.fuelLiters,
                 data.totalCapacity,
-                data.name
+                data.name,
+                data.hosesNumber
             );
             if (data.queueCount !== undefined) {
                 gasolinera.setQueueCount(data.queueCount);
