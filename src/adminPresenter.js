@@ -200,47 +200,7 @@ select_gasolinera.addEventListener("change", (event) => {
             ticketList.innerHTML = "<li>No hay autos con ticket</li>";
         } else {
             placasConTicket.forEach(placa => {
-                const li = document.createElement("li");
-                li.textContent = placa + " ";
-
-                const btnRemoverTicket = document.createElement("button");
-                btnRemoverTicket.textContent = "Remover Ticket";
-                btnRemoverTicket.addEventListener("click", async () => {
-                    await removeTicket(placa, stationName, users, gasolineras);
-                    li.remove();
-                    alert(`El ticket de la Placa ${placa} fue removido`);
-                    
-                    checkRemainingTickets(stationName);
-                });
-
-                const btnCargar = document.createElement("button");
-                btnCargar.textContent = "Confirmar carguío";
-                btnCargar.addEventListener("click", async () => {
-                    const usuario = users.getUsuario(placa);
-                    usuario.setConTicket(null);
-                    await users.updateUsuario(placa, null, null);
-
-                    await confirmFuelLoad(placa, stationName, users, gasolineras);
-                    gasolinera = gasolineras.getGasolinera(stationName);
-                    liter_quantity_input.value = gasolinera.getFuelLiters();
-
-                    li.remove();
-                    alert(`Combustible cargado para placa ${placa}`);
-
-                    const usuarios = Array.from(users.getUsuarios().values());
-                    const placasRestantes = usuarios
-                        .filter(user => user.getConTicket() === stationName)
-                        .map(user => user.getPlaca());
-
-                    if (placasRestantes.length === 0) {
-                        ticketList.innerHTML = "<li>No hay autos con ticket</li>";
-                    }
-
-                    showInformation();
-                });
-
-                li.appendChild(btnCargar); 
-                li.appendChild(btnRemoverTicket);
+                const li = createTicketListItem(placa, stationName); 
                 ticketList.appendChild(li);
             });
         }
@@ -257,12 +217,60 @@ function getPlacasConTicket(stationName) {
         .map(user => user.getPlaca());
 }
 
+function createTicketListItem(placa, stationName) {
+    const li = document.createElement("li");
+    li.textContent = placa + " ";
+
+    const btnRemoverTicket = document.createElement("button");
+    btnRemoverTicket.textContent = "Remover Ticket";
+    btnRemoverTicket.addEventListener("click", async () => {
+        await removeTicket(placa, stationName, users, gasolineras);
+        li.remove();
+        alert(`El ticket de la Placa ${placa} fue removido`);
+                    
+        checkRemainingTickets(stationName);
+    });
+
+    const btnCargar = document.createElement("button");
+    btnCargar.textContent = "Confirmar carguío";
+    btnCargar.addEventListener("click", async () => {
+        const usuario = users.getUsuario(placa);
+        usuario.setConTicket(null);
+        await users.updateUsuario(placa, null, null);
+
+        await confirmFuelLoad(placa, stationName, users, gasolineras);
+        gasolinera = gasolineras.getGasolinera(stationName);
+        liter_quantity_input.value = gasolinera.getFuelLiters();
+
+        li.remove();
+        alert(`Combustible cargado para placa ${placa}`);
+
+        const usuarios = Array.from(users.getUsuarios().values());
+        const placasRestantes = usuarios
+            .filter(user => user.getConTicket() === stationName)
+            .map(user => user.getPlaca());
+
+            if (placasRestantes.length === 0) {
+                ticketList.innerHTML = "<li>No hay autos con ticket</li>";
+            }
+
+            showInformation();
+        });
+
+        li.appendChild(btnCargar); 
+        li.appendChild(btnRemoverTicket);
+
+    return li;
+}
+
 function checkRemainingTickets(stationName) {
     const placasRestantes = getPlacasConTicket(stationName);
     if (placasRestantes.length === 0) {
         ticketList.innerHTML = "<li>No hay autos con ticket</li>";
     }
 }
+
+
 
 function setupEventListeners(){
     form.addEventListener("submit", (event) => {
