@@ -222,32 +222,7 @@ function createTicketListItem(placa, stationName) {
     li.textContent = placa + " ";
 
     const btnRemoverTicket = createRemoveTicketButton(placa, stationName);
-
-    const btnCargar = document.createElement("button");
-    btnCargar.textContent = "Confirmar carguío";
-    btnCargar.addEventListener("click", async () => {
-        const usuario = users.getUsuario(placa);
-        usuario.setConTicket(null);
-        await users.updateUsuario(placa, null, null);
-
-        await confirmFuelLoad(placa, stationName, users, gasolineras);
-        gasolinera = gasolineras.getGasolinera(stationName);
-        liter_quantity_input.value = gasolinera.getFuelLiters();
-
-        li.remove();
-        alert(`Combustible cargado para placa ${placa}`);
-
-        const usuarios = Array.from(users.getUsuarios().values());
-        const placasRestantes = usuarios
-            .filter(user => user.getConTicket() === stationName)
-            .map(user => user.getPlaca());
-
-            if (placasRestantes.length === 0) {
-                ticketList.innerHTML = "<li>No hay autos con ticket</li>";
-            }
-
-            showInformation();
-        });
+    const btnCargar = createConfirmLoadButton(placa, stationName);
 
         li.appendChild(btnCargar); 
         li.appendChild(btnRemoverTicket);
@@ -267,6 +242,29 @@ function createRemoveTicketButton(placa, stationName) {
         checkRemainingTickets(stationName);
     });
     return btnRemoverTicket;
+}
+
+function createConfirmLoadButton(placa, stationName) {
+    const btnCargar = document.createElement("button");
+    btnCargar.textContent = "Confirmar carguío";
+    btnCargar.addEventListener("click", async () => {
+        
+        const usuario = users.getUsuario(placa);
+        usuario.setConTicket(null);
+        await users.updateUsuario(placa, null, null);
+
+        await confirmFuelLoad(placa, stationName, users, gasolineras);
+        
+        gasolinera = gasolineras.getGasolinera(stationName);
+        liter_quantity_input.value = gasolinera.getFuelLiters();
+
+        btnCargar.parentElement.remove();
+        alert(`Combustible cargado para placa ${placa}`);
+        
+        checkRemainingTickets(stationName);
+        showInformation();
+    });
+    return btnCargar;
 }
 
 function checkRemainingTickets(stationName) {
