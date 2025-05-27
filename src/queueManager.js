@@ -18,7 +18,7 @@ function showQueuePopup(modUsuarios, modGasolineras) {
     const popup = createPopup(modUsuarios, modGasolineras);
     const cancelButton = popup.querySelector("#cancel-popup");
     cancelButton.addEventListener("click", () => {
-        closePopup(popup);
+        closePopup();
     });
    
     const confirmPlacaButton = popup.querySelector("#confirm-placa");
@@ -128,11 +128,18 @@ async function addUsuarioToGasolineraQueue(placa, gasolineraName, modUsuarios, m
 }
 
 function createPopup(modUsuarios, modGasolineras) {
+
+    const overlay = document.createElement("div");
+    overlay.id = "popup_overlay";
+    overlay.className = "popup-overlay";
+
+
     const popup = document.createElement("div");
     popup.id = "queue-popup";
     popup.className = "popup";
     createPopupContent(popup, modUsuarios, modGasolineras);
-    document.body.appendChild(popup);
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
     return popup;
 }
 
@@ -158,11 +165,11 @@ function createPopupContent(popup, modUsuarios, modGasolineras) {
    return popup;
 }
 
-function closePopup(popup) {
-    if (popup) {
-       popup.remove();
-    }
+function closePopup() {
+  const overlay = document.getElementById("popup_overlay");
+  if (overlay) overlay.remove();
 }
+
 
 function updatePlacaLabel(placa) {
     const buttonContainer = document.querySelector(".queue-button-container");
