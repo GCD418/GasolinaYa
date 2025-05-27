@@ -192,10 +192,7 @@ select_gasolinera.addEventListener("change", (event) => {
         }
 
         const stationName = gasolinera.getName();
-        const usuarios = Array.from(users.getUsuarios().values());
-        const placasConTicket = usuarios
-            .filter(user => user.getConTicket() === stationName)
-            .map(user => user.getPlaca());
+        const placasConTicket = getPlacasConTicket(stationName);
         
         ticketList.innerHTML = "";
 
@@ -258,6 +255,13 @@ select_gasolinera.addEventListener("change", (event) => {
         ticketContainer.classList.remove("hidden");
     });
 
+}
+
+function getPlacasConTicket(stationName) {
+    const usuarios = Array.from(users.getUsuarios().values());
+    return usuarios
+        .filter(user => user.getConTicket() === stationName)
+        .map(user => user.getPlaca());
 }
 
 
