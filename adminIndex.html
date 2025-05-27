@@ -7,53 +7,59 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav>
-        <a href="index.html">Inicio</a>
-    </nav>
-    <h1>
-        Ingresa los datos de tu surtidor
-        <br>
-    </h1>
-    <select name="Gasolinera" id="select_gasolinera">
-        <option value="" disabled selected>Selecciona una Gasolinera</option>
+    <div class="admi-container">
 
-    </select>
-    <div id="liters_form_container" class="form_container hidden">
-        <form id="liters_form">
-            <label for="liter_quantity_input">Cantidad de litros disponibles</label>
-            <input type="number" name="" id="liter_quantity_input">
-            <label for="liter_capacity_input">Capacidad del surtidor</label>
-            <input type="number" name="" id="liter_capacity_input">
-            <label for="name_input">Nombre del surtidor</label>
-            <input type="text" name="" id="name_input">
-            <label for="hoses_input">Cantidad de mangueras disponibles</label>
-            <input type="number" name="" id="hoses_input">
-            <input type="submit" value="Actualizar Litros" id="update_liters" />
+        <nav>
+            <a href="index.html" class="btn">Inicio</a>
+        </nav>
+        <div class="home-header">
+            <img src="./img/gasolinalogo.png" alt="GasolinaYa Logo" class="logo">
+            <h1>Ingresa los datos de tu surtidor</h1>
+        </div>
 
-            <br><br>
-            <label for="cisterna_liters_input">Litros que trae la cisterna</label>
-            <input type="number" name="" id="cisterna_liters_input" placeholder="Ej: 500">
+        <select name="Gasolinera" id="select_gasolinera">
+            <option value="" disabled selected>Selecciona una Gasolinera</option>
 
-            <button id="register_cistern_button" type="button">Registrar arribo de cisterna</button>
+        </select>
+        <div id="liters_form_container" class="form_container hidden">
+            <form id="liters_form">
+                <label for="liter_quantity_input">Cantidad de litros disponibles</label>
+                <input type="number" name="" id="liter_quantity_input">
+                <label for="liter_capacity_input">Capacidad del surtidor</label>
+                <input type="number" name="" id="liter_capacity_input">
+                <label for="name_input">Nombre del surtidor</label>
+                <input type="text" name="" id="name_input">
+                <label for="hoses_input">Cantidad de mangueras disponibles</label>
+                <input type="number" name="" id="hoses_input">
+                <input type="submit" value="Actualizar Litros" id="update_liters" />
 
-        </form>
+                <br><br>
+                <label for="cisterna_liters_input">Litros que trae la cisterna</label>
+                <input type="number" name="" id="cisterna_liters_input" placeholder="Ej: 500">
+
+                <button id="register_cistern_button" type="button">Registrar arribo de cisterna</button>
+
+            </form>
+        </div>
+        <div id="result"></div>
+
+        <button id="view_queue_btn" class="btn2">Ver Fila</button>
+        <button id="view_ticket_btn" class="btn2">Ver Tickets</button>
+
+        <div class="info-section">
+            <div id="queue_container" class="hidden">
+                <h3>Autos en fila:</h3>
+                <ul id="queue_list"></ul>
+            </div>
+
+            <div id="ticket_container" class="hidden">
+                <h3>Tickets:</h3>
+                <ul id="ticket_list"></ul>
+            </div>
+        </div>
+        
+
     </div>
-    <div id="result"></div>
-
-    <button id="view_queue_btn">Ver Fila</button>
-    <button id="view_ticket_btn">Ver Tickets</button>
-
-
-    <div id="queue_container" class="hidden">
-        <h3>Autos en fila:</h3>
-        <ul id="queue_list"></ul>
-    </div>
-
-    <div id="ticket_container" class="hidden">
-        <h3>Tickets:</h3>
-        <ul id="ticket_list"></ul>
-    </div>
-
     
 
     <script type="module" src="./src/adminPresenter.js"></script>

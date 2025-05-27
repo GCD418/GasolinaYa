@@ -415,13 +415,14 @@ tbody td:nth-child(4) {
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 0px;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(to right, #e7e1ce, #860202);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  
+  min-height: 100vh;
 }
 
 .inicio-container {
@@ -431,11 +432,27 @@ body {
   text-align: center;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   animation: fadeIn 0.6s ease-in-out;
+  max-width: 900px;
+  width: 100%;
+  margin: 0;
+}
+.admi-container {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 60px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: fadeIn 0.6s ease-in-out;
+  max-width: 900px;
+  width: 100%; 
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 h1 {
   font-size: 2.5rem;
   color: #e53935;
+  text-align: center;
   margin-bottom: 10px;
 }
 
@@ -461,6 +478,16 @@ p {
   transition: transform 0.2s, background-color 0.3s;
 }
 
+.btn2 {
+  background-color: #eccfce;
+  color: rgb(48, 2, 2);
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
 .btn:hover {
   background-color: #c62828;
   transform: scale(1.05);
@@ -477,6 +504,46 @@ p {
 .home-header {
   text-align: center;
 }
+
+
+
+.info-section {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  margin-top: 30px;
+  padding: 20px;
+  border-top: 2px solid #d9d9d9;
+}
+
+#queue_container, #ticket_container {
+  flex: 1;
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  min-height: 150px;
+  max-width: 400px;
+}
+
+#queue_list, #ticket_list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+#queue_list li, #ticket_list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-weight: 500;
+  color: #d32f2f;
+}
+
+#queue_list li:last-child, #ticket_list li:last-child {
+  border-bottom: none;
+}
+
 
 @keyframes zoomIn {
   from {
