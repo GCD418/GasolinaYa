@@ -99,17 +99,20 @@ async function addGasolineraQueue(gasolineraName, modGasolineras) {
             return;
         }
         
-        const queueBefore = await gasolinera.getQueueCount();
+        const queueBefore = await modGasolineras.getQueueCount(gasolineraName);
         await modGasolineras.incrementQueueCount(gasolineraName);
+
+        await modGasolineras.registerUserToQueue(gasolineraName);
+
         const aheadOf = queueBefore;
-        
         let waiting_time = calculate_waiting_time(aheadOf);
-        alert(`Te has registrado exitosamente en la cola de ${gasolineraName}. Hay ${aheadOf} persona(s) delante de ti. El tiempo de espera aproximado de espera es ${waiting_time} minutos.`);
+        alert(`Te has registrado exitosamente en la cola de ${gasolineraName}. Hay ${aheadOf} persona(s) delante de ti. El tiempo de espera aproximado es ${waiting_time} minutos.`);
     } catch (error) {
         console.error(`Error al agregar a la cola: ${error}`);
         alert(`Ocurrió un error al registrarse en la cola: ${error.message}`);
     }
 }
+
 
 function handleAbandonQueue(modGasolineras) {
     const isInQueue = modGasolineras.isUserInQueue();
